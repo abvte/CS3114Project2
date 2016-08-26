@@ -53,5 +53,26 @@ public class Memman {
     		}
     	}
     	
+    	String s = "hello";
+    	System.out.println(s.getBytes().length);
+        Byte[] bytes = new Byte[s.length()];
+        Arrays.setAll(bytes, n -> s.getBytes()[n]);
+    	MemoryBlock newMem = new MemoryBlock(bytes,s.length(),false);
+    	System.out.println(newMem.getMemory());
+    	System.out.println(newMem.getMemoryLength());
+    	
+//    	DoublyLinkedList<Integer> dll = new DoublyLinkedList<Integer>();
+//    	dll.append(1);
+//    	dll.append(2);
+//    	dll.append(3);
+//    	dll.append(4);
+//    	dll.stepBack();
+//    	dll.stepBack();
+//    	dll.stepForward();
+//    	dll.remove();
+//    	do{
+//    		System.out.println(dll.getCurrent().getNodeData());
+//    	} while(dll.stepBack());
+
     }
 }
