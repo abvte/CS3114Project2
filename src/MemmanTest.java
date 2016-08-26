@@ -20,4 +20,32 @@ public class MemmanTest extends TestCase {
         assertNotNull(mem);
         Memman.main(null);
     }
+    
+    public void testFirstError() {
+        Memman mem = new Memman();
+        assertNotNull(mem);
+        String[] args = {"aaaaa"};
+        Memman.main(args);
+    }
+    
+    public void testError() {
+        Memman mem = new Memman();
+        assertNotNull(mem);
+        String[] args = {"1234", "4321", "aaaaa"};
+        Memman.main(args);
+    }
+    
+    public void testWrongCommand() {
+        Memman mem = new Memman();
+        assertNotNull(mem);
+        String[] args = {"1234", "4321", "errorFile.txt"};
+        Memman.main(args);
+    }
+    
+    public void testParsing() {
+        Memman mem = new Memman();
+        assertNotNull(mem);
+        String[] args = {"1234", "4321", "testFile.txt"};
+        Memman.main(args);
+    }
 }
