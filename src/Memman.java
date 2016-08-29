@@ -51,15 +51,15 @@ public class Memman {
     			System.out.println(e.getMessage());
     		}
     	}
-    	MemoryManager newManager = new MemoryManager(10, 32, "");
-    	newManager.insert("test1",true);
-    	newManager.insert("test1",true);
-    	newManager.insert("test2",true);
-    	newManager.insert("test3",true);
-    	
-    	newManager.remove("test2",true);
-    	newManager.remove("test3",true);
-    	newManager.remove("test1",true);
+//    	MemoryManager newManager = new MemoryManager(10, 32, "");
+//    	newManager.insert("test1",true);
+//    	newManager.insert("test1",true);
+//    	newManager.insert("test2",true);
+//    	newManager.insert("test3",true);
+//    	
+//    	newManager.remove("test2",true);
+//    	newManager.remove("test3",true);
+//    	newManager.remove("test1",true);
     	
     	/*
     	Hashtable ht = new Hashtable(10,"p");

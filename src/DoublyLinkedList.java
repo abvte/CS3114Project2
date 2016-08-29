@@ -3,16 +3,16 @@ public class DoublyLinkedList<E> {
   private Node<E> head;      // Pointer to list header
   private Node<E> tail;      // Pointer to last element
   private Node<E> current;   // Pointer to current Node
-  private int size;   // # of Nodes currently in list
+  private int size;   		 // # of Nodes currently in list
   
-  DoublyLinkedList() {
+  DoublyLinkedList() {										// DoublyLinkedList Constructor
 	  this.head = new Node<E>(null,null,tail);
 	  this.tail = new Node<E>(null,head,null);
 	  this.current = this.tail;
 	  this.size = 2;
   }
   
-  public boolean add(E data) {
+  public boolean add(E data) {								// Adds an node after the current node in a list
 	  current = new Node<E>(data,current.getBefore(),current);
 	  
 	  current.getAfter().setBefore(current);
@@ -21,7 +21,7 @@ public class DoublyLinkedList<E> {
 	  return true;
   }
   
-  public boolean append(E data) {
+  public boolean append(E data) {							// appending a node to the end of the list
 	  Node<E> newNode = new Node<E>(data,tail.getBefore(),tail);
 	  
 	  tail.setBefore(newNode);
@@ -31,7 +31,7 @@ public class DoublyLinkedList<E> {
 	  return true;
   }
   
-  public Node<E> remove() {
+  public Node<E> remove() {									// removing a current node and returning it
 	  if(current.equals(tail) || current.equals(head)) {
 		  throw new NullPointerException();
 	  }
@@ -45,7 +45,7 @@ public class DoublyLinkedList<E> {
 	  return oldNode;
   }
   
-  public boolean stepForward() {
+  public boolean stepForward() {				// traversing forward in DoublyLinkedList
 	  current = current.getAfter();
 	  
 	  if(current.equals(tail)) return false;
@@ -53,7 +53,7 @@ public class DoublyLinkedList<E> {
 	  return true;
   }
   
-  public boolean stepBack() {
+  public boolean stepBack() {					// traversing backwards in DoublyLinkedList
 	  current = current.getBefore();
 	  
 	  if(current.equals(head)) return false;
@@ -61,28 +61,25 @@ public class DoublyLinkedList<E> {
 	  return true;
   }
   
-  public E getData() {
+  public E getData() {						// returns the current Node's data
 	  return current.getNodeData();
   }
   
-  public Node<E> getCurrent() {
+  public Node<E> getCurrent() {					// gets the current Node
 	  return current;
   }
   
-  public boolean jumpToHead()
-  {
+  public boolean jumpToHead() {					// modifies the current pointer to the Head
 	  current = head;
 	  return current.equals(head);
   }
   
-  public boolean jumpToTail()
-  {
+  public boolean jumpToTail() {					// modifies the current pointer to the tail
 	  current = tail;
 	  return current.equals(tail);
   }
   
-  public int getSize()
-  {
+  public int getSize() {						// returns the size of the list
 	  return size;
   }
   

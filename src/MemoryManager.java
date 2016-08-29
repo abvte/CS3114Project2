@@ -4,16 +4,14 @@ public class MemoryManager {
 	Hashtable songs;
 	DoublyLinkedList<MemoryBlock> freeBlocks;
 	int blockSize;
-	String commandFile;
 	
-	MemoryManager(int hashSize, int newBlockSize, String newCommandFile)
+	MemoryManager(int hashSize, int newBlockSize)
 	{
 		freeBlocks = new DoublyLinkedList<MemoryBlock>();
 		artists = new Hashtable(hashSize,"Artist");
 		songs = new Hashtable(hashSize,"Song");
 		pool = new byte[newBlockSize];
 		blockSize = newBlockSize;
-		commandFile = newCommandFile;
 		
 		freeBlocks.append(new MemoryBlock(new byte[pool.length],0,0,true));
 	}
@@ -98,7 +96,7 @@ public class MemoryManager {
 		return false;
 	}
 	
-	private void expandPool()
+	private void expandPool() 						// expand the memory pool by a block size
 	{
 		byte[] tempPool = pool;
 		pool = new byte[pool.length + blockSize];
@@ -118,6 +116,7 @@ public class MemoryManager {
 		int min = Integer.MAX_VALUE;
 		int difference;
 		int position = 0;
+		int foundPosition = 0;
 		
 		if(freeBlocks.jumpToHead()) {
 			while(freeBlocks.stepForward()) {
@@ -126,6 +125,7 @@ public class MemoryManager {
 				difference = currentBestFit.getSize() - record.length();
 				if(difference < min && difference >= 2) {
 					min = difference;
+					foundPosition = position;
 				}
 			}
 			
@@ -133,7 +133,7 @@ public class MemoryManager {
 			if(min == Integer.MAX_VALUE) return null;
 			
 			freeBlocks.jumpToHead();
-			for(int i = 0; i < position; i++) {
+			for(int i = 0; i < foundPosition; i++) {
 				freeBlocks.stepForward();
 			}
 			return freeBlocks.getCurrent().getNodeData();
@@ -170,12 +170,12 @@ public class MemoryManager {
 	}
 	
 	public class MemoryBlock {
-		private byte[] memory;
-		private byte[] memoryLength;
-		private int memoryLengthAsInt;
-		private boolean free;
-		private int totalSize;
-		private int start;
+		private byte[] memory;				// String Data in byte format
+		private byte[] memoryLength;		// Length of the string in a byte format
+		private int memoryLengthAsInt;		// length of the string
+		private boolean free;				// determines if the the memory Block is free or not
+		private int totalSize;				// Length of the string (+2 if it's free)
+		private int start;					// starting index of the memory
 		
 /*		
 		MemoryBlock(byte[] newMemory, boolean newFree) {
@@ -219,14 +219,14 @@ public class MemoryManager {
 			else 	  totalSize = memory.length;
 		}
 		
-		public boolean applyBlock()
+		public boolean applyBlock()					// writes to the pool
 		{
 			System.arraycopy(memoryLength,0,MemoryManager.this.getPool(),start,2);
 			System.arraycopy(memory,0,MemoryManager.this.getPool(),start+2,memoryLengthAsInt);
 			return true;
 		}
 		
-		public void resize(int start, int end)
+		public void resize(int start, int end)		// resizes the memory block
 		{
 			if(free) {
 				memoryLengthAsInt = end - start;
@@ -235,38 +235,38 @@ public class MemoryManager {
 			}
 		}
 		
-		public void setMemory(byte[] newMemory) {
+		public void setMemory(byte[] newMemory) {			  // sets the memory
 			memory = newMemory;
 		}
 		
-		public void setMemoryLength(byte[] newMemoryLength) {
+		public void setMemoryLength(byte[] newMemoryLength) { // sets the length ofthe memory
 			memoryLength = newMemoryLength;
 		}
 		
-		public void setFree(boolean newFree) {
+		public void setFree(boolean newFree) {				  // sets if memory is free or not
 			free = newFree;
 			
 			if(!free) totalSize = memory.length + 2;
 			else 	  totalSize = memory.length;
 		}
 		
-		public byte[] getMemory() {
+		public byte[] getMemory() {							  // returns the memory
 			return memory;
 		}
 		
-		public byte[] getMemoryLength() {
+		public byte[] getMemoryLength() {					  // returns the length of the memory
 			return memoryLength;
 		}
 		
-		public boolean getFree() {
+		public boolean getFree() {							  // returns if the memory is free or not
 			return free;
 		}
 		
-		public int getSize() {
+		public int getSize() {								  // returns the total size of the memory
 			return totalSize;
 		}
 		
-		public int getStart() {
+		public int getStart() {								  // returns the starting point of the memory
 			return start;
 		}
 		
