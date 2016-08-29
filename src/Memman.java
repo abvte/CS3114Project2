@@ -17,8 +17,7 @@
 //anything during the discussion or modifies any computer file
 //during the discussion. I have violated neither the spirit nor
 //letter of this restriction.
-
-import java.util.Arrays;
+//
 
 /**
  * {Project Description Here}
@@ -52,15 +51,57 @@ public class Memman {
     			System.out.println(e.getMessage());
     		}
     	}
+    	MemoryManager newManager = new MemoryManager(10, 32, "");
+    	newManager.insert("test1",true);
+    	newManager.insert("test1",true);
+    	newManager.insert("test2",true);
+    	newManager.insert("test3",true);
     	
-    	String s = "hello";
+    	newManager.remove("test2",true);
+    	newManager.remove("test3",true);
+    	newManager.remove("test1",true);
+    	
+    	/*
+    	Hashtable ht = new Hashtable(10,"p");
+    	ht.add("teststr", 123);
+    	ht.add("teststrr", 123);
+    	ht.add("asdfsdg", 321);
+    	ht.add("gdsagds", 123);
+    	ht.add("sadaf", 321);
+    	ht.add("trgrtrrh", 123);
+    	System.out.println(ht.get("trgrtrrh2"));
+    	System.out.println(ht.get("sadaf"));
+    	System.out.println(ht.get("gdsagds"));
+    	System.out.println(ht.get("asdfsdg"));
+    	System.out.println(ht.get("teststr"));
+    	ht.add("trhthr", 321);
+    	ht.add("htrhrthrthrh", 123);
+    	ht.add("hthrthrhrth", 321);
+    	System.out.println(ht.get("teststr"));
+    	System.out.println(ht.get("hthrthrhrth"));
+    	System.out.println(ht.get("htrhrthrthrh"));
+    	System.out.println(ht.get("trhthr"));
+    	System.out.println(ht.get("trgrtrrh"));
+    	System.out.println(ht.get("sadaf"));
+    	System.out.println(ht.get("gdsagds"));
+    	System.out.println(ht.get("asdfsdg"));
+    	System.out.println(ht.get("teststr"));
+    	*/
+    	
+    	/*String s = "hello";
     	System.out.println(s.getBytes().length);
         Byte[] bytes = new Byte[s.length()];
         Arrays.setAll(bytes, n -> s.getBytes()[n]);
     	MemoryBlock newMem = new MemoryBlock(bytes,s.length(),false);
     	System.out.println(newMem.getMemory());
-    	System.out.println(newMem.getMemoryLength());
+    	System.out.println(newMem.getMemoryLength());*/
+
     	
+//    	DoublyLinkedList<MemoryBlock> dll = new DoublyLinkedList<MemoryBlock>();
+//    	dll.append(new MemoryBlock(new Byte[1],true));
+//    	dll.stepBack();
+//    	dll.getCurrent().getNodeData().setFree(false);
+//    	System.out.println(dll.getCurrent().getNodeData().getFree();
 //    	DoublyLinkedList<Integer> dll = new DoublyLinkedList<Integer>();
 //    	dll.append(1);
 //    	dll.append(2);

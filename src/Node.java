@@ -1,6 +1,7 @@
 
 
-/* Node -> Element in the doubly linked list
+
+  /* Node -> Element in the doubly linked list
    * Variables:
    * 	E data -> template data that the Node holds
    * 	Node before -> link to the previous Node
