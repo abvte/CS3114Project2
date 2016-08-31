@@ -85,5 +85,10 @@ public class DoublyLinkedList<E> {
   {
 	  return size;
   }
+
+  public void setCurrent(Node<E> newNode)
+  {
+	  current = newNode;
+  }
   
 }

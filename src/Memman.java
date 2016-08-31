@@ -51,16 +51,81 @@ public class Memman {
     			System.out.println(e.getMessage());
     		}
     	}
+
     	MemoryManager newManager = new MemoryManager(10, 32, "");
-    	newManager.insert("test1",true);
-    	newManager.insert("test1",true);
-    	newManager.insert("test2",true);
-    	newManager.insert("test3",true);
     	
+//    	newManager.insert("Blind Lemon Jefferson",true);
+//    	newManager.insert("Ma Rainey",true);
+//    	newManager.insert("Long Lonesome Blues",false);
+//    	
+//    	newManager.print(false, false, true);
+//    	newManager.print(false, true, true);
+//    	newManager.print(true, false, true);
+//    	
+//    	newManager.remove("Blind Lemon Jefferson",true);
+//    	newManager.print(false, false, true);
+//    	newManager.print(false, true, true);
+//    	newManager.print(true, false, true);
+//    	newManager.remove("Long Lonesome Blues",false);
+//    	newManager.print(false, false, true);
+//    	newManager.print(false, true, true);
+//    	newManager.print(true, false, true);
+//    	newManager.remove("Ma Rainey",true);
+//    	newManager.print(false, false, true);
+//    	newManager.print(false, true, true);
+//    	newManager.print(true, false, true);
+    	
+    	newManager.remove("When Summer's Through", false);
+    	newManager.print(false, false, true);
+    	newManager.print(false, true, true);
+    	newManager.print(true, false, true);
+    	newManager.insert("Blind Lemon Jefferson",true);
+    	newManager.insert("Long Lonesome Blues",false);
+    	newManager.insert("Ma Rainey",true);
+    	newManager.insert("Ma Rainey's Black Bottom",false);
+    	newManager.insert("Charley Patton",true);
+    	newManager.insert("Mississippi Boweavil Blues",false);
+    	newManager.insert("Sleepy John Estes",true);
+    	newManager.insert("Street Car Blues",false);
+    	newManager.insert("Bukka White",true);
+    	newManager.insert("Fixin' To Die Blues",false);
+    	newManager.print(true, true, true);
+    	newManager.print(false, true, true);
+    	newManager.insert("Guitar Slim",true);
+    	newManager.insert("The Things That I Used To Do",false);
+    	newManager.remove("Style Council",true);
+    	newManager.remove("Ma Rainey",true);
+    	newManager.remove("Mississippi Boweavil Blues",false);
+    	newManager.remove("(The Best Part Of) Breakin' Up",false);
+    	newManager.print(false, false, true);
+    	newManager.insert("Blind Lemon Jefferson",true);
+    	newManager.insert("Got The Blues",false);
+    	newManager.insert("Little Eva",true);
+    	newManager.insert("The Loco-Motion",false);
+    	newManager.print(true, true, true);
+    	newManager.print(false, true, true);
+    	newManager.insert("Jim Reeves",true);
+    	newManager.insert("Jingle Bells",false);
+    	newManager.insert("Mongo Santamaria",true);
+    	newManager.insert("Watermelon Man",false);
+    	newManager.print(false, false, true);
+    /*
+    	newManager.print(true, false, false);
+    	newManager.print(false, true, false);
+    	newManager.print(false, false, true);
+   
     	newManager.remove("test2",true);
-    	newManager.remove("test3",true);
-    	newManager.remove("test1",true);
     	
+    	newManager.print(true, false, false);
+    	newManager.print(false, true, false);
+    	newManager.print(false, false, true);
+ 
+    	newManager.insert("test3767",true);
+    	
+    	newManager.print(true, false, false);
+    	newManager.print(false, true, false);
+    	newManager.print(false, false, true);
+    	*/
     	/*
     	Hashtable ht = new Hashtable(10,"p");
     	ht.add("teststr", 123);

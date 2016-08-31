@@ -22,18 +22,19 @@ public class Hashtable {
 		int i = 1;
 		
 		int hash = h(key,this.size);
-		while(table[hash] != null)
+		int pos = hash;
+		while(table[pos] != null)
 		{
-			hash = (hash + (i*i)) % size;
+			pos = (hash + (i*i)) % size;
 			i++;
 		}
 		
-		table[hash] = newHash;
+		table[pos] = newHash;
 		locations[items] = hash;
 		
 		items++;
 		
-		if(items > (size/2)) extend();
+		//if(items > (size/2)) extend();
 		
 		return true;
 	}
@@ -57,16 +58,17 @@ public class Hashtable {
 	{
 		int i = 1;
 		int hash = h(key,this.size);
-		while(table[hash] != null && !table[hash].getKey().equals(key))
+		int pos = hash;
+		while(table[pos] != null && !table[pos].getKey().equals(key))
 		{
-			hash = (hash + (i*i)) % size;
+			pos = (hash + (i*i)) % size;
 			i++;
 		}
 		
-		if(table[hash] == null)
+		if(table[pos] == null)
 			return null;
 		else
-			return table[hash].getValue();
+			return table[pos].getValue();
 	}
 	
 	public boolean remove(String key)
@@ -75,23 +77,24 @@ public class Hashtable {
 		int i = 1;
 		
 		int hash = h(key,this.size);
-		while(table[hash] != null && !table[hash].getKey().equals(key))
+		int pos = hash;
+		while(table[pos] != null && !table[pos].getKey().equals(key))
 		{
-			hash = (hash + (i*i)) % size;
+			pos = (hash + (i*i)) % size;
 			i++;
 		}
 		
 		// Didn't find key in table
-		if(table[hash] == null) return false;
+		if(table[pos] == null) return false;
 				
-		table[hash] = null;
+		table[pos] = null;
 		
 		items--;
 		
 		return true;
 	}
 	
-	private void extend()
+	public void extend()
 	{
 		Hash[] oldTable = table;
 		int oldSize = size;
@@ -101,7 +104,7 @@ public class Hashtable {
 		locations = new int[size];
 		items = 0;
 
-		for(int i = 0; i <= (oldSize/2)+1; i++)
+		for(int i = 0; i < oldSize; i++)
 		{
 			Hash oldHash = oldTable[i];
 			

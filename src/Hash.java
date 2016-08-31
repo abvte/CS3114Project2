@@ -30,4 +30,9 @@ public class Hash
     	return value;
     }
     
+    public void setValue(Object newValue)
+    {
+    	value = newValue;
+    }
+    
 }
