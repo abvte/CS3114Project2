@@ -20,21 +20,25 @@
 //
 
 /**
- * {Project Description Here}
+ * This project implements a DoublyLinkedList and Hashtable to run a
+ * memory manager which stores song and artists names in a way which
+ * they can be easily retrieved.
  */
 
 /**
  * The class containing the main method.
  * 
- * @author Jinwoo Yom
+ * @author Jinwoo Yom, Adam Bishop
  * @version 1.0
  */
 
 public class Memman {
     /**
      * @param args
-     * 	        The name of the command file passed in as a command
-     * 	        line argument.
+     * 	          	args[0] = initial hash size,
+	 *			  	args[1] = block size,
+     *				args[2] = command file
+     *
      */
     public static void main(String[] args) {
     	
@@ -43,16 +47,16 @@ public class Memman {
     	// args[2] = command file
     	if(args != null){
     		try{
-		    	System.out.println(args[0]);
-		    	System.out.println(args[1]);
-		    	ParserClass parser = new ParserClass(args[2]);
+    			//Initialize the parser and parse the command file
+		    	ParserClass parser = new ParserClass(Integer.parseInt(args[0]),
+		    			Integer.parseInt(args[1]),
+		    			args[2]);
 		    	parser.run();
     		} catch(Exception e){
     			System.out.println(e.getMessage());
     		}
     	}
 
-    	MemoryManager newManager = new MemoryManager(10, 32, "");
     	
 //    	newManager.insert("Blind Lemon Jefferson",true);
 //    	newManager.insert("Ma Rainey",true);
@@ -74,7 +78,7 @@ public class Memman {
 //    	newManager.print(false, false, true);
 //    	newManager.print(false, true, true);
 //    	newManager.print(true, false, true);
-    	
+    	/*
     	newManager.remove("When Summer's Through", false);
     	newManager.print(false, false, true);
     	newManager.print(false, true, true);
@@ -108,7 +112,7 @@ public class Memman {
     	newManager.insert("Jingle Bells",false);
     	newManager.insert("Mongo Santamaria",true);
     	newManager.insert("Watermelon Man",false);
-    	newManager.print(false, false, true);
+    	newManager.print(false, false, true);*/
     /*
     	newManager.print(true, false, false);
     	newManager.print(false, true, false);

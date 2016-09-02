@@ -1,75 +1,92 @@
 import java.nio.ByteBuffer;
 
+/**
+ * Implementation of the MemoryManager. Contains the MemoryBlock class
+ * @author Adam Bishop and Jinwoo Yom
+ */
 public class MemoryManager {
-	byte[] pool;
-	Hashtable artists;
-	Hashtable songs;
-	DoublyLinkedList<MemoryBlock> freeBlocks;
-	int blockSize;
-	String commandFile;
+	byte[] pool;	//Data pool holding the free and used bytes
+	Hashtable artists,songs;	//Hashtables holding the MemoryBlock handles to song/artist info
+	DoublyLinkedList<MemoryBlock> freeBlocks;	//LinkedList holding handles to free MemoryBlocks
+	int blockSize;	//Initial pool size and the size of added free blocks
 	ByteBuffer buff;
+	final int TWO_BYTE = 2; //Constant holding the size of two bytes
 	
-	final int TWO_BYTE = 2;
-	
-	MemoryManager(int hashSize, int newBlockSize, String newCommandFile)
+	/**
+	 * Constructor
+	 * @param hashSize Initial hashtable size
+	 * @param newBlockSize Initial pool size and the size of added freeblocks
+	 */
+	MemoryManager(int hashSize, int newBlockSize)
 	{
 		freeBlocks = new DoublyLinkedList<MemoryBlock>();
 		artists = new Hashtable(hashSize,"Artist");
 		songs = new Hashtable(hashSize,"Song");
 		pool = new byte[newBlockSize];
 		blockSize = newBlockSize;
-		commandFile = newCommandFile;
 		buff = ByteBuffer.allocate(2);
 		
+		//This adds the first free memory block
 		freeBlocks.append(new MemoryBlock(new byte[pool.length],null,0));
 	}
 	
+	/**
+	 * Inserts a record into memory
+	 * @param record The song/artist to add
+	 * @param artist Indicates if the record belongs in the artist table or not
+	 * @return true if the insertion was successful, false otherwise
+	 */
 	public boolean insert(String record, boolean artist)
 	{
-		MemoryBlock handle;
-		if(artist) {
+		MemoryBlock handle;	//Empty Handle
+		if(artist) {	//If this is an artist, check the artist table
 			if(artists.get(record) != null) {
 				System.out.println("|" + record + "| duplicates a record "
 									   + "already in the artist database.");
 				return false;
 			}
-			if(artists.getItems() == (artists.getSize()/2))
+			//Make sure the amount of items doesn't exceed half the size of the hashtable
+			else if(artists.getItems() == (artists.getSize()/2))
 				artists.extend();
 		}
-		else {
+		else {	//If this is a song, check the song table
 			if(songs.get(record) != null) {
 				System.out.println("|" + record + "| duplicates a record "
 									   + "already in the song database.");
 				return false;
 			}
-			if(songs.getItems() == (songs.getSize()/2))
+			//Make sure the amount of items doesn't exceed half the size of the hashtable
+			else if(songs.getItems() == (songs.getSize()/2))
 				songs.extend();
 		}
 		
-		
+		//Begin checking for the best fit block
 		do {
 			handle = findBestFit(record);
-			if(handle == null) {
-				expandPool();
+			if(handle == null) {	//a handle pointing to null means there was no fit at all
+				expandPool();	//Add a block of size blockSize
 			}
 		} while(handle == null);
 		
+		//New handle with the best fit block's position and length
 		MemoryBlock newBlock = new MemoryBlock(record.getBytes(),
-												   toByte(record.length()),
-												   handle.getStart());
-		newBlock.applyBlock();
+											   toByte(record.length()),
+											   handle.getStart());
+		newBlock.applyBlock();	//Write to the pool
 		
 		if(artist)
 			artists.add(record, newBlock);
 		else
 			songs.add(record, newBlock);
 		
+		// This checks to see if the new block is exactly the length of the free block it's displacing
 		if( newBlock.getStart() == handle.getStart() &&
 		    newBlock.getLength() == handle.getLength()) 
 		{
 			freeBlocks.remove();
 		}
 		else {
+			//Else just resize the free block for use later
 			handle.resize(handle.getStart() + newBlock.getLength()
 				 	 	 ,handle.getLength() - newBlock.getLength());
 		}
@@ -81,6 +98,11 @@ public class MemoryManager {
 		return true;
 	}
 	
+	/**
+	 * Converts an integer to byte[]
+	 * @param number
+	 * @return number converted to byte[]
+	 */
 	private byte[] toByte(int number)
 	{
 		byte[] out = new byte[] {
@@ -89,15 +111,21 @@ public class MemoryManager {
 		return out;
 	}
 	
+	/**
+	 * Removes a record into memory
+	 * @param record The song/artist to remove
+	 * @param artist Indicates if the record belongs in the artist table or not
+	 * @return true if the removal was successful, false otherwise
+	 */
 	public boolean remove(String record, boolean artist)
 	{
-		MemoryBlock handle;
+		MemoryBlock handle;	//Empty Handle
 		if(artist) {
 			if(artists.get(record) == null) {
 				System.out.println("|" + record + "| does not exist in the artist database.");
 				return false;
 			} 
-			else {
+			else {	//Else if the record exists, remove the handle
 				handle = (MemoryBlock) artists.get(record);
 				artists.remove(record);
 				System.out.println("|" + record + "| is removed from the artist database.");
@@ -108,47 +136,44 @@ public class MemoryManager {
 				System.out.println("|" + record + "| does not exist in the song database.");
 				return false;
 			}
-			else {
+			else {	//Else if the record exists, remove the handle
 				handle = (MemoryBlock) songs.get(record);
 				songs.remove(record);
 				System.out.println("|" + record + "| is removed from the song database.");
 			}
 		}
 		
+		//	Tell the LinkedList to jump to the head to prepare for sequential searching
 		freeBlocks.jumpToHead();
 		
+		//If the freeBlocks list is empty, just insert the handle
 		if(freeBlocks.getSize() == 2) {
 			freeBlocks.append(handle);
 			return true;
 		}
 		else {
+			//While there are nodes...
 			while(freeBlocks.stepForward()) {
-				MemoryBlock currentBlock = freeBlocks.getCurrent().getNodeData();
-				if(currentBlock.getStart() + currentBlock.getLength() == handle.getStart()) {
-					freeBlocks.stepForward();
+				MemoryBlock currentBlock = freeBlocks.getCurrent().getNodeData();	//Get current node
+				if(currentBlock.getStart() + currentBlock.getLength() == handle.getStart()) {	//If these two nodes are adjacent
+					freeBlocks.stepForward();	//Move one to the right of the current node and insert because it is further in the memory pool
 					freeBlocks.add(handle);
-					checkForMerge(freeBlocks.getCurrent());
+					checkForMerge(freeBlocks.getCurrent()); //Check to see if there are merging opportunities
 					return true;
 				}
-				else if(currentBlock.getStart() > handle.getStart()) {
+				else if(currentBlock.getStart() > handle.getStart()) { //If the current node starts later in the pool then the freed node
 					freeBlocks.add(handle);
 					checkForMerge(freeBlocks.getCurrent());
 					return true;
 				}
 			}
+			// Else step back and 
 			freeBlocks.stepBack();
 			MemoryBlock currentBlock = freeBlocks.getCurrent().getNodeData();
 			if(handle.getStart() > currentBlock.getStart()) {
 				freeBlocks.append(handle);
 				return true;
 			}
-				
-//			freeBlocks.jumpToHead();
-//			if(freeBlocks.stepForward()) {
-//				freeBlocks.add(handle);
-//				checkForMerge(freeBlocks.getCurrent());
-//				return true;
-//			}
 		}
 		return false;
 	}
