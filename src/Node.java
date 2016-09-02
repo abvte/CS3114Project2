@@ -30,10 +30,6 @@
 		  return before;
 	  }
 	  
-	  public void setData(E data) {
-		  this.data = data;
-	  }
-	  
 	  public void setAfter (Node<E> next) {
 		  after = next;
 	  }
