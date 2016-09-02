@@ -30,10 +30,9 @@
 		  return before;
 	  }
 	  
-	  /*														// We don't need this - Jinwoo
 	  public void setData(E data) {								// sets the Node data
 		  this.data = data;
-	  }*/
+	  }
 	  
 	  public void setAfter (Node<E> next) {						// sets the next Node
 		  after = next;

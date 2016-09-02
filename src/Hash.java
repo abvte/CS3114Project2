@@ -12,15 +12,15 @@ public class Hash
 
     /**
      * Create a new Hash object.
+
      */
-	
     public Hash(String newKey, Object newValue)
     {
     	key = newKey;
     	value = newValue;
     }
 
-	public String getKey() 
+    public String getKey() 
     {
     	return key;
     }

@@ -49,67 +49,7 @@ public class MemmanTest extends TestCase {
         Memman.main(args);
     }
     
-    // Doubly Linked List
-    public void testDoublyLinkedList(){
-    	DoublyLinkedList<String> newlist = new DoublyLinkedList<String>();
-    	assertNotNull(newlist);
-    	newlist.add("First");
-    	newlist.add("Second");
-    	newlist.append("Third");
-    	assertEquals(5, newlist.getSize());								// make sure there are 5 items(3 items + 2)
-    	assertEquals("Second", newlist.getCurrent().getNodeData());		// make sure that getNodedata method works
-    	newlist.stepForward();
-    	assertEquals("First", newlist.getData());						// Make sure that stepping forward was successful
-    	newlist.stepBack();
-    	assertEquals("Second", newlist.getData());						// Make sure that stepping back was successful
-    	newlist.jumpToTail();											// go to tail
-    	newlist.stepBack();
-    	assertEquals("Third", newlist.getData());						// make sure that jumpToTail was successful
-    	assertEquals("Third", newlist.remove().getNodeData());			// make sure that remove returns the correct data
-    	assertEquals(4, newlist.getSize());								// make sure that remove was successfully 
-    	newlist.jumpToHead();											// go to head
-    	assertEquals(null, newlist.getData()); 							// Checks for Head's data
-    }
-    
-    // HASH TABLE
-    public void testHashtableinit() {
-    	Hashtable myHtb = new Hashtable(1024, "Artist");
-        assertNotNull(myHtb);
-        assertEquals(1024, myHtb.getSize());
-        assertEquals(1024, myHtb.getTable().length);
-        
-        //assertEquals(myHash.h("aaaabbbb", 101), 75);
-        //assertEquals(myHash.h("aaaabbb", 101), 1640219587 % 101);
-    }
-    
-    public void testHashtableAdd(){
-    	Hashtable myHtb = new Hashtable(1024, "Artist");
-    	myHtb.add("key", "Maroon5");
-    	assertEquals(1,myHtb.getItems());
-    	myHtb.add("keys", "Maroon6");
-    	myHtb.add("keys", "Maroon7");
-    	assertEquals(3,myHtb.getItems());
-    }
-    
-    public void testHashtableGet(){
-    	Hashtable myHtb = new Hashtable(1024, "Artist");
-    	myHtb.add("key", "Maroon5");
-    	myHtb.add("keys", "Maroon6");
-    	myHtb.add("keys", "Maroon7");
+    public void testMemoryManager(){
     	
-    	assertEquals("Maroon5", myHtb.get("key"));
-    	assertEquals("Maroon6", myHtb.get("keys"));
-    	assertEquals("Maroon6", myHtb.get("keys"));
-    	assertEquals(null, myHtb.get("test"));
-    }
-    
-    public void testHashtableRemove(){
-    	Hashtable myHtb = new Hashtable(1024, "Artist");
-    	myHtb.add("key", "Maroon5");
-    	myHtb.add("keys", "Maroon6");
-    	myHtb.add("keys", "Maroon7");
-    	
-    	assertTrue(myHtb.remove("key"));
-    	assertFalse(myHtb.remove("key"));
     }
 }
