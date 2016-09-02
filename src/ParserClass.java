@@ -1,33 +1,53 @@
 import java.io.File;
 import java.util.Scanner;
 
+/**
+ * Parses a given input file and initializes the MemoryManager
+ * @author Adam Bishop and Jinwoo Yom
+ */
 public class ParserClass {
 
-	private Scanner scanner1;
-	private String fileName;
+	private String fileName;	//File name of the file containing the input commands
+	MemoryManager memManager;	//Instantiation of the memory manager itself
 	
-	public ParserClass(String filename) {
-		// TODO Auto-generated constructor stub
+	/**
+	 * Constructor which defines initial hash table size, pool size, and location of input file
+	 * @param hashSize
+	 * @param blockSize
+	 * @param filename
+	 */
+	public ParserClass(int hashSize, int blockSize, String filename) {
+		memManager = new MemoryManager(hashSize, blockSize);
 		fileName = filename;
 	}
 	
+	/**
+	 * Runs the parser on the file given
+	 */
 	public void run() {
 		try{
-			scanner1 = new Scanner(new File(fileName));
-			while(scanner1.hasNextLine()){
-				
-				String[] tempSplit = scanner1.nextLine().split(" ",2);;
-				
-				
-				// for debugging
-				checkCommand(tempSplit);
-				System.out.println("--------------------");
+			try(Scanner scanner1 = new Scanner(new File(fileName))) {
+				memManager.insert("0", true);
+				memManager.insert("1", true);
+				memManager.insert("012345678901234567890123", true);
+				memManager.remove("0", true);
+				memManager.remove("012345678901234567890123", true);
+				while(scanner1.hasNextLine()){
+					// Only split once because artist/song names may have spaces
+					String[] tempSplit = scanner1.nextLine().split(" ",2);
+					runCommand(tempSplit);
+				}
 			}
 		}catch ( Exception e) {
-			System.out.println(e.getMessage());
+			e.printStackTrace();
 		}
 	}
 	
+	/**
+	 * Parses the artist and song combination
+	 * @param line
+	 * @return String[] containing the artist and song combination
+	 */
 	private String[] insertParse(String line){
 		// Resulting string array declared
 		String[] parsedInput = new String[2];
@@ -42,31 +62,45 @@ public class ParserClass {
 		return parsedInput;
 	}
 	
-	private void checkCommand(String[] x){
+	/**
+	 * Parses the input String[] and runs the memory manager's command
+	 * @param x
+	 */
+	private void runCommand(String[] x){
+		//x[0] is the command
 		switch(x[0]){
-		case "insert":
-			System.out.println("inserting");
-			String[] info = insertParse(x[1]);
-			System.out.println(info[0]);
-			System.out.println(info[1]);
-			// TODO do insert stuff here
-			
-			break;
-		case "remove":
-			System.out.println("removing");
-			System.out.println(x[1]);
-			// TODO do remove stuff here
-			
-			break;
-		case "print":
-			System.out.println("printing");
-			System.out.println(x[1]);
-			// TODO do print stuff here
-			
-			break;
-		default:
-			System.out.println("Command not recognized");
-			break;
+			case "insert": {
+				String[] info = insertParse(x[1]); //Parse the artist song combination
+				memManager.insert(info[0], true);
+				memManager.insert(info[1], false);
+				break;
+			}
+			case "remove": {
+				String[] processed = x[1].split(" ",2);
+				if(processed[0].equals("artist")) {
+					memManager.remove(processed[1], true);
+				}
+				else if (processed[0].equals("song")) {
+					memManager.remove(processed[1], false);
+				}	
+				break;
+			}
+			case "print": {
+				if(x[1].equals("artist")) {
+					memManager.print(true, false, false);
+				}
+				else if (x[1].equals("song")) {
+					memManager.print(false, true, false);
+				}
+				else if(x[1].equals("blocks")) {
+					memManager.print(false, false, true);
+				}
+				break;
+			}
+			default: {
+				System.out.println("Command not recognized");
+				break;
+			}
 		}
 	}
 

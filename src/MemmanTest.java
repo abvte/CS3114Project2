@@ -48,8 +48,4 @@ public class MemmanTest extends TestCase {
         String[] args = {"1234", "4321", "testFile.txt"};
         Memman.main(args);
     }
-    
-    public void testMemoryManager(){
-    	
-    }
 }

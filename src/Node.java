@@ -12,33 +12,33 @@
 	  private Node<E> before;
 	  private Node<E> after;
 	  
-	  public Node(E data, Node<E> prev, Node<E> next) {			// Node Constructor
+	  public Node(E data, Node<E> prev, Node<E> next) {
 		  this.data = data;
 		  this.before = prev;
 		  this.after = next;
 	  }
 	  
-	  public E getNodeData() {									// returns Node Data
+	  public E getNodeData() {
 		  return data;
 	  }
 	  
-	  public Node<E> getAfter() {								// returns the next Node
+	  public Node<E> getAfter() {
 		  return after;
 	  }
 	  
-	  public Node<E> getBefore() {								// returns the previous Node
+	  public Node<E> getBefore() {
 		  return before;
 	  }
 	  
-	  public void setData(E data) {								// sets the Node data
+	  public void setData(E data) {
 		  this.data = data;
 	  }
 	  
-	  public void setAfter (Node<E> next) {						// sets the next Node
+	  public void setAfter (Node<E> next) {
 		  after = next;
 	  }
 	  
-	  public void setBefore (Node<E> prev) {					// sets the previous Node
+	  public void setBefore (Node<E> prev) {
 		  before = prev;
 	  }
   }
