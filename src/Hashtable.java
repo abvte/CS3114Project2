@@ -59,16 +59,16 @@ public class Hashtable {
 		int i = 1;
 		int hash = h(key,this.size);
 		int pos = hash;
-		while(table[pos] != null && !table[pos].getKey().equals(key))
+		while(i <= this.size)
 		{
-			pos = (hash + (i*i)) % size;
-			i++;
+			if(table[pos] == null || !table[pos].getKey().equals(key)) {
+				pos = (hash + (i*i)) % size;
+				i++;
+			} else {
+				return table[pos].getValue();
+			}
 		}
-		
-		if(table[pos] == null)
-			return null;
-		else
-			return table[pos].getValue();
+		return null;
 	}
 	
 	public boolean remove(String key)
@@ -78,20 +78,18 @@ public class Hashtable {
 		
 		int hash = h(key,this.size);
 		int pos = hash;
-		while(table[pos] != null && !table[pos].getKey().equals(key))
+		while(i <= this.size)
 		{
-			pos = (hash + (i*i)) % size;
-			i++;
+			if(table[pos] == null || !table[pos].getKey().equals(key)) {
+				pos = (hash + (i*i)) % size;
+				i++;
+			} else {
+				table[pos] = null;
+				items--;
+				return true;
+			}
 		}
-		
-		// Didn't find key in table
-		if(table[pos] == null) return false;
-				
-		table[pos] = null;
-		
-		items--;
-		
-		return true;
+		return false;
 	}
 	
 	public void extend()

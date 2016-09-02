@@ -27,11 +27,6 @@ public class ParserClass {
 	public void run() {
 		try{
 			try(Scanner scanner1 = new Scanner(new File(fileName))) {
-				memManager.insert("0", true);
-				memManager.insert("1", true);
-				memManager.insert("012345678901234567890123", true);
-				memManager.remove("0", true);
-				memManager.remove("012345678901234567890123", true);
 				while(scanner1.hasNextLine()){
 					// Only split once because artist/song names may have spaces
 					String[] tempSplit = scanner1.nextLine().split(" ",2);
