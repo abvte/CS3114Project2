@@ -225,11 +225,16 @@ public class MemoryManager {
 		freeBlocks.jumpToTail();
 		freeBlocks.stepBack();
 		
-		freeBlocks.append(new MemoryBlock(new byte[blockSize],null,freeBlocks.getCurrent().getNodeData().getStart() + 
-															       freeBlocks.getCurrent().getNodeData().getLength()));
 		System.out.println("Memory pool expanded to be " + pool.length + " bytes.");
-
-		checkForMerge(freeBlocks.getCurrent());
+		
+		if(freeBlocks.getSize() != 2) {
+			freeBlocks.append(new MemoryBlock(new byte[blockSize],null,freeBlocks.getCurrent().getNodeData().getStart() + 
+															       freeBlocks.getCurrent().getNodeData().getLength()));
+			checkForMerge(freeBlocks.getCurrent());
+		} else {
+			freeBlocks.append(new MemoryBlock(new byte[blockSize],null,0));
+		}
+		return;
 	}
 	
 	private MemoryBlock findBestFit(String record)
