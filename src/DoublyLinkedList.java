@@ -12,8 +12,9 @@ public class DoublyLinkedList<E> {
 	  this.size = 2;
   }
   
-  public boolean add(E data) {								// Adds an node after the current node in a list
-	  current = new Node<E>(data,current.getBefore(),current);
+  public boolean add(E data) {									// Adds an node after the current node in a list
+	  if(current.equals(head)) return false;					// you need to check for Head.
+	  current = new Node<E>(data,current.getBefore(),current);	// Otherwise you will add before the head - Jinwoo
 	  
 	  current.getAfter().setBefore(current);
 	  current.getBefore().setAfter(current);
@@ -46,17 +47,19 @@ public class DoublyLinkedList<E> {
   }
   
   public boolean stepForward() {				// traversing forward in DoublyLinkedList
-	  current = current.getAfter();
 	  
-	  if(current.equals(tail)) return false;
+	  if(current.equals(tail)) return false;	// you need to to this before the next line - Jinwoo
+	  
+	  current = current.getAfter();
 	  
 	  return true;
   }
   
   public boolean stepBack() {					// traversing backwards in DoublyLinkedList
-	  current = current.getBefore();
 	  
-	  if(current.equals(head)) return false;
+	  if(current.equals(head)) return false;	// you need to to this before the next line - Jinwoo
+	  
+	  current = current.getBefore();
 	  
 	  return true;
   }

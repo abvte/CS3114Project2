@@ -10,7 +10,7 @@ public class Hashtable {
 		table = new Hash[newSize];
 		locations = new int[newSize];
 		size = newSize;
-		items = 0;
+		items = 0;			// content length?
 		name = newName;
 	}
 	
@@ -103,11 +103,9 @@ public class Hashtable {
 
 		for(int i = 0; i <= (oldSize/2)+1; i++)
 		{
-			Hash oldHash = oldTable[i];
-			
-			if(oldHash != null) 
+			if(oldTable[i] != null) 
 			{
-				add(oldHash.key,oldHash.value);
+				add(oldTable[i].key, oldTable[i].value);
 			}
 		}
 		
