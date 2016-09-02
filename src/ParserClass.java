@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 /**
@@ -32,6 +33,8 @@ public class ParserClass {
 					String[] tempSplit = scanner1.nextLine().split(" ",2);
 					runCommand(tempSplit);
 				}
+			}catch( FileNotFoundException e){
+				System.out.println(e.getMessage());
 			}
 		}catch ( Exception e) {
 			e.printStackTrace();

@@ -125,8 +125,17 @@ public class MemmanTest extends TestCase {
     }
     
     // MemoryManagerTest
-    public void testMemoryManager(){
-    	MemoryManager mm = new MemoryManager(2048, 128);
-    	
+    public void testMemoryManagerArtistInsert(){
+    	MemoryManager mm = new MemoryManager(2, 1);
+    	mm.insert("Micheal Jackson", true);
+    	mm.insert("Micheal Jackson", true);
+    	mm.insert("Eagles", true);
+    }
+    
+    public void testMemoryManagerSongsInsert(){
+    	MemoryManager mm = new MemoryManager(2, 1);
+    	mm.insert("Billy Jean", false);
+    	mm.insert("Billy Jean", false);
+    	mm.insert("Hotel California", false);
     }
 }
