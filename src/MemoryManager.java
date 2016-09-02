@@ -292,11 +292,10 @@ public class MemoryManager {
 		return pool;
 	}
 	
-	public class MemoryBlock {
+	private class MemoryBlock {
 		private byte[] memory;
 		private int length;
 		private int start;
-		
 
 		MemoryBlock(byte[] newMemory,byte[] newMemoryLength, int newStart) {
 			if(newMemoryLength != null) {
