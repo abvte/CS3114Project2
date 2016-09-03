@@ -1,120 +1,135 @@
 
+/**
+ * Hashtable data structure with quadratic probing for collision avoidance
+ * @author Adam Bishop
+ * @author Jinwoo Yom
+ * @version 1.0
+ */
 public class Hashtable {
-	Hash[] table;
-	int size;
-	int items;
-	int[] locations;
-	String name;
-	
-	Hashtable(int newSize, String newName) {
-		table = new Hash[newSize];
-		locations = new int[newSize];
-		size = newSize;
-		items = 0;
-		name = newName;
-	}
-	
-	public boolean add(String key, Object value)
-	{
-		Hash newHash = new Hash(key,value);
-		
-		//Quadratic probing variable
-		int i = 1;
-		
-		int hash = h(key,this.size);
-		int pos = hash;
-		while(table[pos] != null)
-		{
-			pos = (hash + (i*i)) % size;
-			i++;
-		}
-		
-		table[pos] = newHash;
-		locations[items] = hash;
-		
-		items++;
-		
-		//if(items > (size/2)) extend();
-		
-		return true;
-	}
-	
-	public Hash[] getTable()
-	{
-		return table;
-	}
-	
-	public int getSize()
-	{
-		return size;
-	}
-	
-	public int getItems()
-	{
-		return items;
-	}
-	
-	public Object get(String key)
-	{
-		int i = 1;
-		int hash = h(key,this.size);
-		int pos = hash;
-		while(i <= this.size)
-		{
-			if(table[pos] == null || !table[pos].getKey().equals(key)) {
-				pos = (hash + (i*i)) % size;
-				i++;
-			} else {
-				return table[pos].getValue();
-			}
-		}
-		return null;
-	}
-	
-	public boolean remove(String key)
-	{
-		//Quadratic probing variable
-		int i = 1;
-		
-		int hash = h(key,this.size);
-		int pos = hash;
-		while(i <= this.size)
-		{
-			if(table[pos] == null || !table[pos].getKey().equals(key)) {
-				pos = (hash + (i*i)) % size;
-				i++;
-			} else {
-				table[pos] = null;
-				items--;
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	public void extend()
-	{
-		Hash[] oldTable = table;
-		int oldSize = size;
-		
-		size = size * 2;
-		table = new Hash[size];
-		locations = new int[size];
-		items = 0;
+    private Hash[] table;  //Table holding hash objects
+    private int size;  //Max items
+    private int items; //Current amount of items
+    private String name;   //Name for use when outputting 
+                           //which hashtable expanded
 
-		for(int i = 0; i < oldSize; i++)
-		{
-			Hash oldHash = oldTable[i];
-			
-			if(oldHash != null) 
-			{
-				add(oldHash.key,oldHash.value);
-			}
-		}
-		
-		System.out.println(name + " hash table size doubled.");
-	}
-	
+    /**
+     * Constructor
+     * @param newSize new size
+     * @param newName new name
+     */
+    Hashtable(int newSize,  String newName) {
+        table = new Hash[newSize];
+        size = newSize;
+        items = 0;
+        name = newName;
+    }
+
+    /**
+     * Adds a new (key, value) hash to the table
+     * @param key new key
+     * @param value new value
+     * @return true or false
+     */
+    public boolean add(String key,  Object value)
+    {
+        Hash newHash = new Hash(key, value);
+
+        //Quadratic probing variable
+        int i = 1;
+
+        int hash = h(key, this.size);
+        int pos = hash;
+        while (table[pos] != null)
+        {
+            pos = (hash + (i * i)) % size; //add i^2
+            i++;
+        }
+
+        //Add to table
+        table[pos] = newHash;
+        items++;
+
+        return true;
+    }
+
+    /**
+     * Queries the hashtable and returns a value if it exists
+     * @param key in key/value pair
+     * @return value in key/value pair
+     */
+    public Object get(String key)
+    {
+        int i = 1;
+        int hash = h(key, this.size);
+        int pos = hash;
+        while (i <= this.size)
+        {
+            //Check to see if the position is null or the key doesn't match
+            if (table[pos] == null || !table[pos].getKey().equals(key)) {
+                pos = (hash + (i * i)) % size;
+                i++;
+            } 
+            else {
+                return table[pos].getValue();
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Removes key/value pair
+     * @param key in key/value pair
+     * @return true or false based on success
+     */
+    public boolean remove(String key)
+    {
+        //Quadratic probing variable
+        int i = 1;
+
+        int hash = h(key, this.size);
+        int pos = hash;
+        while (i <= this.size)
+        {
+            if (table[pos] == null || !table[pos].getKey().equals(key)) {
+                pos = (hash + (i * i)) % size;
+                i++;
+            } 
+            else {
+                table[pos] = null;
+                items--;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Doubles the size of the hashtable
+     */
+    public void extend()
+    {
+        //Store old values
+        Hash[] oldTable = table;
+        int oldSize = size;
+
+        size = size * 2;
+        table = new Hash[size];   //Create larger table
+        items = 0;
+
+        //Rehash all stored hashes
+        for (int i = 0; i < oldSize; i++)
+        {
+            Hash oldHash = oldTable[i];
+
+            if (oldHash != null) 
+            {
+                add(oldHash.getKey(), oldHash.getValue());
+            }
+        }
+
+        System.out.println(name + " hash table size doubled.");
+    }
+
     /**
      * Compute the hash function. Uses the "sfold" method from the OpenDSA
      * module on hash functions
@@ -125,10 +140,7 @@ public class Hashtable {
      *            The size of the hash table
      * @return The home slot for that string
      */
-    // Make this private in your project.
-    // This is private for distributing hash function in a way that will
-    // pass milestone 1 without change.
-    private int h(String s, int m)
+    private int h(String s,  int m)
     {
         int intLength = s.length() / 4;
         long sum = 0;
@@ -152,5 +164,29 @@ public class Hashtable {
         }
 
         return (int)(Math.abs(sum) % m);
+    }
+
+    /**
+     * @return table
+     */
+    public Hash[] getTable()
+    {
+        return table;
+    }
+
+    /**
+     * @return size
+     */
+    public int getSize()
+    {
+        return size;
+    }
+
+    /**
+     * @return items
+     */
+    public int getItems()
+    {
+        return items;
     }
 }
