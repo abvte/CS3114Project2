@@ -64,15 +64,17 @@ public class ParserClass {
 	 * Parses the input String[] and runs the memory manager's command
 	 * @param x
 	 */
-	private void runCommand(String[] x){
+	public void runCommand(String[] x){
 		//x[0] is the command
 		switch(x[0]){
 			case "insert": {
 				String[] info = insertParse(x[1]); //Parse the artist song combination
+				System.out.println(info[0] + " - " + info[1]);
 				memManager.insert(info[0], true);
 				memManager.insert(info[1], false);
 				break;
 			}
+			/*
 			case "remove": {
 				String[] processed = x[1].split(" ",2);
 				if(processed[0].equals("artist")) {
@@ -94,7 +96,7 @@ public class ParserClass {
 					memManager.print(false, false, true);
 				}
 				break;
-			}
+			}*/
 			default: {
 				System.out.println("Command not recognized");
 				break;

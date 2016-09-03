@@ -175,4 +175,9 @@ public class MemmanTest extends TestCase {
     	assertTrue(mm.print(false, true, false));
     	assertTrue(mm.print(false, false, true));
     }
+    
+    // ParserTest
+    public void testParser(){
+    	ParserClass pc = new ParserClass(2,2,"testFile.txt");
+    }
 }
