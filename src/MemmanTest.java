@@ -8,21 +8,18 @@ public class MemmanTest extends TestCase {
     /**
      * This method sets up the tests that follow.
      */
-    public void setUp() {
-        // Nothing Here
-    }
-    
-    /**
-     * This method gets code coverage of the class declaration.
-     */
-    
-    public void testMInit() {
+	
+/**
+ * Tests the initialization of Memman.
+ */
+    public void testMInit() { 
         Memman mem = new Memman();
         assertNotNull(mem);
         Memman.main(null);
     }
     
-    public void testFirstError() {
+    
+    public void testFirstError() { // tests the First Error message
         Memman mem = new Memman();
         assertNotNull(mem);
         String[] args = {"abcde"};
