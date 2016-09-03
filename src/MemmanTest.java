@@ -72,6 +72,7 @@ public class MemmanTest extends TestCase {
     	assertEquals(null, newlist.getData()); 							// Checks for Head's data
     }
     
+    
     // HASH TABLE
     public void testHashtableinit() {
     	Hashtable myHtb = new Hashtable(1024, "Artist");
@@ -130,6 +131,7 @@ public class MemmanTest extends TestCase {
     	mm.insert("Micheal Jackson", true);
     	mm.insert("Micheal Jackson", true);
     	mm.insert("Eagles", true);
+    	assertEquals(2, mm.artists.getItems());
     }
     
     public void testMemoryManagerSongsInsert(){
@@ -137,5 +139,40 @@ public class MemmanTest extends TestCase {
     	mm.insert("Billy Jean", false);
     	mm.insert("Billy Jean", false);
     	mm.insert("Hotel California", false);
+    	assertEquals(2, mm.songs.getItems());
+    }
+    
+    public void testMemoryManagerArtistRemove(){
+    	MemoryManager mm = new MemoryManager(2, 2);
+    	mm.insert("Micheal Jackson", true);
+    	mm.insert("Eagles", true);
+    	
+    	mm.remove("Micheal Jackson", true);
+    	mm.remove("Micheal Jackson", true);
+    	mm.remove("Eagles", true);
+    }
+    
+    public void testMemoryManagerSongRemove(){
+    	MemoryManager mm = new MemoryManager(2, 2);
+    	mm.insert("Billy Jean", false);
+    	mm.insert("Hotel California", false);
+    	
+    	mm.remove("Billy Jean", false);
+    	mm.remove("Billy Jean", false);
+    	mm.remove("Hotel California", false);
+    }
+    
+    public void testMemoryManagerSongPrint(){
+    	MemoryManager mm = new MemoryManager(2, 2);
+    	mm.insert("Micheal Jackson", true);
+    	mm.insert("Maroon5", true);
+    	//mm.insert("Eagles", true);
+    	
+    	mm.insert("Billy Jean", false);
+    	mm.insert("Hotel California", false);
+    	
+    	assertTrue(mm.print(true, false, false));
+    	assertTrue(mm.print(false, true, false));
+    	assertTrue(mm.print(false, false, true));
     }
 }

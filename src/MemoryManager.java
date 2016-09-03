@@ -168,17 +168,12 @@ public class MemoryManager {
 				}
 			}
 			// Else step back and 
-			freeBlocks.stepBack();
-			MemoryBlock currentBlock = freeBlocks.getCurrent().getNodeData();
-			if(handle.getStart() > currentBlock.getStart()) {
-				freeBlocks.append(handle);
-				return true;
-			}
+			freeBlocks.append(handle);
+			return true;
 		}
-		return false;
 	}
 	
-	public void print (boolean artist, boolean song, boolean block)
+	public boolean print (boolean artist, boolean song, boolean block)
 	{
 		if(artist) {
 			Hash[] table = artists.getTable();
@@ -214,6 +209,7 @@ public class MemoryManager {
 				System.out.println(buf.toString());
 			}
 		}
+		return true;
 	}
 	
 	private void expandPool()
@@ -245,29 +241,25 @@ public class MemoryManager {
 		int position = 0;
 		int minPos = 0;
 		
-		if(freeBlocks.jumpToHead()) {
-			while(freeBlocks.stepForward()) {
-				position++;
-				MemoryBlock currentBestFit = freeBlocks.getCurrent().getNodeData();
-				difference = currentBestFit.getLength() - record.length();
-				if(difference < min && difference >= 2) {
-					min = difference;
-					minPos = position;
-				}
+		freeBlocks.jumpToHead();
+		while(freeBlocks.stepForward()) {
+			position++;
+			MemoryBlock currentBestFit = freeBlocks.getCurrent().getNodeData();
+			difference = currentBestFit.getLength() - record.length();
+			if(difference < min && difference >= 2) {
+				min = difference;
+				minPos = position;
 			}
-			
-			//This means that no available block was found
-			if(min == Integer.MAX_VALUE) return null;
-			
-			freeBlocks.jumpToHead();
-			for(int i = 0; i < minPos; i++) {
-				freeBlocks.stepForward();
-			}
-			return freeBlocks.getCurrent().getNodeData();
 		}
-		else {
-			return null;
+		
+		//This means that no available block was found
+		if(min == Integer.MAX_VALUE) return null;
+		
+		freeBlocks.jumpToHead();
+		for(int i = 0; i < minPos; i++) {
+			freeBlocks.stepForward();
 		}
+		return freeBlocks.getCurrent().getNodeData();
 	}
 	
 	private void checkForMerge(Node<MemoryBlock> blockPointer) {
@@ -327,18 +319,6 @@ public class MemoryManager {
 		{
 			this.length = length;
 			this.start = start;
-		}
-		
-		public void setMemory(byte[] newMemory) {
-			memory = newMemory;
-		}
-		
-		public byte[] getMemory() {
-			return memory;
-		}
-		
-		public byte[] getMemoryLength() {
-			return new byte[]{ memory[0],memory[1] };
 		}
 		
 		public int getStart() {

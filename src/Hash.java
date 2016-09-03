@@ -28,11 +28,5 @@ public class Hash
     public Object getValue()
     {
     	return value;
-    }
-    
-    public void setValue(Object newValue)
-    {
-    	value = newValue;
-    }
-    
+    }    
 }
