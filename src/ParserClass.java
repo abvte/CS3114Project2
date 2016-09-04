@@ -42,7 +42,7 @@ public class ParserClass {
                 }
             } 
             catch (FileNotFoundException e) {
-                System.out.println(e.getMessage());
+                System.out.println("File not found");
             }
         } 
         catch ( Exception e) {
@@ -79,7 +79,6 @@ public class ParserClass {
             case "insert": {
                 //Parse the artist song combination
                 String[] info = insertParse(x[1]);
-                System.out.println(info[0] + " - " + info[1]);
                 memManager.insert(info[0], true);
                 memManager.insert(info[1], false);
                 break;

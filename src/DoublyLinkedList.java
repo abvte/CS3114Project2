@@ -58,7 +58,7 @@ public class DoublyLinkedList<E> {
     public Node<E> remove() {
 
         if (current.equals(tail) || current.equals(head)) {
-            throw new IllegalArgumentException();
+            return null;
         } 
         Node<E> oldNode = current;
         current.getAfter().setBefore(current.getBefore());

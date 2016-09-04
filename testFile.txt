@@ -1,4 +1,6 @@
 insert Eagles<SEP>Hotel California
 insert Michael Jackson<SEP>Thriller
-remove Justin Timberlake<SEP>SexyBack
-print The Beatles<SEP>Hey Jude
+remove artist Justin Timberlake
+remove song SexyBack
+print artist
+print song

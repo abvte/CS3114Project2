@@ -53,7 +53,8 @@ public class Memman {
                 parser.run();
             } 
             catch (Exception e) {
-                System.out.println(e.getMessage());
+                System.out.println("Invalid Arguments");
+                e.printStackTrace();
             }
         }
     }

@@ -18,7 +18,7 @@ public class MemoryManager {
     protected Hashtable songs;
     private DoublyLinkedList<MemoryBlock> freeBlocks;   //LinkedList 
                               //holding handles to free MemoryBlocks
-    private int blockSize;	//Initial pool size and the size of added 
+    private int blockSize;  //Initial pool size and the size of added 
                             //free blocks
     private final int twoByte = 2; //Constant holding the size of two bytes
 
@@ -109,7 +109,7 @@ public class MemoryManager {
         
         if (artist) {
             System.out.println("|" + record + "|" + 
-                               " is added to the artist datbase.");
+                               " is added to the artist database.");
         }
         else {
             System.out.println("|" + record + "|" +
