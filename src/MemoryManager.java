@@ -47,7 +47,7 @@ public class MemoryManager {
      */
     public boolean insert(String record, boolean artist)
     {
-        MemoryBlock handle;	//Empty Handle
+        MemoryBlock handle; //Empty Handle
         if (artist) {	//If this is an artist, check the artist table
             if (artists.get(record) != null) {
                 System.out.println("|" + record + "| duplicates a record "

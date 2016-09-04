@@ -4,3 +4,4 @@ remove artist Justin Timberlake
 remove song SexyBack
 print artist
 print song
+print blocks
