@@ -9,8 +9,6 @@ public class Hashtable {
     private Hash[] table;  //Table holding hash objects
     private int size;  //Max items
     private int items; //Current amount of items
-    private String name;   //Name for use when outputting 
-                           //which hashtable expanded
 
     /**
      * Constructor
@@ -21,7 +19,6 @@ public class Hashtable {
         table = new Hash[newSize];
         size = newSize;
         items = 0;
-        name = newName;
     }
 
     /**
