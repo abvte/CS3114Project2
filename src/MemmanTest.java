@@ -72,7 +72,7 @@ public class MemmanTest extends TestCase {
                 + " in the song database.\n|Michael Jackson| 639\n|Eagles|"
                 + " 738\ntotal artists: 2\n|Hotel California| 432\n|Thriller|"
                 + " 580\ntotal songs: 2\n"
-                + "(53, 4268)\n";
+                + "(53,4268)\n";
         assertEquals(assertedOutput, output);
     }
 
@@ -172,8 +172,10 @@ public class MemmanTest extends TestCase {
         myHtb.add("keys", "Maroon6");
         myHtb.add("keys", "Maroon7");
 
-        assertTrue(myHtb.remove("key"));			// removes the existing key value pair
-        assertFalse(myHtb.remove("key"));			// tries to remove a non-existing key value pair
+        // removes the existing key value pair
+        assertTrue(myHtb.remove("key"));
+        // tries to remove a non-existing key value pair
+        assertFalse(myHtb.remove("key"));
     }
 
     /**
@@ -221,8 +223,10 @@ public class MemmanTest extends TestCase {
         mm.insert("Eagles", true);
 
         mm.remove("Micheal Jackson", true);
+        assertEquals(mm.artists.getItems(), 1);
         mm.remove("Micheal Jackson", true);
         mm.remove("Eagles", true);
+        assertEquals(mm.artists.getItems(), 0);
     }
 
     /**
@@ -234,8 +238,10 @@ public class MemmanTest extends TestCase {
         mm.insert("Hotel California", false);
 
         mm.remove("Billy Jean", false);
+        assertEquals(mm.songs.getItems(), 1);
         mm.remove("Billy Jean", false);
         mm.remove("Hotel California", false);
+        assertEquals(mm.songs.getItems(), 0);
     }
 
     /**
@@ -254,6 +260,19 @@ public class MemmanTest extends TestCase {
         assertTrue(mm.print(false, true, false));
         assertTrue(mm.print(false, false, true));
     }
+    
+    /**
+     * Tests output when all blocks are taken
+     */
+    public void testMemoryManagerPrintNoFreeBlocks() {
+        MemoryManager mm = new MemoryManager(5, 5);
+        mm.insert("xyz", true);
+
+        assertTrue(mm.print(false, false, true));
+        String output = systemOut().getHistory();
+        assertEquals("|xyz| is added to the artist database."
+                + "\n(5,0)\n", output);
+    }
 
     // ParserTest
     /**
@@ -262,17 +281,6 @@ public class MemmanTest extends TestCase {
     public void testParser() {
         ParserClass pc = new ParserClass(2, 2, "testFile.txt");
         pc.run();
-        String output = systemOut().getHistory();
-        String assertedOutput = "|Eagles| is added to the artist"
-                + " database.\n|Hotel California| is added to the"
-                + " song database.\n|Michael Jackson| is added to"
-                + " the artist database.\n|Thriller| is added to the"
-                + " song database.\n|Justin Timberlake| does not exist"
-                + " in the artist database.\n|SexyBack| does not exist"
-                + " in the song database.\n|Michael Jackson| 639\n|Eagles|"
-                + " 738\ntotal artists: 2\n|Hotel California| 432\n|Thriller|"
-                + " 580\ntotal songs: 2\n"
-                + "(53, 4268)\n";
-        assertEquals(assertedOutput, output);
+        assertEquals(pc, pc);
     }
 }

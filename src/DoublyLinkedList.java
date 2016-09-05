@@ -57,7 +57,7 @@ public class DoublyLinkedList<E> {
      */
     public Node<E> remove() {
 
-        if (current.equals(tail) || current.equals(head)) {
+        if (current.getNodeData() == null) {
             return null;
         } 
         Node<E> oldNode = current;
