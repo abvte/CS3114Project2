@@ -48,8 +48,12 @@ public class MemoryManager {
     public boolean insert(String record, boolean artist)
     {
         MemoryBlock handle; //Empty Handle
+<<<<<<< HEAD
         // If this is an artist, check the artist table
         if (artist) {
+=======
+        if (artist) {   //If this is an artist, check the artist table
+>>>>>>> origin/master
             if (artists.get(record) != null) {
                 System.out.println("|" + record + "| duplicates a record "
                         + "already in the artist database.");
@@ -61,8 +65,12 @@ public class MemoryManager {
                 artists.extend();
             }
         }
+<<<<<<< HEAD
         //If this is a song, check the song table
         else {
+=======
+        else {    //If this is a song, check the song table
+>>>>>>> origin/master
             if (songs.get(record) != null) {
                 System.out.println("|" + record + "| duplicates a record "
                         + "already in the song database.");
@@ -78,8 +86,8 @@ public class MemoryManager {
         //Begin checking for the best fit block
         do {
             handle = findBestFit(record);
-            if (handle == null) {	// null means there was no fit at all
-                expandPool();	//Add a block of size blockSize
+            if (handle == null) {    // null means there was no fit at all
+                expandPool();    //Add a block of size blockSize
             }
         } while (handle == null);
 
@@ -87,7 +95,7 @@ public class MemoryManager {
         MemoryBlock newBlock = new MemoryBlock(record.getBytes(), 
                 toByte(record.length()), 
                 handle.getStart());
-        newBlock.applyBlock();	//Write to the pool
+        newBlock.applyBlock();    //Write to the pool
 
         if (artist) {
             artists.add(record, newBlock);
@@ -140,14 +148,14 @@ public class MemoryManager {
      */
     public boolean remove(String record, boolean artist)
     {
-        MemoryBlock handle;	//Empty Handle
+        MemoryBlock handle;    //Empty Handle
         if (artist) {
             if (artists.get(record) == null) {
                 System.out.println("|" + record + 
                                    "| does not exist in the artist database.");
                 return false;
             } 
-            else {	//Else if the record exists, remove the handle
+            else {    //Else if the record exists, remove the handle
                 handle = (MemoryBlock) artists.get(record);
                 artists.remove(record);
                 System.out.println("|" + record + 
@@ -160,7 +168,7 @@ public class MemoryManager {
                                    "| does not exist in the song database.");
                 return false;
             }
-            else {	//Else if the record exists, remove the handle
+            else {    //Else if the record exists, remove the handle
                 handle = (MemoryBlock) songs.get(record);
                 songs.remove(record);
                 System.out.println("|" + record + 
@@ -168,7 +176,7 @@ public class MemoryManager {
             }
         }
 
-        //	Tell the LinkedList to jump to the 
+        //    Tell the LinkedList to jump to the 
         //  head to prepare for sequential searching
         freeBlocks.jumpToHead();
 
@@ -186,7 +194,7 @@ public class MemoryManager {
                 if (currentBlock.getStart() + 
                     currentBlock.getLength() 
                     == handle.getStart()) 
-                {	//If these two nodes are adjacent
+                {    //If these two nodes are adjacent
                     //Move one to the right of the current node
                     //and insert because it is further in the memory pool
                     freeBlocks.stepForward();
@@ -246,17 +254,26 @@ public class MemoryManager {
                 Node<MemoryBlock> current = freeBlocks.getCurrent();
                 buf.append("(" + 
                            current.getNodeData().getStart() + 
-                           ", " + 
+                           "," + 
                            current.getNodeData().getLength() + 
                            ")" );
                 if (current.getAfter().getNodeData() != null) {
                     buf.append(" -> ");
                 }
             }
+<<<<<<< HEAD
             //If no free blocks available..
             if (buf.length() > 0) {
                 System.out.println(buf.toString());
+=======
+            if (buf.length() == 0) {   //If no free blocks available..
+                buf.append("(" + 
+                        pool.length + 
+                        "," + 
+                        "0)" );
+>>>>>>> origin/master
             }
+            System.out.println(buf.toString());
         }
         return true;
     }
