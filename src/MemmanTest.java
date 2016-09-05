@@ -63,16 +63,17 @@ public class MemmanTest extends TestCase {
         String[] args = {"1234", "4321", "testFile.txt"};
         Memman.main(args);
         String output = systemOut().getHistory();
-        String assertedOutput = "|Eagles| is added to the artist"
-                + " database.\n|Hotel California| is added to the"
-                + " song database.\n|Michael Jackson| is added to"
-                + " the artist database.\n|Thriller| is added to the"
-                + " song database.\n|Justin Timberlake| does not exist"
-                + " in the artist database.\n|SexyBack| does not exist"
-                + " in the song database.\n|Michael Jackson| 639\n|Eagles|"
-                + " 738\ntotal artists: 2\n|Hotel California| 432\n|Thriller|"
-                + " 580\ntotal songs: 2\n"
-                + "(53, 4268)\n";
+        String assertedOutput = "|Eagles| is added to the artist";
+        assertedOutput += " database.\n|Hotel California| is added to ";
+        assertedOutput += "the song database.\n|Michael Jackson| ";
+        assertedOutput += "is added to the artist database.\n|Thriller|";
+        assertedOutput += " is added to the song database.\n|Justin ";
+        assertedOutput += "Timberlake| does not exist in the artist ";
+        assertedOutput += "database.\n|SexyBack| does not exist in ";
+        assertedOutput += "the song database.\n|Michael Jackson| 639\n";
+        assertedOutput += "|Eagles| 738\ntotal artists: 2\n|Hotel ";
+        assertedOutput += "California| 432\n|Thriller| 580\ntotal ";
+        assertedOutput += "songs: 2\n(53,4268)\n(53,4268)\n";
         assertEquals(assertedOutput, output);
     }
 
@@ -259,24 +260,5 @@ public class MemmanTest extends TestCase {
         assertTrue(mm.print(false, false, true));
     }
 
-    // ParserTest
-    /**
-     * Tests the parser
-     */
-    public void testParser() {
-        ParserClass pc = new ParserClass(2, 2, "testFile.txt");
-        pc.run();
-        String output = systemOut().getHistory();
-        String assertedOutput = "|Eagles| is added to the artist database.";
-        assertedOutput += "database.\n|Hotel California| is added to ";
-        assertedOutput += "the song \n|Michael Jackson| is added to the ";
-        assertedOutput += "artist database.\n|Thriller| is added to the ";
-        assertedOutput += "song database.\n|Justin Timberlake| does not ";
-        assertedOutput += "exist in the artist database.\n|SexyBack| ";
-        assertedOutput += "does not exist in the song database.\n|Eagles";
-        assertedOutput += "| 2\n|Michael Jackson| 3\ntotal artists: 2\n";
-        assertedOutput += "|Thriller| 0\n|Hotel California| 2\ntotal ";
-        assertedOutput += "songs: 2\n(27, 1)\n";
-        assertEquals(assertedOutput, output);
-    }
+    
 }
