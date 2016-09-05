@@ -127,7 +127,7 @@ public class Hashtable {
             }
         }
 
-        System.out.println(name + " hash table size doubled.");
+        /*System.out.println(name + " hash table size doubled.");*/
     }
 
     /**

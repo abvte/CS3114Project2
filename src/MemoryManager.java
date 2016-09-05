@@ -48,7 +48,8 @@ public class MemoryManager {
     public boolean insert(String record, boolean artist)
     {
         MemoryBlock handle; //Empty Handle
-        if (artist) {	//If this is an artist, check the artist table
+        // If this is an artist, check the artist table
+        if (artist) {
             if (artists.get(record) != null) {
                 System.out.println("|" + record + "| duplicates a record "
                         + "already in the artist database.");
@@ -60,7 +61,8 @@ public class MemoryManager {
                 artists.extend();
             }
         }
-        else {	//If this is a song, check the song table
+        //If this is a song, check the song table
+        else {
             if (songs.get(record) != null) {
                 System.out.println("|" + record + "| duplicates a record "
                         + "already in the song database.");
@@ -251,7 +253,8 @@ public class MemoryManager {
                     buf.append(" -> ");
                 }
             }
-            if (buf.length() > 0) {   //If no free blocks available..
+            //If no free blocks available..
+            if (buf.length() > 0) {
                 System.out.println(buf.toString());
             }
         }
@@ -270,11 +273,11 @@ public class MemoryManager {
 
         freeBlocks.jumpToTail();  //Prepare for appending
         freeBlocks.stepBack();
-
+        /*
         System.out.println("Memory pool expanded to be " + 
                             pool.length + 
                             " bytes.");
-
+         */
         //If there are at least one free memory blocks
         if (freeBlocks.getSize() != 2) {   
             freeBlocks.append(
