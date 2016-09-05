@@ -221,7 +221,7 @@ public class MemoryManager {
             Hash[] table = artists.getTable();
             for (int i = 0; i < table.length; i++) {
                 Hash item = table[i];
-                if (item != null) {
+                if (item != null && item.getKey() != null) {
                     System.out.println("|" + item.getKey() + "| " + i);
                 }
             }
@@ -231,7 +231,7 @@ public class MemoryManager {
             Hash[] table = songs.getTable();
             for (int i = 0; i < table.length; i++) {
                 Hash item = table[i];
-                if (item != null) {
+                if (item != null && item.getKey() != null) {
                     System.out.println("|" + item.getKey() + "| " + i);
                 }
             }

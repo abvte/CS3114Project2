@@ -33,22 +33,20 @@ public class Hashtable {
     public boolean add(String key,  Object value)
     {
         Hash newHash = new Hash(key, value);
-
+        
         //Quadratic probing variable
         int i = 1;
-
+        
         int hash = h(key, this.size);
         int pos = hash;
-        while (table[pos] != null)
+        while (table[pos] != null && table[pos].getKey() != null)
         {
-            pos = (hash + (i * i)) % size; //add i^2
+            pos = (hash + (i * i)) % size;
             i++;
         }
-
-        //Add to table
+        
         table[pos] = newHash;
         items++;
-
         return true;
     }
 
@@ -62,18 +60,20 @@ public class Hashtable {
         int i = 1;
         int hash = h(key, this.size);
         int pos = hash;
-        while (i <= this.size)
+        while (table[pos] != null &&
+              (table[pos].getKey() == null ||
+              !table[pos].getKey().equals(key)))
         {
-            //Check to see if the position is null or the key doesn't match
-            if (table[pos] == null || !table[pos].getKey().equals(key)) {
-                pos = (hash + (i * i)) % size;
-                i++;
-            } 
-            else {
-                return table[pos].getValue();
-            }
+            pos = (hash + (i * i)) % size;
+            i++;
         }
-        return null;
+        
+        if (table[pos] == null) {
+            return null;
+        }
+        else {
+            return table[pos].getValue();
+        }
     }
 
     /**
@@ -85,22 +85,25 @@ public class Hashtable {
     {
         //Quadratic probing variable
         int i = 1;
-
+        
         int hash = h(key, this.size);
         int pos = hash;
-        while (i <= this.size)
+        while (table[pos] != null &&
+              (table[pos].getKey() == null ||
+              !table[pos].getKey().equals(key)))
         {
-            if (table[pos] == null || !table[pos].getKey().equals(key)) {
-                pos = (hash + (i * i)) % size;
-                i++;
-            } 
-            else {
-                table[pos] = null;
-                items--;
-                return true;
-            }
+            pos = (hash + (i * i)) % size;
+            i++;
         }
-        return false;
+        
+        // Didn't find key in table
+        if (table[pos] == null) {
+            return false;
+        }
+        table[pos] = new Hash(null, null);
+        items--;
+        
+        return true;
     }
 
     /**
