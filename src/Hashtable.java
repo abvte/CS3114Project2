@@ -124,7 +124,7 @@ public class Hashtable {
         {
             Hash oldHash = oldTable[i];
 
-            if (oldHash != null) 
+            if (oldHash != null && oldHash.getKey() != null) 
             {
                 add(oldHash.getKey(), oldHash.getValue());
             }

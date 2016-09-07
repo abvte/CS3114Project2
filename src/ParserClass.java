@@ -32,13 +32,16 @@ public class ParserClass {
      * Runs the parser on the file given
      */
     public void run() {
-        try (Scanner scanner1 = new Scanner(new File(fileName))) {
+        Scanner scanner1 = null;
+        try {
+            scanner1 = new Scanner(new File(fileName));
             while (scanner1.hasNextLine()) {
                 // Only split once because artist/song 
                 // names may have spaces
                 String[] commandSplit = scanner1.nextLine().split(" ", 2);
                 runCommand(commandSplit);
             }
+            scanner1.close();
         } 
         catch (FileNotFoundException e) {
             System.out.println("File not found");

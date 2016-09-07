@@ -292,7 +292,10 @@ public class MemoryManager {
             checkForMerge(freeBlocks.getCurrent());
         } 
         else {  //Else there are no free memory blocks, just append it
-            freeBlocks.append(new MemoryBlock(new byte[blockSize], null, 0));
+            freeBlocks.append(new MemoryBlock(
+                    new byte[blockSize], 
+                    null, 
+                    tempPool.length));
         }
     }
 

@@ -185,10 +185,16 @@ public class MemmanTest extends TestCase {
         Hashtable myHtb = new Hashtable(1024, "Artist");
         myHtb.add("key", "Maroon5");
         myHtb.add("keys", "Maroon6");
-        myHtb.add("keys", "Maroon7");
-
+        myHtb.add("keyss", "Maroon7");
+        assertEquals(3, myHtb.getItems());
         myHtb.extend();
         assertEquals(2048, myHtb.getSize());
+        myHtb.remove("key");
+        myHtb.remove("keys");
+        myHtb.remove("keyss");
+        assertEquals(0, myHtb.getItems());
+        myHtb.extend();
+        assertEquals(4096, myHtb.getSize());
     }
 
     // MemoryManagerTest
