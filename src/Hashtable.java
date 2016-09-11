@@ -101,6 +101,7 @@ public class Hashtable {
         if (table[pos] == null) {
             return false;
         }
+        // tumbstone
         table[pos] = new Hash(null, null);
         items--;
         

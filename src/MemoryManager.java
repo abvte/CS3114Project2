@@ -359,7 +359,7 @@ public class MemoryManager {
             blockCurrent = blockBefore; 
         }
 
-        //Make sure the block before isn't the tail
+        //Make sure the block after isn't the tail
         if (blockAfter != null &&
                 blockCurrent.getStart() + blockCurrent.getLength() 
                                         == blockAfter.getStart()) 

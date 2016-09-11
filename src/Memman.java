@@ -28,7 +28,8 @@
 /**
  * The class containing the main method.
  * 
- * @author Jinwoo Yom, Adam Bishop
+ * @author Jinwoo Yom
+ * @author Adam Bishop
  * @version 1.0
  */
 
