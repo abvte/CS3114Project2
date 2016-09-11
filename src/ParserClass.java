@@ -72,41 +72,41 @@ public class ParserClass {
      * @param x command
      */
     public void runCommand(String[] x) {
-        //x[0] is the command
-        switch(x[0]) {
-            case "insert": {
-                //Parse the artist song combination
-                String[] info = insertParse(x[1]);
-                memManager.insert(info[0], true);
-                memManager.insert(info[1], false);
-                break;
+        // x[0] is the command
+        if (x[0].equals("insert")) {
+            // Parse the artist song combination
+            String[] info = insertParse(x[1]);
+            memManager.insert(info[0], true);
+            memManager.insert(info[1], false);
+        } 
+        else if (x[0].equals("remove")) {
+            String[] processed = x[1].split(" ", 2);
+            if (processed[0].equals("artist")) {
+                memManager.remove(processed[1], true);
+            } 
+            else if (processed[0].equals("song")) {
+                memManager.remove(processed[1], false);
             }
-            case "remove": {
-                String[] processed = x[1].split(" ", 2);
-                if (processed[0].equals("artist")) {
-                    memManager.remove(processed[1], true);
-                }
-                else if (processed[0].equals("song")) {
-                    memManager.remove(processed[1], false);
-                }
-                break;
+            else {
+                System.out.println("Unknown type in remove command");
             }
-            case "print": {
-                if (x[1].equals("artist")) {
-                    memManager.print(true, false, false);
-                }
-                else if (x[1].equals("song")) {
-                    memManager.print(false, true, false);
-                }
-                else if (x[1].equals("blocks")) {
-                    memManager.print(false, false, true);
-                }
-                break;
+        } 
+        else if (x[0].equals("print")) {
+            if (x[1].equals("artist")) {
+                memManager.print(true, false, false);
+            } 
+            else if (x[1].equals("song")) {
+                memManager.print(false, true, false);
+            } 
+            else if (x[1].equals("blocks")) {
+                memManager.print(false, false, true);
             }
-            default: {
-                System.out.println("Command not recognized");
-                break;
+            else {
+                System.out.println("Unknown type in print command");
             }
+        } 
+        else {
+            System.out.println("Command not recognized");
         }
     }
 

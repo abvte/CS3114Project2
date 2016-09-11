@@ -279,24 +279,18 @@ public class MemoryManager {
                             pool.length + 
                             " bytes.");
 
+        freeBlocks.append(
+                new MemoryBlock(
+                new byte[blockSize], 
+                null, 
+                tempPool.length)
+        );
+        
         //If there are at least one free memory blocks
-        if (freeBlocks.getSize() != 2) {   
-            freeBlocks.append(
-                    new MemoryBlock(
-                    new byte[blockSize], 
-                    null, 
-                    freeBlocks.getCurrent().getNodeData().getStart() + 
-                    freeBlocks.getCurrent().getNodeData().getLength())
-            );
+        if (freeBlocks.getSize() != 3) {   
             //Check for merging opportunities
             checkForMerge(freeBlocks.getCurrent());
         } 
-        else {  //Else there are no free memory blocks, just append it
-            freeBlocks.append(new MemoryBlock(
-                    new byte[blockSize], 
-                    null, 
-                    tempPool.length));
-        }
     }
 
     /**
@@ -322,7 +316,7 @@ public class MemoryManager {
             
             //If difference is less than minimum found and 
             //there's enough space for the length bytes
-            if (difference < min && difference >= 2) {    
+            if (difference < min && difference >= 2) {
                 min = difference;
                 minPos = position;
             }

@@ -2,6 +2,7 @@ import student.TestCase;
 
 /**
  * @author Jinwoo Yom
+ * @author Adam Bishop
  * @version 1.0
  */
 public class MemmanTest extends TestCase {
@@ -51,7 +52,9 @@ public class MemmanTest extends TestCase {
         String[] args = {"1234", "4321", "errorFile.txt"};
         Memman.main(args);
         String output = systemOut().getHistory();
-        assertEquals("Command not recognized\n", output);
+        assertEquals("Command not recognized\n"
+                + "Unknown type in remove command\n"
+                + "Unknown type in print command\n", output);
     }
 
     /**
@@ -131,9 +134,6 @@ public class MemmanTest extends TestCase {
         assertNotNull(myHtb);
         assertEquals(1024, myHtb.getSize());
         assertEquals(1024, myHtb.getTable().length);
-
-        //assertEquals(myHash.h("aaaabbbb", 101), 75);
-        //assertEquals(myHash.h("aaaabbb", 101), 1640219587 % 101);
     }
 
     /**
@@ -146,6 +146,21 @@ public class MemmanTest extends TestCase {
         myHtb.add("keys", "Maroon6");
         myHtb.add("keys", "Maroon7");
         assertEquals(3, myHtb.getItems());
+    }
+    
+    /**
+     * tests adding an entry to the hashtable with tombstone
+     */
+    public void testHashtableAddWithTombstone() {
+        Hashtable myHtb = new Hashtable(10, "Artist");
+        myHtb.add("key", "Maroon5");
+        assertEquals(1, myHtb.getItems());
+        myHtb.remove("key");
+        assertNull(myHtb.getTable()[9].getKey());
+        assertEquals(0, myHtb.getItems());
+        myHtb.add("key", "Maroon5");
+        assertEquals(1, myHtb.getItems());
+        assertEquals(myHtb.getTable()[9].getKey(), "key");
     }
 
     /**
@@ -205,8 +220,11 @@ public class MemmanTest extends TestCase {
         MemoryManager mm = new MemoryManager(2, 1);
         mm.insert("Micheal Jackson", true);
         mm.insert("Micheal Jackson", true);
+        mm.insert("Suck my kiss", false);
+        mm.insert("Suck my kiss", false);
         mm.insert("Eagles", true);
         assertEquals(2, mm.artists.getItems());
+        assertEquals(1, mm.songs.getItems());
     }
 
     /**
@@ -280,6 +298,24 @@ public class MemmanTest extends TestCase {
                 + "\n(5,0)\n", output);
     }
 
+    
+    /**
+     * Tests the print function with blocks that have
+     * used blocks between them
+     */
+    public void testMemoryManagerFreeBlocksMergePrint() {
+        MemoryManager mm = new MemoryManager(10, 15);
+        mm.insert("xyz", true);
+        mm.insert("abc", true);
+        mm.insert("qwe", true);
+        mm.remove("xyz", true);
+        mm.remove("qwe", true);
+
+        assertTrue(mm.print(false, false, true));
+        String output = systemOut().getHistory();
+        assertTrue(output.contains("(0,5) -> (10,5)"));
+    }
+    
     // ParserTest
     /**
      * Tests the parser

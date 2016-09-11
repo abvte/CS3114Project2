@@ -60,6 +60,7 @@ public class Hashtable {
         int i = 1;
         int hash = h(key, this.size);
         int pos = hash;
+
         while (table[pos] != null &&
               (table[pos].getKey() == null ||
               !table[pos].getKey().equals(key)))
