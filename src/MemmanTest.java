@@ -47,8 +47,6 @@ public class MemmanTest extends TestCase {
      * Tests an unknown command
      */
     public void testWrongCommand() {
-        Memman mem = new Memman();
-        assertNotNull(mem);
         String[] args = {"1234", "4321", "errorFile.txt"};
         Memman.main(args);
         String output = systemOut().getHistory();
@@ -61,8 +59,6 @@ public class MemmanTest extends TestCase {
      * Tests that the parser can recognize and activate all commands
      */
     public void testParsing() {
-        Memman mem = new Memman();
-        assertNotNull(mem);
         String[] args = {"1234", "4321", "testFile.txt"};
         Memman.main(args);
         String output = systemOut().getHistory();
