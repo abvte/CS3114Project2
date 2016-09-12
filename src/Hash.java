@@ -3,12 +3,14 @@
  *
  * @author CS3114 staff
  * @version August 27, 2016
+ * @param E is the key data type
+ * @param T is the value data type
  */
 
-public class Hash
+public class Hash<E, T>
 {
-    private String key; //Key which maps to the value
-    private Object value;   //Value which corresponds to the key
+    private E key; //Key which maps to the value
+    private T value;   //Value which corresponds to the key
 
 
     /**
@@ -16,7 +18,7 @@ public class Hash
      * @param newKey the new key
      * @param newValue the new value
      */
-    public Hash(String newKey, Object newValue)
+    public Hash(E newKey, T newValue)
     {
         key = newKey;
         value = newValue;
@@ -25,7 +27,7 @@ public class Hash
     /**
      * @return key
      */
-    public String getKey() 
+    public E getKey() 
     {
         return key;
     }
@@ -33,7 +35,7 @@ public class Hash
     /**
      * @return value
      */
-    public Object getValue()
+    public T getValue()
     {
         return value;
     }    

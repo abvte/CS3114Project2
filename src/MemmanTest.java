@@ -5,6 +5,7 @@ import student.TestCase;
  * @author Adam Bishop
  * @version 1.0
  */
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class MemmanTest extends TestCase {
     /**
      * This method sets up the tests that follow.

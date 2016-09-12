@@ -4,9 +4,12 @@
  * @author Adam Bishop
  * @author Jinwoo Yom
  * @version 1.0
+ * @param E is the key data type
+ * @param T is the value data type
  */
-public class Hashtable {
-    private Hash[] table;  //Table holding hash objects
+@SuppressWarnings("unchecked")
+public class Hashtable<E, T> {
+    private Hash<E, T>[] table;  //Table holding hash objects
     private int size;  //Max items
     private int items; //Current amount of items
     private String name;   //Name for use when outputting 
@@ -30,14 +33,14 @@ public class Hashtable {
      * @param value new value
      * @return true or false
      */
-    public boolean add(String key,  Object value)
+    public boolean add(E key, T value)
     {
-        Hash newHash = new Hash(key, value);
+        Hash<E, T> newHash = new Hash<E, T>(key, value);
         
         //Quadratic probing variable
         int i = 1;
         
-        int hash = h(key, this.size);
+        int hash = h((String) key, this.size);
         int pos = hash;
         while (table[pos] != null && table[pos].getKey() != null)
         {
@@ -55,10 +58,10 @@ public class Hashtable {
      * @param key in key/value pair
      * @return value in key/value pair
      */
-    public Object get(String key)
+    public T get(E key)
     {
         int i = 1;
-        int hash = h(key, this.size);
+        int hash = h((String) key, this.size);
         int pos = hash;
 
         while (table[pos] != null &&
@@ -101,7 +104,7 @@ public class Hashtable {
         if (table[pos] == null) {
             return false;
         }
-        table[pos] = new Hash(null, null);
+        table[pos] = new Hash<E, T>(null, null);
         items--;
         
         return true;
@@ -113,7 +116,7 @@ public class Hashtable {
     public void extend()
     {
         //Store old values
-        Hash[] oldTable = table;
+        Hash<E, T>[] oldTable = table;
         int oldSize = size;
 
         size = size * 2;
@@ -123,7 +126,7 @@ public class Hashtable {
         //Rehash all stored hashes
         for (int i = 0; i < oldSize; i++)
         {
-            Hash oldHash = oldTable[i];
+            Hash<E, T> oldHash = oldTable[i];
 
             if (oldHash != null && oldHash.getKey() != null) 
             {
@@ -173,7 +176,7 @@ public class Hashtable {
     /**
      * @return table
      */
-    public Hash[] getTable()
+    public Hash<E, T>[] getTable()
     {
         return table;
     }
