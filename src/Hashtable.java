@@ -4,8 +4,8 @@
  * @author Adam Bishop
  * @author Jinwoo Yom
  * @version 1.0
- * @param E is the key data type
- * @param T is the value data type
+ * @param <E> is the key data type
+ * @param <T> is the value data type
  */
 @SuppressWarnings("unchecked")
 public class Hashtable<E, T> {

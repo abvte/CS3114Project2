@@ -313,7 +313,6 @@ public class MemmanTest extends TestCase {
         assertTrue(output.contains("(0,5) -> (10,5)"));
     }
     
-    // ParserTest
     /**
      * Tests the parser
      */
