@@ -1,3 +1,5 @@
+import java.nio.ByteBuffer;
+
 /**
  * Implementation of the MemoryManager. Contains the MemoryBlock class
  * @author Adam Bishop
@@ -10,12 +12,12 @@ public class MemoryManager {
     /**
      * Holds hashes of Artists with handles being their values
      */
-    protected Hashtable artists;
+    protected Hashtable<String, MemoryBlock> artists;
     
     /**
      * Holds hashes of Song with handles being their values
      */
-    protected Hashtable songs;
+    protected Hashtable<String, MemoryBlock> songs;
     private DoublyLinkedList<MemoryBlock> freeBlocks;   //LinkedList 
                               //holding handles to free MemoryBlocks
     private int blockSize;  //Initial pool size and the size of added 
@@ -30,8 +32,8 @@ public class MemoryManager {
     MemoryManager(int hashSize, int newBlockSize)
     {
         freeBlocks = new DoublyLinkedList<MemoryBlock>();
-        artists = new Hashtable(hashSize, "Artist");
-        songs = new Hashtable(hashSize, "Song");
+        artists = new Hashtable<String, MemoryBlock>(hashSize, "Artist");
+        songs = new Hashtable<String, MemoryBlock>(hashSize, "Song");
         pool = new byte[newBlockSize];
         blockSize = newBlockSize;
 
@@ -218,21 +220,25 @@ public class MemoryManager {
     public boolean print(boolean artist, boolean song, boolean block)
     {
         if (artist) {
-            Hash[] table = artists.getTable();
+            Hash<String, MemoryBlock>[] table = artists.getTable();
             for (int i = 0; i < table.length; i++) {
-                Hash item = table[i];
+                Hash<String, MemoryBlock> item = table[i];
                 if (item != null && item.getKey() != null) {
-                    System.out.println("|" + item.getKey() + "| " + i);
+                    String artistStr = decodeMemory(
+                                        item.getValue().getMemory()
+                                        );
+                    System.out.println("|" + artistStr + "| " + i);
                 }
             }
             System.out.println("total artists: " + artists.getItems());
         }
         else if (song) {
-            Hash[] table = songs.getTable();
+            Hash<String, MemoryBlock>[] table = songs.getTable();
             for (int i = 0; i < table.length; i++) {
-                Hash item = table[i];
+                Hash<String, MemoryBlock> item = table[i];
                 if (item != null && item.getKey() != null) {
-                    System.out.println("|" + item.getKey() + "| " + i);
+                    String songStr = decodeMemory(item.getValue().getMemory());
+                    System.out.println("|" + songStr + "| " + i);
                 }
             }
             System.out.println("total songs: " + songs.getItems());
@@ -261,6 +267,27 @@ public class MemoryManager {
         }
         return true;
     }
+    
+    /**
+     * Decodes a byte array which holds both the length
+     * of the string and the string itself
+     * @param memory that holds the encoded string
+     * @return String that the memory represents
+     */
+    private String decodeMemory(byte[] memory) {
+        ByteBuffer byteBuff = null;
+        byteBuff = ByteBuffer.wrap(memory);
+        
+        //Uses Big-Endian
+        byte[] len = new byte[2];
+        len[0] = byteBuff.get();
+        len[1] = byteBuff.get();
+        int decodedLen = ((len[0] & 0xff) << 8) | (len[1] & 0xff);
+
+        byte[] str = new byte[decodedLen];
+        System.arraycopy(memory, 2, str, 0, memory.length - 2);
+        return new String(str);
+    }
 
     /**
      * Expands the size of the memory pool by {blockSize}
@@ -272,7 +299,7 @@ public class MemoryManager {
         //Copy old pool into new
         System.arraycopy(tempPool, 0, pool, 0, tempPool.length);
 
-        freeBlocks.jumpToTail();  //Prepare for appending
+        freeBlocks.jumpToTail();  //Prepare for appending and merging
         freeBlocks.stepBack();
 
         System.out.println("Memory pool expanded to be " + 
@@ -414,14 +441,13 @@ public class MemoryManager {
          * Writes to the memory pool the contents of the block's memory
          * @return true or false depending on if the application was successful
          */
-        public boolean applyBlock()
+        public void applyBlock()
         {
             System.arraycopy(memory, 
                     0, 
                     MemoryManager.this.getPool(), 
                     start, 
                     length);
-            return true;
         }
 
         /**
@@ -447,6 +473,13 @@ public class MemoryManager {
          */
         public int getLength() {
             return length;
+        }
+        
+        /**
+         * @return memory variable
+         */
+        public byte[] getMemory() {
+            return memory;
         }
 
     }
