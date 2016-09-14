@@ -45,16 +45,16 @@ public class MemoryManager {
      * Inserts a record into memory
      * @param record The song/artist to add
      * @param artist Indicates if the record belongs in the artist table or not
-     * @return true if the insertion was successful, false otherwise
+     * @return handle to memory block
      */
-    public boolean insert(String record, boolean artist)
+    public MemoryBlock insert(String record, boolean artist)
     {
         MemoryBlock handle; //Empty Handle
         if (artist) {   //If this is an artist, check the artist table
             if (artists.get(record) != null) {
                 System.out.println("|" + record + "| duplicates a record "
                         + "already in the artist database.");
-                return false;
+                return null;
             }
             //Make sure the amount of items doesn't
             //exceed half the size of the hashtable
@@ -66,7 +66,7 @@ public class MemoryManager {
             if (songs.get(record) != null) {
                 System.out.println("|" + record + "| duplicates a record "
                         + "already in the song database.");
-                return false;
+                return null;
             }
             //Make sure the amount of items doesn't 
             //exceed half the size of the hashtable
@@ -118,7 +118,7 @@ public class MemoryManager {
                                " is added to the song database.");
         }
 
-        return true;
+        return newBlock;
     }
 
     /**
@@ -136,16 +136,16 @@ public class MemoryManager {
      * Removes a record into memory
      * @param record The song/artist to remove
      * @param artist Indicates if the record belongs in the artist table or not
-     * @return true if the removal was successful, false otherwise
+     * @return handle to the removed memory block
      */
-    public boolean remove(String record, boolean artist)
+    public MemoryBlock remove(String record, boolean artist)
     {
         MemoryBlock handle;    //Empty Handle
         if (artist) {
             if (artists.get(record) == null) {
                 System.out.println("|" + record + 
                                    "| does not exist in the artist database.");
-                return false;
+                return null;
             } 
             else {    //Else if the record exists, remove the handle
                 handle = (MemoryBlock) artists.get(record);
@@ -158,7 +158,7 @@ public class MemoryManager {
             if (songs.get(record) == null) {
                 System.out.println("|" + record +
                                    "| does not exist in the song database.");
-                return false;
+                return null;
             }
             else {    //Else if the record exists, remove the handle
                 handle = (MemoryBlock) songs.get(record);
@@ -175,7 +175,7 @@ public class MemoryManager {
         //If the freeBlocks list is empty, just insert the handle
         if (freeBlocks.getSize() == 2) {
             freeBlocks.append(handle);
-            return true;
+            return handle;
         }
         else {
             //While there are nodes...
@@ -193,19 +193,19 @@ public class MemoryManager {
                     freeBlocks.add(handle);
                     //Check to see if there are merging opportunities
                     checkForMerge(freeBlocks.getCurrent());
-                    return true;
+                    return handle;
                 }
                 //Else If the current node starts later
                 //in the pool then the freed node
                 else if (currentBlock.getStart() > handle.getStart()) {
                     freeBlocks.add(handle);
                     checkForMerge(freeBlocks.getCurrent());
-                    return true;
+                    return handle;
                 }
             }
             // Else just append the block
             freeBlocks.append(handle);
-            return true;
+            return handle;
         }
     }
 
@@ -439,7 +439,7 @@ public class MemoryManager {
 
         /**
          * Writes to the memory pool the contents of the block's memory
-         * @return true or false depending on if the application was successful
+         * 
          */
         public void applyBlock()
         {

@@ -46,6 +46,9 @@ public class Hashtable<E, T> {
         {
             pos = (hash + (i * i)) % size;
             i++;
+            if (pos == hash) {  //We are back at the original position
+                return false;
+            }
         }
         
         table[pos] = newHash;
@@ -70,6 +73,9 @@ public class Hashtable<E, T> {
         {
             pos = (hash + (i * i)) % size;
             i++;
+            if (pos == hash) {  //We are back at the original position
+                return null;
+            }
         }
         
         if (table[pos] == null) {
@@ -98,6 +104,9 @@ public class Hashtable<E, T> {
         {
             pos = (hash + (i * i)) % size;
             i++;
+            if (pos == hash) {  //We are back at the original position
+                return false;
+            }
         }
         
         // Didn't find key in table

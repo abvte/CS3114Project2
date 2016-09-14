@@ -208,6 +208,26 @@ public class MemmanTest extends TestCase {
         myHtb.extend();
         assertEquals(4096, myHtb.getSize());
     }
+    
+    /**
+     * Tests a failure to search for an element in the
+     * Hash table
+     */
+    public void testHashtableQuadraticFail() {
+        Hashtable myHtb = new Hashtable(11, "Artist");
+        myHtb.add("a", "");
+        myHtb.add("a", "");
+        myHtb.add("a", "");
+        myHtb.add("a", "");
+        myHtb.add("a", "");
+        myHtb.add("a", "");
+        assertFalse(myHtb.add("a", ""));
+        for (int i = 0; i < 11; i++) {
+            myHtb.getTable()[i] = new Hash(null, null);
+        }
+        assertNull(myHtb.get("e"));
+        assertFalse(myHtb.remove("e"));
+    }
 
     // MemoryManagerTest
     /**
