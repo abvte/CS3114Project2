@@ -53,7 +53,7 @@ public class ParserClass {
      * @param line to parse
      * @return String[] containing the artist and song combination
      */
-    private String[] insertParse(String line) {
+    private String[] parseArtistSong(String line) {
         // Resulting string array declared
         String[] parsedInput = new String[2];
 
@@ -75,7 +75,7 @@ public class ParserClass {
         // x[0] is the command
         if (x[0].equals("insert")) {
             // Parse the artist song combination
-            String[] info = insertParse(x[1]);
+            String[] info = parseArtistSong(x[1]);
             memManager.insert(info[0], true);
             memManager.insert(info[1], false);
         } 
@@ -101,10 +101,30 @@ public class ParserClass {
             else if (x[1].equals("blocks")) {
                 memManager.print(false, false, true);
             }
+            else if (x[1].equals("tree")) {
+                //tree.print();
+            }
             else {
                 System.out.println("Unknown type in print command");
             }
-        } 
+        }
+        else if (x[0].equals("list")) {
+            String[] processed = x[1].split(" ", 2);
+            if (processed[0].equals("artist")) {
+             // List from tree
+            } 
+            else if (processed[0].equals("song")) {
+                // List from tree
+            }
+            else {
+                System.out.println("Unknown type in list command");
+            }
+        }
+        else if (x[0].equals("delete")) {
+            // Parse the artist song combination
+            String[] info = parseArtistSong(x[1]);
+            // Delete from the tree and possibly delete from hashtables
+        }
         else {
             System.out.println("Command not recognized");
         }
