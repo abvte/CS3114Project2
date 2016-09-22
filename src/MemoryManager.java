@@ -1,7 +1,7 @@
 import java.nio.ByteBuffer;
 
 /**
- * Implementation of the MemoryManager. Contains the MemoryBlock class
+ * Implementation of the MemoryManager. Contains the Handle class
  * @author Adam Bishop
  * @author Jinwoo Yom
  * @version 1.0
@@ -12,13 +12,13 @@ public class MemoryManager {
     /**
      * Holds hashes of Artists with handles being their values
      */
-    protected Hashtable<String, MemoryBlock> artists;
+    protected Hashtable<String, Handle> artists;
     
     /**
      * Holds hashes of Song with handles being their values
      */
-    protected Hashtable<String, MemoryBlock> songs;
-    private DoublyLinkedList<MemoryBlock> freeBlocks;   //LinkedList 
+    protected Hashtable<String, Handle> songs;
+    private DoublyLinkedList<Handle> freeBlocks;   //LinkedList 
                               //holding handles to free MemoryBlocks
     private int blockSize;  //Initial pool size and the size of added 
                             //free blocks
@@ -31,14 +31,14 @@ public class MemoryManager {
      */
     MemoryManager(int hashSize, int newBlockSize)
     {
-        freeBlocks = new DoublyLinkedList<MemoryBlock>();
-        artists = new Hashtable<String, MemoryBlock>(hashSize, "Artist");
-        songs = new Hashtable<String, MemoryBlock>(hashSize, "Song");
+        freeBlocks = new DoublyLinkedList<Handle>();
+        artists = new Hashtable<String, Handle>(hashSize, "Artist");
+        songs = new Hashtable<String, Handle>(hashSize, "Song");
         pool = new byte[newBlockSize];
         blockSize = newBlockSize;
 
         //This adds the first free memory block
-        freeBlocks.append(new MemoryBlock(new byte[pool.length], null, 0));
+        freeBlocks.append(new Handle(new byte[pool.length], null, 0));
     }
 
     /**
@@ -47,9 +47,9 @@ public class MemoryManager {
      * @param artist Indicates if the record belongs in the artist table or not
      * @return handle to memory block
      */
-    public MemoryBlock insert(String record, boolean artist)
+    public Handle insert(String record, boolean artist)
     {
-        MemoryBlock handle; //Empty Handle
+        Handle handle; //Empty Handle
         if (artist) {   //If this is an artist, check the artist table
             if (artists.get(record) != null) {
                 System.out.println("|" + record + "| duplicates a record "
@@ -84,7 +84,7 @@ public class MemoryManager {
         } while (handle == null);
 
         //New handle with the best fit block's position and length
-        MemoryBlock newBlock = new MemoryBlock(record.getBytes(), 
+        Handle newBlock = new Handle(record.getBytes(), 
                 toByte(record.length()), 
                 handle.getStart());
         newBlock.applyBlock();    //Write to the pool
@@ -138,9 +138,9 @@ public class MemoryManager {
      * @param artist Indicates if the record belongs in the artist table or not
      * @return handle to the removed memory block
      */
-    public MemoryBlock remove(String record, boolean artist)
+    public Handle remove(String record, boolean artist)
     {
-        MemoryBlock handle;    //Empty Handle
+        Handle handle;    //Empty Handle
         if (artist) {
             if (artists.get(record) == null) {
                 System.out.println("|" + record + 
@@ -148,7 +148,7 @@ public class MemoryManager {
                 return null;
             } 
             else {    //Else if the record exists, remove the handle
-                handle = (MemoryBlock) artists.get(record);
+                handle = (Handle) artists.get(record);
                 artists.remove(record);
                 System.out.println("|" + record + 
                                    "| is removed from the artist database.");
@@ -161,7 +161,7 @@ public class MemoryManager {
                 return null;
             }
             else {    //Else if the record exists, remove the handle
-                handle = (MemoryBlock) songs.get(record);
+                handle = (Handle) songs.get(record);
                 songs.remove(record);
                 System.out.println("|" + record + 
                                    "| is removed from the song database.");
@@ -181,7 +181,7 @@ public class MemoryManager {
             //While there are nodes...
             while (freeBlocks.stepForward()) {
                 //Get current node
-                MemoryBlock currentBlock = freeBlocks.getCurrent()
+                Handle currentBlock = freeBlocks.getCurrent()
                                                      .getNodeData();
                 if (currentBlock.getStart() + 
                     currentBlock.getLength() 
@@ -220,9 +220,9 @@ public class MemoryManager {
     public boolean print(boolean artist, boolean song, boolean block)
     {
         if (artist) {
-            Hash<String, MemoryBlock>[] table = artists.getTable();
+            Hash<String, Handle>[] table = artists.getTable();
             for (int i = 0; i < table.length; i++) {
-                Hash<String, MemoryBlock> item = table[i];
+                Hash<String, Handle> item = table[i];
                 if (item != null && item.getKey() != null) {
                     String artistStr = decodeMemory(
                                         item.getValue().getMemory()
@@ -233,9 +233,9 @@ public class MemoryManager {
             System.out.println("total artists: " + artists.getItems());
         }
         else if (song) {
-            Hash<String, MemoryBlock>[] table = songs.getTable();
+            Hash<String, Handle>[] table = songs.getTable();
             for (int i = 0; i < table.length; i++) {
-                Hash<String, MemoryBlock> item = table[i];
+                Hash<String, Handle> item = table[i];
                 if (item != null && item.getKey() != null) {
                     String songStr = decodeMemory(item.getValue().getMemory());
                     System.out.println("|" + songStr + "| " + i);
@@ -247,7 +247,7 @@ public class MemoryManager {
             StringBuffer buf = new StringBuffer();
             freeBlocks.jumpToHead();
             while (freeBlocks.stepForward()) {
-                Node<MemoryBlock> current = freeBlocks.getCurrent();
+                Node<Handle> current = freeBlocks.getCurrent();
                 buf.append("(" + 
                            current.getNodeData().getStart() + 
                            "," + 
@@ -307,7 +307,7 @@ public class MemoryManager {
                             " bytes.");
 
         freeBlocks.append(
-                new MemoryBlock(
+                new Handle(
                 new byte[blockSize], 
                 null, 
                 tempPool.length)
@@ -321,11 +321,11 @@ public class MemoryManager {
     }
 
     /**
-     * Find the MemoryBlock which is the best fit for the given record
+     * Find the Handle which is the best fit for the given record
      * @param record
-     * @return MemoryBlock which is the best fit
+     * @return Handle which is the best fit
      */
-    private MemoryBlock findBestFit(String record)
+    private Handle findBestFit(String record)
     {
         // Set min to a large value in preparation to find best fit
         int min = Integer.MAX_VALUE;
@@ -338,7 +338,7 @@ public class MemoryManager {
         freeBlocks.jumpToHead();
         while (freeBlocks.stepForward()) {
             position++;  //Log how many nodes traversed
-            MemoryBlock currentBestFit = freeBlocks.getCurrent().getNodeData();
+            Handle currentBestFit = freeBlocks.getCurrent().getNodeData();
             difference = currentBestFit.getLength() - record.length();
             
             //If difference is less than minimum found and 
@@ -366,10 +366,10 @@ public class MemoryManager {
      * Checks adjacent memory blocks and merges if possible
      * @param blockPointer
      */
-    private void checkForMerge(Node<MemoryBlock> blockPointer) {
-        MemoryBlock blockBefore = blockPointer.getBefore().getNodeData();
-        MemoryBlock blockAfter = blockPointer.getAfter().getNodeData();
-        MemoryBlock blockCurrent = blockPointer.getNodeData();
+    private void checkForMerge(Node<Handle> blockPointer) {
+        Handle blockBefore = blockPointer.getBefore().getNodeData();
+        Handle blockAfter = blockPointer.getAfter().getNodeData();
+        Handle blockCurrent = blockPointer.getNodeData();
 
         //Make sure the block before isn't the head
         //And the blocks are adjacent
@@ -410,7 +410,7 @@ public class MemoryManager {
      * Implementation for the handle to positions in the memory pool
      * @author Adam Bishop and Jinwoo Yom
      */
-    private class MemoryBlock {
+    private class Handle {
         private byte[] memory;    //Memory of the block
         private int length;   //Length of the data
         private int start;    //Where in the pool the memory block starts at
@@ -421,7 +421,7 @@ public class MemoryManager {
          * @param newMemoryLength Length of the memory to place in the block
          * @param newStart Location in the memory pool
          */
-        MemoryBlock(byte[] newMemory, byte[] newMemoryLength, int newStart) {
+        Handle(byte[] newMemory, byte[] newMemoryLength, int newStart) {
             //If the length isn't null..use that value
             if (newMemoryLength != null) {
                 memory = new byte[newMemory.length + twoByte];
