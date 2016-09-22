@@ -14,6 +14,8 @@ public class KVPair<E, T> {
     private T value;
 
     /**
+     * Constructor 
+     * 
      * @param keyHandle
      *            Initial key handle
      * @param valueHandle
@@ -25,6 +27,7 @@ public class KVPair<E, T> {
     }
 
     /**
+     * Getter for key handle
      * @return Key handle
      */
     public E getKey() {
@@ -32,6 +35,7 @@ public class KVPair<E, T> {
     }
 
     /**
+     * Getter for value handle
      * @return Value handle
      */
     public T getValue() {
@@ -39,6 +43,7 @@ public class KVPair<E, T> {
     }
 
     /**
+     * Setter for key handle
      * @param keyValue
      *            Key handle to set
      */
@@ -47,6 +52,7 @@ public class KVPair<E, T> {
     }
 
     /**
+     * Setting for value handle
      * @param valueHandle
      *            Value handle to set
      */

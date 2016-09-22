@@ -14,6 +14,7 @@ class TreeNode<KVPair> {
     protected KVPair pair2;
 
     /**
+     * Constructor 
      * @param firstPair
      *              First key-value pair 
      * @param secondPair
@@ -25,6 +26,7 @@ class TreeNode<KVPair> {
     }
     
     /**
+     * Getter for pair 1
      * @return One of the key-value pair 
      */
     public KVPair getPair1() {
@@ -32,6 +34,7 @@ class TreeNode<KVPair> {
     }
     
     /**
+     * Setter for pair 1 
      * @param pair
      *             Pair to set one of the values
      */
@@ -40,6 +43,7 @@ class TreeNode<KVPair> {
     }
     
     /**
+     * Getter for pair 2
      * @return One of the key-value pair 
      */
     public KVPair getPair2() {
@@ -47,6 +51,7 @@ class TreeNode<KVPair> {
     }
     
     /**
+     * Setter for pair 2
      * @param pair 
      *            Pair to set one of the values
      */
