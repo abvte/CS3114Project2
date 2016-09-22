@@ -10,8 +10,8 @@
  */
 @SuppressWarnings("hiding")
 class TreeNode<KVPair> {
-    private KVPair pair1;
-    private KVPair pair2;
+    protected KVPair pair1;
+    protected KVPair pair2;
 
     /**
      * @param firstPair
