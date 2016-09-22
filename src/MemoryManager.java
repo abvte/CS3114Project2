@@ -87,7 +87,6 @@ public class MemoryManager {
         Handle newBlock = new Handle(record.getBytes(), 
                 toByte(record.length()), 
                 handle.getStart());
-        newBlock.applyBlock();    //Write to the pool
 
         if (artist) {
             artists.add(record, newBlock);
@@ -224,9 +223,13 @@ public class MemoryManager {
             for (int i = 0; i < table.length; i++) {
                 Hash<String, Handle> item = table[i];
                 if (item != null && item.getKey() != null) {
-                    String artistStr = decodeMemory(
-                                        item.getValue().getMemory()
-                                        );
+                    Handle memBlock = item.getValue();
+                    byte[] memory = new byte[memBlock.getLength()];
+                    System.arraycopy(pool, 
+                            memBlock.getStart(), 
+                            memory, 0, 
+                            memory.length);
+                    String artistStr = decodeMemory(memory);
                     System.out.println("|" + artistStr + "| " + i);
                 }
             }
@@ -237,7 +240,13 @@ public class MemoryManager {
             for (int i = 0; i < table.length; i++) {
                 Hash<String, Handle> item = table[i];
                 if (item != null && item.getKey() != null) {
-                    String songStr = decodeMemory(item.getValue().getMemory());
+                    Handle memBlock = item.getValue();
+                    byte[] memory = new byte[memBlock.getLength()];
+                    System.arraycopy(pool, 
+                            memBlock.getStart(), 
+                            memory, 0, 
+                            memory.length);
+                    String songStr = decodeMemory(memory);
                     System.out.println("|" + songStr + "| " + i);
                 }
             }
@@ -411,18 +420,18 @@ public class MemoryManager {
      * @author Adam Bishop and Jinwoo Yom
      */
     private class Handle {
-        private byte[] memory;    //Memory of the block
         private int length;   //Length of the data
         private int start;    //Where in the pool the memory block starts at
 
         /**
-         * Memory block constructor
+         * Memory block constructor. Writes to the pool.
          * @param newMemory Memory to place in the block
          * @param newMemoryLength Length of the memory to place in the block
          * @param newStart Location in the memory pool
          */
         Handle(byte[] newMemory, byte[] newMemoryLength, int newStart) {
             //If the length isn't null..use that value
+            byte[] memory;
             if (newMemoryLength != null) {
                 memory = new byte[newMemory.length + twoByte];
                 System.arraycopy(newMemoryLength, 0, memory, 0, 2);
@@ -435,19 +444,7 @@ public class MemoryManager {
 
             length = memory.length;
             start = newStart;
-        }
-
-        /**
-         * Writes to the memory pool the contents of the block's memory
-         * 
-         */
-        public void applyBlock()
-        {
-            System.arraycopy(memory, 
-                    0, 
-                    MemoryManager.this.getPool(), 
-                    start, 
-                    length);
+            System.arraycopy(memory, 0, pool, start, length);
         }
 
         /**
@@ -473,13 +470,6 @@ public class MemoryManager {
          */
         public int getLength() {
             return length;
-        }
-        
-        /**
-         * @return memory variable
-         */
-        public byte[] getMemory() {
-            return memory;
         }
 
     }

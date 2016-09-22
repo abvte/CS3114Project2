@@ -332,6 +332,28 @@ public class MemmanTest extends TestCase {
         String output = systemOut().getHistory();
         assertTrue(output.contains("(0,5) -> (10,5)"));
     }
+
+    /**
+     * Tests that the free block list will merge
+     * with both a block to the right and a block
+     * to the left.
+     */
+    public void testMemoryManagerMerge() {
+        MemoryManager mm = new MemoryManager(10, 15);
+        mm.insert("xyz", true);
+        mm.insert("abc", true);
+        mm.insert("qwe", true);
+        mm.remove("xyz", true);
+        mm.remove("qwe", true);
+
+        assertTrue(mm.print(false, false, true));
+        String output = systemOut().getHistory();
+        assertTrue(output.contains("(0,5) -> (10,5)"));
+        mm.remove("abc", true); //Merge here
+        assertTrue(mm.print(false, false, true));
+        output = systemOut().getHistory();
+        assertTrue(output.contains("(0,15)\n"));
+    }
     
     /**
      * Tests the parser
