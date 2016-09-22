@@ -398,7 +398,7 @@ public class MemoryManager {
      * 
      * @author Adam Bishop and Jinwoo Yom
      */
-    private class Handle {
+    private class Handle implements Comparable<Handle> {
         private int length; // Length of the data
         private int start; // Where in the pool the memory block starts at
 
@@ -454,6 +454,31 @@ public class MemoryManager {
          */
         public int getLength() {
             return length;
+        }
+
+        /**
+         * Compares start values of the blocks
+         * @param other The block to compare to
+         * @return 1 if the other block has a greater start value,
+         *         0 if the other block has the same start value, or
+         *        -1 if the other block has a lesser start value
+         *         
+         */
+        @Override
+        public int compareTo(Handle other) {
+            // TODO Auto-generated method stub
+            int otherStart = other.getStart();
+            int thisStart = this.getStart();
+            
+            if (otherStart == thisStart) {
+                return 0;
+            }
+            else if (otherStart > thisStart) {
+                return 1;
+            }
+            else {
+                return -1;
+            }
         }
 
     }
