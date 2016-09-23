@@ -127,7 +127,8 @@ public class MemmanTest extends TestCase {
      * Tests initialization of the hash table
      */
     public void testHashtableinit() {
-        Hashtable myHtb = new Hashtable(1024, "Artist");
+        MemoryManager memManager = new MemoryManager(1024, 32);
+        Hashtable myHtb = new Hashtable(1024, "Artist", memManager);
         assertNotNull(myHtb);
         assertEquals(1024, myHtb.getSize());
         assertEquals(1024, myHtb.getTable().length);
@@ -137,7 +138,8 @@ public class MemmanTest extends TestCase {
      * tests adding an entry to the hashtable
      */
     public void testHashtableAdd() {
-        Hashtable myHtb = new Hashtable(1024, "Artist");
+        MemoryManager memManager = new MemoryManager(1024, 32);
+        Hashtable myHtb = new Hashtable(1024, "Artist", memManager);
         myHtb.add("key", "Maroon5");
         assertEquals(1, myHtb.getItems());
         myHtb.add("keys", "Maroon6");
@@ -149,7 +151,8 @@ public class MemmanTest extends TestCase {
      * tests adding an entry to the hashtable with tombstone
      */
     public void testHashtableAddWithTombstone() {
-        Hashtable myHtb = new Hashtable(10, "Artist");
+        MemoryManager memManager = new MemoryManager(1024, 32);
+        Hashtable myHtb = new Hashtable(10, "Artist", memManager);
         myHtb.add("key", "Maroon5");
         assertEquals(1, myHtb.getItems());
         myHtb.remove("key");
@@ -164,7 +167,8 @@ public class MemmanTest extends TestCase {
      * Tests getting an object from the hashtable
      */
     public void testHashtableGet() {
-        Hashtable myHtb = new Hashtable(1024, "Artist");
+        MemoryManager memManager = new MemoryManager(1024, 32);
+        Hashtable myHtb = new Hashtable(1024, "Artist", memManager);
         myHtb.add("key", "Maroon5");
         myHtb.add("keys", "Maroon6");
         myHtb.add("keys", "Maroon7");
@@ -179,7 +183,8 @@ public class MemmanTest extends TestCase {
      * Tests removing an entry from the hashtable
      */
     public void testHashtableRemove() {
-        Hashtable myHtb = new Hashtable(1024, "Artist");
+        MemoryManager memManager = new MemoryManager(1024, 32);
+        Hashtable myHtb = new Hashtable(1024, "Artist", memManager);
         myHtb.add("key", "Maroon5");
         myHtb.add("keys", "Maroon6");
         myHtb.add("keys", "Maroon7");
@@ -194,7 +199,8 @@ public class MemmanTest extends TestCase {
      * tests extending the hashtable
      */
     public void testHashtableExtend() {
-        Hashtable myHtb = new Hashtable(1024, "Artist");
+        MemoryManager memManager = new MemoryManager(1024, 32);
+        Hashtable myHtb = new Hashtable(1024, "Artist", memManager);
         myHtb.add("key", "Maroon5");
         myHtb.add("keys", "Maroon6");
         myHtb.add("keyss", "Maroon7");
@@ -208,13 +214,13 @@ public class MemmanTest extends TestCase {
         myHtb.extend();
         assertEquals(4096, myHtb.getSize());
     }
-    
+
     /**
-     * Tests a failure to search for an element in the
-     * Hash table
+     * Tests a failure to search for an element in the Hash table
      */
     public void testHashtableQuadraticFail() {
-        Hashtable myHtb = new Hashtable(11, "Artist");
+        MemoryManager memManager = new MemoryManager(1024, 32);
+        Hashtable myHtb = new Hashtable(11, "Artist", memManager);
         myHtb.add("a", "");
         myHtb.add("a", "");
         myHtb.add("a", "");

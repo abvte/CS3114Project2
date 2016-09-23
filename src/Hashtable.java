@@ -1,56 +1,64 @@
-
 /**
  * Hashtable data structure with quadratic probing for collision avoidance
+ * 
  * @author Adam Bishop
  * @author Jinwoo Yom
  * @version 1.0
- * @param <E> is the key data type
- * @param <T> is the value data type
+ * @param <E>
+ *            is the key data type
+ * @param <T>
+ *            is the value data type
  */
 @SuppressWarnings("unchecked")
-public class Hashtable<E, T> {
-    private Hash<E, T>[] table;  //Table holding hash objects
-    private int size;  //Max items
-    private int items; //Current amount of items
-    private String name;   //Name for use when outputting 
-                           //which hashtable expanded
+public class Hashtable<T> {
+    private Hash<T>[] table; // Table holding hash objects
+    private int size; // Max items
+    private int items; // Current amount of items
+    private String name; // Name for use when outputting
+                         // which hashtable expanded
+    private MemoryManager converter;
 
     /**
      * Constructor
-     * @param newSize new size
-     * @param newName new name
+     * 
+     * @param newSize
+     *            new size
+     * @param newName
+     *            new name
      */
-    Hashtable(int newSize,  String newName) {
+    Hashtable(int newSize, String newName, MemoryManager convert) {
         table = new Hash[newSize];
         size = newSize;
         items = 0;
         name = newName;
+        converter = convert;
     }
 
     /**
      * Adds a new (key, value) hash to the table
-     * @param key new key
-     * @param value new value
+     * 
+     * @param key
+     *            new key
+     * @param value
+     *            new value
      * @return true or false
      */
-    public boolean add(E key, T value)
-    {
-        Hash<E, T> newHash = new Hash<E, T>(key, value);
-        
-        //Quadratic probing variable
+    public boolean add(String key, T value) {
+        Hash<T> newHash = new Hash<T>(value);
+
+        // Quadratic probing variable
         int i = 1;
-        
-        int hash = h((String) key, this.size);
+
+        int hash = h(key, this.size);
         int pos = hash;
-        while (table[pos] != null && table[pos].getKey() != null)
-        {
+        while (table[pos] != null && table[pos].getValue() != null) {
             pos = (hash + (i * i)) % size;
             i++;
-            if (pos == hash) {  //We are back at the original position
+            if (pos == hash) { // We are back at the original position
                 return false;
             }
         }
-        
+
         table[pos] = newHash;
         items++;
         return true;
@@ -58,26 +66,27 @@ public class Hashtable<E, T> {
 
     /**
      * Queries the hashtable and returns a value if it exists
-     * @param key in key/value pair
+     * 
+     * @param key
+     *            in key/value pair
      * @return value in key/value pair
      */
-    public T get(E key)
-    {
+    public T get(String key, byte[] pool) {
         int i = 1;
         int hash = h((String) key, this.size);
         int pos = hash;
 
-        while (table[pos] != null &&
-              (table[pos].getKey() == null ||
-              !table[pos].getKey().equals(key)))
-        {
+        while (table[pos] != null
+                && (table[pos].getValue() == null || !converter
+                        .handle2String((Handle) table[pos].getValue(), pool)
+                        .equals(key))) {
             pos = (hash + (i * i)) % size;
             i++;
-            if (pos == hash) {  //We are back at the original position
+            if (pos == hash) { // We are back at the original position
                 return null;
             }
         }
-        
+
         if (table[pos] == null) {
             return null;
         }
@@ -88,58 +97,57 @@ public class Hashtable<E, T> {
 
     /**
      * Removes key/value pair
-     * @param key in key/value pair
+     * 
+     * @param key
+     *            in key/value pair
      * @return true or false based on success
      */
-    public boolean remove(String key)
-    {
-        //Quadratic probing variable
+    public boolean remove(String key, byte[] pool) {
+        // Quadratic probing variable
         int i = 1;
-        
+
         int hash = h(key, this.size);
         int pos = hash;
-        while (table[pos] != null &&
-              (table[pos].getKey() == null ||
-              !table[pos].getKey().equals(key)))
-        {
+        while (table[pos] != null
+                && (table[pos].getValue() == null || !converter
+                        .handle2String((Handle) table[pos].getValue(), pool)
+                        .equals(key))) {
             pos = (hash + (i * i)) % size;
             i++;
-            if (pos == hash) {  //We are back at the original position
+            if (pos == hash) { // We are back at the original position
                 return false;
             }
         }
-        
+
         // Didn't find key in table
         if (table[pos] == null) {
             return false;
         }
-        table[pos] = new Hash<E, T>(null, null);
+        table[pos] = new Hash<T>(null);
         items--;
-        
+
         return true;
     }
 
     /**
      * Doubles the size of the hashtable
      */
-    public void extend()
-    {
-        //Store old values
-        Hash<E, T>[] oldTable = table;
+    public void extend(byte[] pool) {
+        // Store old values
+        Hash<T>[] oldTable = table;
         int oldSize = size;
 
         size = size * 2;
-        table = new Hash[size];   //Create larger table
+        table = new Hash[size]; // Create larger table
         items = 0;
 
-        //Rehash all stored hashes
-        for (int i = 0; i < oldSize; i++)
-        {
-            Hash<E, T> oldHash = oldTable[i];
+        // Rehash all stored hashes
+        for (int i = 0; i < oldSize; i++) {
+            Hash<T> oldHash = oldTable[i];
 
-            if (oldHash != null && oldHash.getKey() != null) 
-            {
-                add(oldHash.getKey(), oldHash.getValue());
+            if (oldHash != null && oldHash.getValue() != null) {
+                add(converter.handle2String((Handle) oldHash.getValue(), pool),
+                        oldHash.getValue());
             }
         }
 
@@ -156,16 +164,13 @@ public class Hashtable<E, T> {
      *            The size of the hash table
      * @return The home slot for that string
      */
-    private int h(String s,  int m)
-    {
+    private int h(String s, int m) {
         int intLength = s.length() / 4;
         long sum = 0;
-        for (int j = 0; j < intLength; j++)
-        {
+        for (int j = 0; j < intLength; j++) {
             char[] c = s.substring(j * 4, (j * 4) + 4).toCharArray();
             long mult = 1;
-            for (int k = 0; k < c.length; k++)
-            {
+            for (int k = 0; k < c.length; k++) {
                 sum += c[k] * mult;
                 mult *= 256;
             }
@@ -173,36 +178,32 @@ public class Hashtable<E, T> {
 
         char[] c = s.substring(intLength * 4).toCharArray();
         long mult = 1;
-        for (int k = 0; k < c.length; k++)
-        {
+        for (int k = 0; k < c.length; k++) {
             sum += c[k] * mult;
             mult *= 256;
         }
 
-        return (int)(Math.abs(sum) % m);
+        return (int) (Math.abs(sum) % m);
     }
 
     /**
      * @return table
      */
-    public Hash<E, T>[] getTable()
-    {
+    public Hash<T>[] getTable() {
         return table;
     }
 
     /**
      * @return size
      */
-    public int getSize()
-    {
+    public int getSize() {
         return size;
     }
 
     /**
      * @return items
      */
-    public int getItems()
-    {
+    public int getItems() {
         return items;
     }
 }

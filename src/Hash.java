@@ -7,29 +7,18 @@
  * @param <T> is the value data type
  */
 
-public class Hash<E, T>
+public class Hash<T>
 {
-    private E key; //Key which maps to the value
     private T value;   //Value which corresponds to the key
 
 
     /**
      * Constructor
-     * @param newKey the new key
      * @param newValue the new value
      */
-    public Hash(E newKey, T newValue)
+    public Hash(T newValue)
     {
-        key = newKey;
         value = newValue;
-    }
-
-    /**
-     * @return key
-     */
-    public E getKey() 
-    {
-        return key;
     }
 
     /**
