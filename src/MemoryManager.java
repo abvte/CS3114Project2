@@ -301,14 +301,16 @@ public class MemoryManager {
     /**
      * @param location
      *            Location of the string within the byte array
+     * @param bytePool
+     *            Byte pool           
      * @return String conversion
      */
-    public String handle2String(Handle location, byte[] pool) {
+    public String handle2String(Handle location, byte[] bytePool) {
         String poolItem = null;
         int stringSize = 2; // First 2 positions of the byte array represents
                             // string size
         int beginPosition = location.getStart() + stringSize;
-        byte[] byteConvert = Arrays.copyOfRange(pool, beginPosition,
+        byte[] byteConvert = Arrays.copyOfRange(bytePool, beginPosition,
                 location.getStart() + location.getLength());
         try {
             poolItem = new String(byteConvert, "UTF-8");

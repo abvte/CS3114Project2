@@ -41,6 +41,10 @@ public class TTTree {
      *            First handle
      * @param second
      *            Second handle
+     * @param song
+     *            Song name
+     * @param artist
+     *            Artist name
      */
     public void processHandles(Handle first, Handle second, String song,
             String artist) {

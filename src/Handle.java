@@ -2,6 +2,7 @@
  * Implementation for the handle to positions in the memory pool
  * 
  * @author Adam Bishop and Jinwoo Yom
+ * @version 1.0
  */
 public class Handle implements Comparable<Handle> {
     private int length; // Length of the data
@@ -17,15 +18,19 @@ public class Handle implements Comparable<Handle> {
      *            Length of the memory to place in the block
      * @param newStart
      *            Location in the memory pool
+     * @param pool
+     *            Byte pool
      */
-    Handle(byte[] newMemory, byte[] newMemoryLength, int newStart, byte[] pool) {
+    Handle(byte[] newMemory, byte[] newMemoryLength, int newStart,
+            byte[] pool) {
         // If the length isn't null..use that value
         byte[] memory;
         if (newMemoryLength != null) {
             memory = new byte[newMemory.length + twoByte];
             System.arraycopy(newMemoryLength, 0, memory, 0, 2);
             System.arraycopy(newMemory, 0, memory, 2, newMemory.length);
-        } else { // Else if it is null, it's probably a free block
+        }
+        else { // Else if it is null, it's probably a free block
             memory = new byte[newMemory.length];
             System.arraycopy(newMemory, 0, memory, 0, newMemory.length);
         }
@@ -64,17 +69,19 @@ public class Handle implements Comparable<Handle> {
 
     /**
      * Compares start values of the blocks
-     * @param other The block to compare to
-     * @return 1 if the other block has a greater start value,
-     *         0 if the other block has the same start value, or
-     *        -1 if the other block has a lesser start value
-     *         
+     * 
+     * @param other
+     *            The block to compare to
+     * @return 1 if the other block has a greater start value, 0 if the other
+     *         block has the same start value, or -1 if the other block has a
+     *         lesser start value
+     * 
      */
     @Override
     public int compareTo(Handle other) {
         int otherStart = other.getStart();
         int thisStart = this.getStart();
-        
+
         if (otherStart == thisStart) {
             return 0;
         }
@@ -85,7 +92,7 @@ public class Handle implements Comparable<Handle> {
             return -1;
         }
     }
-    
+
     /**
      * Overload toString
      *

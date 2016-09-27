@@ -4,8 +4,6 @@
  * @author Adam Bishop
  * @author Jinwoo Yom
  * @version 1.0
- * @param <E>
- *            is the key data type
  * @param <T>
  *            is the value data type
  */
@@ -25,6 +23,8 @@ public class Hashtable<T> {
      *            new size
      * @param newName
      *            new name
+     * @param convert
+     *            Object to convert bytes to strings          
      */
     Hashtable(int newSize, String newName, MemoryManager convert) {
         table = new Hash[newSize];
@@ -69,6 +69,8 @@ public class Hashtable<T> {
      * 
      * @param key
      *            in key/value pair
+     * @param pool
+     *            Byte pool          
      * @return value in key/value pair
      */
     public T get(String key, byte[] pool) {
@@ -100,6 +102,8 @@ public class Hashtable<T> {
      * 
      * @param key
      *            in key/value pair
+     * @param pool
+     *            Byte pool           
      * @return true or false based on success
      */
     public T remove(String key, byte[] pool) {
@@ -132,6 +136,8 @@ public class Hashtable<T> {
 
     /**
      * Doubles the size of the hashtable
+     * @param pool
+     *              Byte pool
      */
     public void extend(byte[] pool) {
         // Store old values
