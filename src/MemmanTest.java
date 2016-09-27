@@ -147,9 +147,9 @@ public class MemmanTest extends TestCase {
         assertEquals(3, myHtb.getItems());
     }
     
-    /**
+/*    *//**
      * tests adding an entry to the hashtable with tombstone
-     */
+     *//*
     public void testHashtableAddWithTombstone() {
         MemoryManager memManager = new MemoryManager(1024, 32);
         Hashtable myHtb = new Hashtable(10, "Artist", memManager);
@@ -163,9 +163,9 @@ public class MemmanTest extends TestCase {
         assertEquals(myHtb.getTable()[9].getKey(), "key");
     }
 
-    /**
+    *//**
      * Tests getting an object from the hashtable
-     */
+     *//*
     public void testHashtableGet() {
         MemoryManager memManager = new MemoryManager(1024, 32);
         Hashtable myHtb = new Hashtable(1024, "Artist", memManager);
@@ -179,9 +179,9 @@ public class MemmanTest extends TestCase {
         assertEquals(null, myHtb.get("test"));
     }
 
-    /**
+    *//**
      * Tests removing an entry from the hashtable
-     */
+     *//*
     public void testHashtableRemove() {
         MemoryManager memManager = new MemoryManager(1024, 32);
         Hashtable myHtb = new Hashtable(1024, "Artist", memManager);
@@ -195,9 +195,9 @@ public class MemmanTest extends TestCase {
         assertFalse(myHtb.remove("key"));
     }
 
-    /**
+    *//**
      * tests extending the hashtable
-     */
+     *//*
     public void testHashtableExtend() {
         MemoryManager memManager = new MemoryManager(1024, 32);
         Hashtable myHtb = new Hashtable(1024, "Artist", memManager);
@@ -215,9 +215,9 @@ public class MemmanTest extends TestCase {
         assertEquals(4096, myHtb.getSize());
     }
 
-    /**
+    *//**
      * Tests a failure to search for an element in the Hash table
-     */
+     *//*
     public void testHashtableQuadraticFail() {
         MemoryManager memManager = new MemoryManager(1024, 32);
         Hashtable myHtb = new Hashtable(11, "Artist", memManager);
@@ -233,7 +233,7 @@ public class MemmanTest extends TestCase {
         }
         assertNull(myHtb.get("e"));
         assertFalse(myHtb.remove("e"));
-    }
+    }*/
 
     // MemoryManagerTest
     /**
