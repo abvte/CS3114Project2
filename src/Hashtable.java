@@ -43,7 +43,7 @@ public class Hashtable<T> {
      *            new value
      * @return true or false
      */
-    public boolean add(String key, T value) {
+    public T add(String key, T value) {
         Hash<T> newHash = new Hash<T>(value);
 
         // Quadratic probing variable
@@ -55,13 +55,13 @@ public class Hashtable<T> {
             pos = (hash + (i * i)) % size;
             i++;
             if (pos == hash) { // We are back at the original position
-                return false;
+                return null;
             }
         }
 
         table[pos] = newHash;
         items++;
-        return true;
+        return newHash.getValue();
     }
 
     /**
@@ -102,7 +102,7 @@ public class Hashtable<T> {
      *            in key/value pair
      * @return true or false based on success
      */
-    public boolean remove(String key, byte[] pool) {
+    public T remove(String key, byte[] pool) {
         // Quadratic probing variable
         int i = 1;
 
@@ -115,18 +115,19 @@ public class Hashtable<T> {
             pos = (hash + (i * i)) % size;
             i++;
             if (pos == hash) { // We are back at the original position
-                return false;
+                return null;
             }
         }
 
         // Didn't find key in table
         if (table[pos] == null) {
-            return false;
+            return null;
         }
+        Hash<T> temp = table[pos];
         table[pos] = new Hash<T>(null);
         items--;
 
-        return true;
+        return temp.getValue();
     }
 
     /**
