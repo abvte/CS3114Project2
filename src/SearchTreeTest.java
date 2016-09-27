@@ -6,28 +6,28 @@ import student.TestCase;
  * @version 1.0
  */
 @SuppressWarnings({ "rawtypes", "unchecked" })
-public class MemmanTest extends TestCase {
+public class SearchTreeTest extends TestCase {
     /**
      * This method sets up the tests that follow.
      */
 
     /**
-     * Tests the initialization of Memman.
+     * Tests the initialization of SearchTree.
      */
     public void testMInit() {
-        Memman mem = new Memman();
+        SearchTree mem = new SearchTree();
         assertNotNull(mem);
-        Memman.main(null);
+        SearchTree.main(null);
     }
 
     /**
      * Tests invalid arguments
      */
     public void testFirstError() { // tests the First Error message
-        Memman mem = new Memman();
+        SearchTree mem = new SearchTree();
         assertNotNull(mem);
         String[] args = { "abcde" };
-        Memman.main(args);
+        SearchTree.main(args);
         String output = systemOut().getHistory();
         assertEquals("Invalid Arguments\n", output);
     }
@@ -36,10 +36,10 @@ public class MemmanTest extends TestCase {
      * Tests invalid file
      */
     public void testError() {
-        Memman mem = new Memman();
+        SearchTree mem = new SearchTree();
         assertNotNull(mem);
         String[] args = { "1234", "4321", "aaaaa" };
-        Memman.main(args);
+        SearchTree.main(args);
         String output = systemOut().getHistory();
         assertEquals("File not found\n", output);
     }
@@ -49,7 +49,7 @@ public class MemmanTest extends TestCase {
      */
     public void testWrongCommand() {
         String[] args = { "1234", "4321", "errorFile.txt" };
-        Memman.main(args);
+        SearchTree.main(args);
         String output = systemOut().getHistory();
         assertEquals(
                 "Command not recognized\n" + "Unknown type in remove command\n"
@@ -62,7 +62,7 @@ public class MemmanTest extends TestCase {
      */
     public void testParsing() {
         String[] args = { "1234", "4321", "testFile.txt" };
-        Memman.main(args);
+        SearchTree.main(args);
         String output = systemOut().getHistory();
         String assertedOutput = "|Eagles| is added to the artist"
                 + " database.\n|Hotel California| is added to the"
@@ -145,13 +145,9 @@ public class MemmanTest extends TestCase {
         myHtb.add("keys", "Maroon7");
         assertEquals(3, myHtb.getItems());
     }
-<<<<<<< HEAD
     
 /*    *//**
-=======
-
     /**
->>>>>>> 17ec6c697e2aa9aed3647a21ff4ad0fb1bb4a8a6
      * tests adding an entry to the hashtable with tombstone
      *//*
     public void testHashtableAddWithTombstone() {
@@ -238,14 +234,8 @@ public class MemmanTest extends TestCase {
         assertEquals(20, myHtb.getSize());
     }
 
-    *//**
-     * Tests a failure to search for an element in the Hash table
-<<<<<<< HEAD
-     *//*
-=======
-     */
 
->>>>>>> 17ec6c697e2aa9aed3647a21ff4ad0fb1bb4a8a6
+
     public void testHashtableQuadraticFail() {
         MemoryManager memManager = new MemoryManager(1024, 32);
         Hashtable myHtb = new Hashtable(11, "Artist", memManager);
@@ -259,16 +249,12 @@ public class MemmanTest extends TestCase {
         for (int i = 0; i < 11; i++) {
             myHtb.getTable()[i] = new Hash(null);
         }
-<<<<<<< HEAD
         assertNull(myHtb.get("e"));
         assertFalse(myHtb.remove("e"));
-    }*/
-=======
         assertNull(myHtb.get("e", memManager.getPool()));
         assertNull(myHtb.remove("e", memManager.getPool()));
     }
->>>>>>> 17ec6c697e2aa9aed3647a21ff4ad0fb1bb4a8a6
-
+*/
     // MemoryManagerTest
     /**
      * Tests the memory manager insertion

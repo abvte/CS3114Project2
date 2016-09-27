@@ -72,7 +72,6 @@ public class Handle implements Comparable<Handle> {
      */
     @Override
     public int compareTo(Handle other) {
-        // TODO Auto-generated method stub
         int otherStart = other.getStart();
         int thisStart = this.getStart();
         

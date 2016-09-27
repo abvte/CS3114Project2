@@ -33,7 +33,7 @@
  * @version 1.0
  */
 
-public class Memman {
+public class SearchTree {
     /**
      * @param args
      *              args[0] = initial hash size,
