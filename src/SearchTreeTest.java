@@ -146,10 +146,10 @@ public class SearchTreeTest extends TestCase {
         assertEquals(3, myHtb.getItems());
     }
     
-/*    *//**
+    /**
     /**
      * tests adding an entry to the hashtable with tombstone
-     *//*
+     */
     public void testHashtableAddWithTombstone() {
         MemoryManager memManager = new MemoryManager(1024, 32);
         Hashtable myHtb = new Hashtable(10, "Artist", memManager);
@@ -167,9 +167,9 @@ public class SearchTreeTest extends TestCase {
                 "Maroon5");
     }
 
-    *//**
+    /**
      * Tests getting an object from the hashtable
-     *//*
+     */
     public void testHashtableGet() {
         MemoryManager memManager = new MemoryManager(1024, 32);
         Hashtable myHtb = new Hashtable(1024, "Artist", memManager);
@@ -189,9 +189,9 @@ public class SearchTreeTest extends TestCase {
         assertEquals(null, myHtb.get("test", memManager.getPool()));
     }
 
-    *//**
+    /**
      * Tests removing an entry from the hashtable
-     *//*
+     */
     public void testHashtableRemove() {
         MemoryManager memManager = new MemoryManager(1024, 32);
         Hashtable myHtb = new Hashtable(1024, "Artist", memManager);
@@ -208,9 +208,9 @@ public class SearchTreeTest extends TestCase {
         assertEquals(myHtb.remove("Maroon6", memManager.getPool()), two);
     }
 
-    *//**
+    /**
      * tests extending the hashtable
-     *//*
+     */
     public void testHashtableExtend() {
         MemoryManager memManager = new MemoryManager(5, 32);
         Hashtable myHtb = new Hashtable(5, "Artist", memManager);
@@ -249,12 +249,12 @@ public class SearchTreeTest extends TestCase {
         for (int i = 0; i < 11; i++) {
             myHtb.getTable()[i] = new Hash(null);
         }
-        assertNull(myHtb.get("e"));
-        assertFalse(myHtb.remove("e"));
+        assertNull(myHtb.get("e", memManager.getPool()));
+        //assertFalse(myHtb.remove("e"));
         assertNull(myHtb.get("e", memManager.getPool()));
         assertNull(myHtb.remove("e", memManager.getPool()));
     }
-*/
+
     // MemoryManagerTest
     /**
      * Tests the memory manager insertion
