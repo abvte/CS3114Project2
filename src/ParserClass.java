@@ -14,6 +14,7 @@ public class ParserClass {
                                 //containing the input commands
     private MemoryManager memManager;   //Instantiation of the 
                                         //memory manager itself
+    private TTTree searchTree;
 
     /**
      * Constructor which defines 
@@ -25,6 +26,7 @@ public class ParserClass {
      */
     public ParserClass(int hashSize, int blockSize, String filename) {
         memManager = new MemoryManager(hashSize, blockSize);
+        searchTree = new TTTree();
         fileName = filename;
     }
 
@@ -76,8 +78,7 @@ public class ParserClass {
         if (x[0].equals("insert")) {
             // Parse the artist song combination
             String[] info = parseArtistSong(x[1]);
-            memManager.insert(info[0], true);
-            memManager.insert(info[1], false);
+            searchTree.processHandles( memManager.insert(info[0], true), memManager.insert(info[1], false), info[1], info[0]);            
         } 
         else if (x[0].equals("remove")) {
             String[] processed = x[1].split(" ", 2);
@@ -102,7 +103,7 @@ public class ParserClass {
                 memManager.print(false, false, true);
             }
             else if (x[1].equals("tree")) {
-                //tree.print();
+                searchTree.print();
             }
             else {
                 System.out.println("Unknown type in print command");

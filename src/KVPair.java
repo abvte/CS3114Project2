@@ -5,8 +5,6 @@
  * @author Adam Bishop
  * @version 1.0
  * 
- * @param <E>
- * @param <T>
  *
  */
 public class KVPair implements Comparable<KVPair> {

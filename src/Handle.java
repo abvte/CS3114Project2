@@ -85,5 +85,14 @@ public class Handle implements Comparable<Handle> {
             return -1;
         }
     }
+    
+    /**
+     * Overload toString
+     *
+     * @return A print string
+     */
+    public String toString() {
+        return String.valueOf(start);
+    }
 
 }

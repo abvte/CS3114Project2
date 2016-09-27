@@ -120,7 +120,6 @@ public class MemoryManager {
             System.out.println(
                     "|" + record + "|" + " is added to the song database.");
         }
-
         return newBlock;
     }
 
