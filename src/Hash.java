@@ -3,7 +3,6 @@
  *
  * @author CS3114 staff
  * @version August 27, 2016
- * @param <E> is the key data type
  * @param <T> is the value data type
  */
 
