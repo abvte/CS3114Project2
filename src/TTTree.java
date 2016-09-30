@@ -16,7 +16,7 @@ public class TTTree {
      * Constructor
      */
     TTTree() {
-        root = new TreeNode(null, null);
+        root = new LeafNode(null, null, null);
         count = 0;
     }
 
@@ -25,15 +25,7 @@ public class TTTree {
      *            KVPair to be inserted
      */
     public void insert(KVPair pair) {
-        if (count == 0) {
-            if (root.getPair1() == null) {
-                root.setPair1(pair);
-            }
-            else {
-                root.setPair2(pair);
-                count++;
-            }
-        }
+        root = root.insert(pair);
     }
 
     /**
