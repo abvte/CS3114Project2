@@ -125,6 +125,11 @@ class LeafNode implements TreeNode {
     // Still need to figure out how to signal to internal nodes to split from
     // here
     public TreeNode insert(KVPair pair) {
+        if (pair1 == null) {
+            this.setPair1(pair);
+            return this;
+        }
+        
         int pair1Comparison = pair.compareTo(pair1);
         if (pair1Comparison > 0 && pair2 == null) { // greater start value than
                                                     // pair1
