@@ -85,7 +85,7 @@ public class Handle implements Comparable<Handle> {
         if (otherStart == thisStart) {
             return 0;
         }
-        else if (otherStart > thisStart) {
+        else if (otherStart < thisStart) {
             return 1;
         }
         else {
