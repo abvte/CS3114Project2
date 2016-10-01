@@ -216,9 +216,10 @@ class InternalNode implements TreeNode {
         
         if (pair1Comparison > 0 && pair2 == null) { // greater start value than
             TreeNode tempNode = this.getCenter().insert(pair);
-            if (tempNode != this.getCenter()) {
-                //We know it has split
-                this.
+            if (tempNode != this.getCenter()) { // We know it has split
+                InternalNode internNode = (InternalNode) tempNode;
+                this.setCenter(internNode.getLeft());
+                this.setRight(internNode.getCenter());
             }
         }
         else if (pair1Comparison <= 0) {
@@ -226,10 +227,18 @@ class InternalNode implements TreeNode {
             TreeNode tempNode = this.getLeft().insert(pair);
             if (tempNode != this.getLeft()) {
                 InternalNode internNode = (InternalNode) tempNode;
-                this.swap();
-                this.setPair1(internNode.getCenter().getPair1());
+                
+                if (count == 3) { //We need to split this internal node
+                    this.setCenter(internNode.getLeft());
+                    InternalNode interimNode = new InternalNode(internNode.getCenter(), 
+                            this.getRight(),null);
+                    return new InternalNode(this, interimNode, null);
+                }
+                else {
+                    this.setCenter(internNode.getCenter());
+                    return this;
+                }
             }
-            return this;
         }
         else if (pair2Comparison == 0) {
             // go center
@@ -269,6 +278,7 @@ class InternalNode implements TreeNode {
      */
     public void setRight(TreeNode rightNode) {
         right = rightNode;
+        if (right != null) pair1 = right.getPair1();
     }
 
     /**
@@ -277,6 +287,7 @@ class InternalNode implements TreeNode {
      */
     public void setCenter(TreeNode centerNode) {
         center = centerNode;
+        if (center != null) pair2 = center.getPair1();
     }
 
     /**
