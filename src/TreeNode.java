@@ -129,7 +129,6 @@ class LeafNode implements TreeNode {
             this.setPair1(pair);
             return this;
         }
-        
         int pair1Comparison = pair.compareTo(pair1);
         if (pair1Comparison > 0 && pair2 == null) { // greater start value than
                                                     // pair1
@@ -146,20 +145,17 @@ class LeafNode implements TreeNode {
 
         if (pair1Comparison < 0 && pair2Comparison < 0) { // Split to the left
             TreeNode splitNode = new LeafNode(pair, null, this, null);
-
             return new InternalNode(splitNode, this, this.next);
         }
         else if (pair1Comparison >= 0 && pair2Comparison < 0) {
             TreeNode splitNode = new LeafNode(this.pair1, null, this, null);
             this.setPair1(pair);
-
             return new InternalNode(splitNode, this, null);
         }
         else {
             TreeNode splitNode = new LeafNode(this.pair1, null, this, null);
             this.setPair1(pair);
             this.swap();
-
             return new InternalNode(splitNode, this, null);
         }
     }
@@ -191,14 +187,15 @@ class InternalNode implements TreeNode {
      * @param rightNode
      *            Pointer to the right node
      */
-    public InternalNode(TreeNode leftNode, TreeNode centerNode, 
+    public InternalNode(TreeNode leftNode, TreeNode centerNode,
             TreeNode rightNode) {
         pair1 = null;
         pair2 = null;
         left = leftNode;
         center = centerNode;
         right = rightNode;
-        if (leftNode != null) count++;
+        if (leftNode != null)
+            count++;
         if (centerNode != null) {
             count++;
             pair1 = centerNode.getPair1();
@@ -212,8 +209,9 @@ class InternalNode implements TreeNode {
     public TreeNode insert(KVPair pair) {
         int pair1Comparison = pair.compareTo(pair1);
         int pair2Comparison = 0;
-        if (pair2 != null) pair2Comparison = pair.compareTo(pair2);
-        
+        if (pair2 != null)
+            pair2Comparison = pair.compareTo(pair2);
+
         if (pair1Comparison > 0 && pair2 == null) { // greater start value than
             TreeNode tempNode = this.getCenter().insert(pair);
             if (tempNode != this.getCenter()) { // We know it has split
@@ -227,11 +225,11 @@ class InternalNode implements TreeNode {
             TreeNode tempNode = this.getLeft().insert(pair);
             if (tempNode != this.getLeft()) {
                 InternalNode internNode = (InternalNode) tempNode;
-                
-                if (count == 3) { //We need to split this internal node
+
+                if (count == 3) { // We need to split this internal node
                     this.setCenter(internNode.getLeft());
-                    InternalNode interimNode = new InternalNode(internNode.getCenter(), 
-                            this.getRight(),null);
+                    InternalNode interimNode = new InternalNode(
+                            internNode.getCenter(), this.getRight(), null);
                     return new InternalNode(this, interimNode, null);
                 }
                 else {
@@ -259,7 +257,6 @@ class InternalNode implements TreeNode {
             }
             // go right
         }
-        
 
         return this;
     }
@@ -278,7 +275,8 @@ class InternalNode implements TreeNode {
      */
     public void setRight(TreeNode rightNode) {
         right = rightNode;
-        if (right != null) pair1 = right.getPair1();
+        if (right != null)
+            pair1 = right.getPair1();
     }
 
     /**
@@ -287,7 +285,8 @@ class InternalNode implements TreeNode {
      */
     public void setCenter(TreeNode centerNode) {
         center = centerNode;
-        if (center != null) pair2 = center.getPair1();
+        if (center != null)
+            pair2 = center.getPair1();
     }
 
     /**
