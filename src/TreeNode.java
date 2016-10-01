@@ -204,11 +204,26 @@ class InternalNode implements TreeNode {
 
     public TreeNode insert(KVPair pair) {
         int pair1Comparison = pair.compareTo(pair1);
+        int pair2Comparison = 0;
+        if (pair2 != null) pair2Comparison = pair.compareTo(pair2);
+        
         if (pair1Comparison > 0 && pair2 == null) { // greater start value than
-            return this.getCenter().insert(pair);
+            TreeNode tempNode = this.getCenter().insert(pair);
+            if (tempNode instanceof InternalNode) {
+                
+            }
         }
-        else if (pair1Comparison <= 0 && pair2 == null) { // lesser or equal
-            return this.getLeft().insert(pair);
+        else if (pair1Comparison <= 0) {
+            // go left
+        }
+        else if (pair2Comparison == 0) {
+            // go center
+        }
+        else if (pair1Comparison > 0 && pair2Comparison <= 0) {
+            // go center
+        }
+        else {
+            // go right
         }
         
         return this;
