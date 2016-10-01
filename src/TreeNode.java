@@ -226,6 +226,7 @@ class InternalNode implements TreeNode {
             // go right
         }
         
+
         return this;
     }
 
