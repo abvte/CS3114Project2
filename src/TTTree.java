@@ -54,39 +54,13 @@ public class TTTree {
     }
 
     /**
-     * Print method
+     * 
      */
     public void print() {
         System.out.println("Printing 2-3 tree:");
-        this.preorder(root, "");
-    }
-
-    /**
-     * Preorder traversal
-     * 
-     * @param node
-     *            Root node of tree
-     */
-    public void preorder(TreeNode node, String indent) {
-        if (node == null) {
-            return;
+        if (count == 1) {
+            System.out.println(root.getPair1().toString() + " "
+                    + root.getPair2().toString());
         }
-        if (node.getPair2() != null) { // Full node
-            System.out.println(indent + node.getPair1().toString() + " "
-                    + node.getPair2().toString());
-        }
-        else { // Only one node full
-            System.out.println(indent + node.getPair1().toString());
-        }
-
-        if (node instanceof LeafNode)
-            return;
-        else {
-            InternalNode temp = (InternalNode) node;
-            this.preorder(temp.getLeft(), "  " + indent);
-            this.preorder(temp.getCenter(), "  " + indent);
-            this.preorder(temp.getRight(), "  " + indent);
-        }
-
     }
 }
