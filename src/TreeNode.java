@@ -153,7 +153,7 @@ class LeafNode implements TreeNode {
                     null);
         }
         else {
-            TreeNode splitNode = new LeafNode(this.pair1, null, this, null);
+            TreeNode splitNode = new LeafNode(this.pair1, null, this, null);    
             this.setPair1(pair);
             this.swap();
 
@@ -200,10 +200,15 @@ class InternalNode implements TreeNode {
     public TreeNode insert(KVPair pair) {
         int pair1Comparison = pair.compareTo(pair1);
         if (pair1Comparison > 0 && pair2 == null) { // greater start value than
-            return this.getCenter().insert(pair);
+            this.setPair2(pair);
+            InternalNode temp = new InternalNode(null, null, null, null, null);
+            temp = this;
+            
         }
         else if (pair1Comparison <= 0 && pair2 == null) { // lesser or equal
-            return this.getLeft().insert(pair);
+            this.setPair2(pair);
+            this.swap();
+            
         }
         
         return this;
