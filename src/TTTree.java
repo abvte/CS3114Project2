@@ -16,7 +16,7 @@ public class TTTree {
      * Constructor
      */
     TTTree() {
-        root = new LeafNode(null, null, null);
+        root = new LeafNode(null, null, null, null);
         count = 0;
     }
 

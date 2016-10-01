@@ -9,12 +9,17 @@
  */
 interface TreeNode {
     void setPair1(KVPair newPair);
+
     void setPair2(KVPair newPair);
+
     public KVPair getPair1();
+
     public KVPair getPair2();
+
     void swap();
+
     TreeNode insert(KVPair pair);
-    //remove
+    // remove
 }
 
 /**
@@ -27,6 +32,7 @@ class LeafNode implements TreeNode {
     private KVPair pair1;
     private KVPair pair2;
     private TreeNode next;
+    private TreeNode prev;
 
     /**
      * @param firstPair
@@ -34,10 +40,12 @@ class LeafNode implements TreeNode {
      * @param secondPair
      *            Second key-value pair
      */
-    public LeafNode(KVPair firstPair, KVPair secondPair, TreeNode nextNode) {
+    public LeafNode(KVPair firstPair, KVPair secondPair, TreeNode nextNode,
+            TreeNode prevNode) {
         pair1 = firstPair;
         pair2 = secondPair;
         next = nextNode;
+        prev = prevNode;
     }
 
     /**
@@ -49,12 +57,27 @@ class LeafNode implements TreeNode {
 
     /**
      * @param node
+     *            Previous node of the leaf
+     */
+    public void setPrev(TreeNode node) {
+        prev = node;
+    }
+
+    /**
+     * @return previous node of the leaf
+     */
+    public TreeNode getPrev() {
+        return prev;
+    }
+
+    /**
+     * @param node
      *            Next node of the leaf
      */
     public void setNext(TreeNode node) {
         next = node;
     }
-    
+
     /**
      * Getter for pair 1
      * 
@@ -92,44 +115,50 @@ class LeafNode implements TreeNode {
     public void setPair2(KVPair pair) {
         pair2 = pair;
     }
-    
+
     public void swap() {
         KVPair temp = pair1;
         pair1 = pair2;
         pair2 = temp;
     }
-    
-    // Still need to figure out how to signal to internal nodes to split from here
+
+    // Still need to figure out how to signal to internal nodes to split from
+    // here
     public TreeNode insert(KVPair pair) {
         int pair1Comparison = pair.compareTo(pair1);
-        if (pair1Comparison > 0 && pair2 == null) { // greater start value than pair1
+        if (pair1Comparison > 0 && pair2 == null) { // greater start value than
+                                                    // pair1
             this.setPair2(pair);
-            return this; 
+            return this;
         }
-        else if (pair1Comparison <= 0 && pair2 == null) { // lesser or equal start value
+        else if (pair1Comparison <= 0 && pair2 == null) { // lesser or equal
+                                                          // start value
             this.setPair2(pair);
             this.swap();
-            return this; 
+            return this;
         }
         int pair2Comparison = pair.compareTo(pair2);
-        
-        if (pair1Comparison < 0 && pair2Comparison < 0) {   //Split to the left
-            TreeNode splitNode = new LeafNode(pair, null, this);
-            
-            return new InternalNode(this.getPair1(), null, splitNode, this, null);
+
+        if (pair1Comparison < 0 && pair2Comparison < 0) { // Split to the left
+            TreeNode splitNode = new LeafNode(pair, null, this, null);
+
+            return new InternalNode(this.getPair1(), null, splitNode, this,
+                    null);
         }
         else if (pair1Comparison >= 0 && pair2Comparison < 0) {
-            TreeNode splitNode = new LeafNode(this.pair1, null, this);
+            TreeNode splitNode = new LeafNode(this.pair1, null, this, null);
             this.setPair1(pair);
-            
-            return new InternalNode(this.getPair1(), null, splitNode, this, null);
+
+            return new InternalNode(this.getPair1(), null, splitNode, this,
+                    null);
         }
         else {
-            TreeNode splitNode = new LeafNode(this.pair1, null, this);
+            TreeNode splitNode = new LeafNode(this.pair1, null, this, null);
             this.setPair1(pair);
             this.swap();
-            
-            return new InternalNode(this.getPair1(), null, splitNode, this, null);
+
+            return new InternalNode(this.getPair1(), null, splitNode, this,
+                    null);
         }
     }
 }
@@ -166,6 +195,18 @@ class InternalNode implements TreeNode {
         left = leftNode;
         center = centerNode;
         right = rightNode;
+    }
+
+    public TreeNode insert(KVPair pair) {
+        int pair1Comparison = pair.compareTo(pair1);
+        if (pair1Comparison > 0 && pair2 == null) { // greater start value than
+            return this.getCenter().insert(pair);
+        }
+        else if (pair1Comparison <= 0 && pair2 == null) { // lesser or equal
+            return this.getLeft().insert(pair);
+        }
+        
+        return this;
     }
 
     /**
@@ -212,7 +253,7 @@ class InternalNode implements TreeNode {
     public TreeNode getCenter() {
         return center;
     }
-    
+
     /**
      * Getter for pair 1
      * 
@@ -250,7 +291,7 @@ class InternalNode implements TreeNode {
     public void setPair2(KVPair pair) {
         pair2 = pair;
     }
-    
+
     public void swap() {
         KVPair temp = pair1;
         pair1 = pair2;
