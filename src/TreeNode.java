@@ -253,17 +253,16 @@ class InternalNode implements TreeNode {
             TreeNode tempNode = this.getCenter().insert(pair);
             if (tempNode != this.getCenter()) {
                 InternalNode internNode = (InternalNode) tempNode;
-                if (count == 3) { // We need to split this internal node
-                    InternalNode interimNode = new InternalNode(
-                            internNode.getCenter(), this.getRight(), null);
-                    this.setCenter(internNode.getLeft());
-                    this.setRight(null);
-                    return new InternalNode(this, interimNode, null);
-                }
-                else {
-                    this.setCenter(internNode.getLeft());
-                    this.setRight(internNode.getCenter());
-                }
+                InternalNode interimNode = new InternalNode(
+                        internNode.getCenter(), this.getRight(), null);
+                this.setCenter(internNode.getLeft());
+                this.setRight(null);
+                return new InternalNode(this, interimNode, null);
+                //Don't think this
+//                else {
+//                    this.setCenter(internNode.getLeft());
+//                    this.setRight(internNode.getCenter());
+//                }
             }
         }
         else if (pair1Comparison > 0 && pair2Comparison <= 0) {
