@@ -54,7 +54,7 @@ The KVPair (|Sporco Ma Distinto|,|Ennio Morricone|),(356,339) is added to the tr
 |Tim Wilson| duplicates a record already in the artist database.
 |I Think My Wife Is Running Around On Me (Taco Hell)| duplicates a record already in the song database.
 The KVPair (|Tim Wilson|,|I Think My Wife Is Running Around On Me (Taco Hell)|),(274,286) duplicates a record already in the tree.
-The KVPair (|I Think My Wife Is Running Around On Me (Taco Hell)|,|Tim Wilson|),(286,274) duplicates a record already in the tree..
+The KVPair (|I Think My Wife Is Running Around On Me (Taco Hell)|,|Tim Wilson|),(286,274) duplicates a record already in the tree.
 Memory pool expanded to be 416 bytes.
 |Tiny Bradshaw| is added to the artist database.
 Song hash table size doubled.
@@ -69,7 +69,7 @@ The KVPair (|Be Careful With A Fool|,|Pleb|),(89,405) is added to the tree.
 |Thomas Dolby| duplicates a record already in the artist database.
 |She Blinded Me With Science| duplicates a record already in the song database.
 The KVPair (|Thomas Dolby|,|She Blinded Me With Science|),(31,45) duplicates a record already in the tree.
-The KVPair (|She Blinded Me With Science|,|Thomas Dolby|),(45,31) duplicates a record already in the tree..
+The KVPair (|She Blinded Me With Science|,|Thomas Dolby|),(45,31) duplicates a record already in the tree.
 Printing 2-3 tree:
 131 147
   74 89
