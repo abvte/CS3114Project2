@@ -100,7 +100,7 @@ public class ParserClass {
                         false);
             }
             else if (first != null && second == null) {
-                second = memManager.artists.get(info[1], memManager.getPool());
+                second = memManager.songs.get(info[1], memManager.getPool());
                 searchTree.processHandles(first, second, info[1], info[0],
                         false);
             }

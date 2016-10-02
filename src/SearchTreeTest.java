@@ -61,24 +61,23 @@ public class SearchTreeTest extends TestCase {
                 output);
     }
 
-/*    *//**
-     * Tests that the parser can recognize and activate all commands
-     *//*
-    public void testParsing() {
-        String[] args = { "1234", "4321", "testFile.txt" };
-        SearchTree.main(args);
-        String output = systemOut().getHistory();
-        String assertedOutput = "|Eagles| is added to the artist"
-                + " database.\n|Hotel California| is added to the"
-                + " song database.\n|Michael Jackson| is added to"
-                + " the artist database.\n|Thriller| is added to the"
-                + " song database.\n|Justin Timberlake| does not exist"
-                + " in the artist database.\n|SexyBack| does not exist"
-                + " in the song database.\n|Michael Jackson| 639\n|Eagles|"
-                + " 738\ntotal artists: 2\n|Hotel California| 432\n|Thriller|"
-                + " 580\ntotal songs: 2\n" + "(53,4268)\n";
-        assertEquals(assertedOutput, output);
-    }*/
+    /*    *//**
+             * Tests that the parser can recognize and activate all commands
+             *//*
+               * public void testParsing() { String[] args = { "1234", "4321",
+               * "testFile.txt" }; SearchTree.main(args); String output =
+               * systemOut().getHistory(); String assertedOutput =
+               * "|Eagles| is added to the artist" +
+               * " database.\n|Hotel California| is added to the" +
+               * " song database.\n|Michael Jackson| is added to" +
+               * " the artist database.\n|Thriller| is added to the" +
+               * " song database.\n|Justin Timberlake| does not exist" +
+               * " in the artist database.\n|SexyBack| does not exist" +
+               * " in the song database.\n|Michael Jackson| 639\n|Eagles|" +
+               * " 738\ntotal artists: 2\n|Hotel California| 432\n|Thriller|" +
+               * " 580\ntotal songs: 2\n" + "(53,4268)\n";
+               * assertEquals(assertedOutput, output); }
+               */
 
     // Doubly Linked List
     /**
@@ -149,10 +148,9 @@ public class SearchTreeTest extends TestCase {
         myHtb.add("keys", "Maroon7");
         assertEquals(3, myHtb.getItems());
     }
-    
+
     /**
-    /**
-     * Tests adding an entry to the hashtable with tombstone
+     * /** Tests adding an entry to the hashtable with tombstone
      */
     public void testHashtableAddWithTombstone() {
         MemoryManager memManager = new MemoryManager(1024, 32);
@@ -242,7 +240,7 @@ public class SearchTreeTest extends TestCase {
     }
 
     /**
-     * Tests quadratic probing 
+     * Tests quadratic probing
      */
     public void testHashtableQuadraticFail() {
         MemoryManager memManager = new MemoryManager(1024, 32);
@@ -393,11 +391,119 @@ public class SearchTreeTest extends TestCase {
         pc.run();
         assertEquals(pc, pc);
     }
-    
-    //2-3 Tree Tests
-        
+
+    // 2-3 Tree Tests
+
     /**
-     * Insertion test for one artists with multiple songs
+     * This unit test checks to see if swap works properly
+     */
+    public void testSwap() {
+        MemoryManager memManager = new MemoryManager(30, 500);
+        Hashtable myHtb = new Hashtable(30, "Artist", memManager);
+        Handle zero = (Handle) myHtb.add("Maroon0",
+                new Handle("Maroon0".getBytes(), new byte[] { 0, 7 }, 0,
+                        memManager.getPool()));
+        Handle one = (Handle) myHtb.add("Maroon1",
+                new Handle("Maroon1".getBytes(), new byte[] { 0, 7 }, 9,
+                        memManager.getPool()));
+        KVPair p1 = new KVPair(zero, one);
+        assertEquals(0, p1.compareTo(zero)); // Checks if pair was created
+                                             // properly
+        KVPair p2 = new KVPair(one, zero);
+        assertEquals(0, p2.compareTo(one)); // Checks if pair was created
+                                            // properly
+        LeafNode leaf = new LeafNode(p1, p2, null);
+        InternalNode internal = new InternalNode(null, null, null);
+        internal.setPair1(p1);
+        internal.setPair2(p2);
+        leaf.swap();
+        internal.swap();
+        assertEquals(p2.getKey(), leaf.getPair1().getKey());
+        assertEquals(p2.getKey(), internal.getPair1().getKey());
+    }
+
+    /**
+     * Unit method to test to see if it sets the internal nodes properly
+     */
+    public void testInternalSetters() {
+        MemoryManager memManager = new MemoryManager(30, 500);
+        Hashtable myHtb = new Hashtable(30, "Artist", memManager);
+        Handle zero = (Handle) myHtb.add("Maroon0",
+                new Handle("Maroon0".getBytes(), new byte[] { 0, 7 }, 0,
+                        memManager.getPool()));
+        Handle one = (Handle) myHtb.add("Maroon1",
+                new Handle("Maroon1".getBytes(), new byte[] { 0, 7 }, 9,
+                        memManager.getPool()));
+        KVPair p1 = new KVPair(zero, one);
+        KVPair p2 = new KVPair(one, zero);
+        InternalNode node1 = new InternalNode(null, null, null);
+        InternalNode test = new InternalNode(null, null, null);
+        test.setPair1(p1);
+        test.setPair2(p2);
+        node1.setLeft(test);
+        assertEquals(test, node1.getLeft());
+        node1.setLeft(null);
+        assertNull(node1.getLeft());
+    }
+
+    /**
+     * Unit test to check inserts with leaves
+     */
+    public void testLeafInsert() {
+        MemoryManager memManager = new MemoryManager(30, 500);
+        Hashtable myHtb = new Hashtable(30, "Artist", memManager);
+        Handle zero = (Handle) myHtb.add("Maroon0",
+                new Handle("Maroon0".getBytes(), new byte[] { 0, 7 }, 0,
+                        memManager.getPool()));
+        Handle one = (Handle) myHtb.add("Maroon1",
+                new Handle("Maroon1".getBytes(), new byte[] { 0, 7 }, 9,
+                        memManager.getPool()));
+        Handle two = (Handle) myHtb.add("Maroon2",
+                new Handle("Maroon2".getBytes(), new byte[] { 0, 7 }, 18,
+                        memManager.getPool()));
+        Handle three = (Handle) myHtb.add("Maroon3",
+                new Handle("Maroon3".getBytes(), new byte[] { 0, 7 }, 27,
+                        memManager.getPool()));
+        KVPair p1 = new KVPair(zero, one);
+        KVPair p2 = new KVPair(one, zero);
+        KVPair p3 = new KVPair(two, three);
+        KVPair p4 = new KVPair(three, two);
+        LeafNode leaf1 = new LeafNode(null, null, null);
+        LeafNode leaf2 = new LeafNode(null, null, null);
+        LeafNode leaf3 = new LeafNode(p3, p4, null);
+        LeafNode leaf4 = new LeafNode(p3, p4, null);
+        leaf1.insert(p2);
+        leaf1.insert(p1);
+        leaf2.insert(p1);
+        leaf2.insert(p2);
+        assertEquals(leaf1.getPair1(), p1); // Makes sure it swaps
+        assertEquals(leaf2.getPair2(), p2); // Makes sure it inserts in second
+                                            // pair position if the second pair
+                                            // is greater and empty
+        boolean correctReturn = false;
+        if (leaf1.insert(p3) instanceof InternalNode) {
+            correctReturn = true;
+        }
+        assertEquals(true, correctReturn);
+        correctReturn = false;
+        if (leaf2.insert(p1) instanceof InternalNode) {
+            correctReturn = true;
+        }
+        assertEquals(true, correctReturn);
+        correctReturn = false;
+        if (leaf3.insert(p1) instanceof InternalNode) {
+            correctReturn = true;
+        }
+        assertEquals(true, correctReturn);
+        correctReturn = false;
+        if (leaf4.insert(p3) instanceof InternalNode) {
+            correctReturn = true;
+        }
+        assertEquals(true, correctReturn);
+    }
+
+    /**
+     * Unit insertion test for one artists with multiple songs
      */
     public void testInsertOneArtistMultipleSongs() {
         String[] args = new String[3];
@@ -417,7 +523,7 @@ public class SearchTreeTest extends TestCase {
         }
         assertEquals(content + "\n", systemOut().getHistory());
     }
-    
+
     /**
      * This unit tests checks for inserts with ten songs
      */
@@ -438,5 +544,113 @@ public class SearchTreeTest extends TestCase {
             e.printStackTrace();
         }
         assertEquals(content + "\n", systemOut().getHistory());
+    }
+
+    /**
+     * This unit tests checks for proper prints with duplicates
+     */
+    public void testDuplicates() {
+        String[] args = new String[3];
+        args[0] = "10";
+        args[1] = "32";
+        args[2] = "DuplicateTest.txt";
+        SearchTree.main(args);
+        String content = null;
+        File output = new File("DuplicateTestOut.txt");
+        try {
+            Scanner scan = new Scanner(output);
+            content = scan.useDelimiter("\\Z").next();
+            scan.close();
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        assertEquals(content + "\n", systemOut().getHistory());
+    }
+
+    /**
+     * Unit test to check if forty pairs of different songs and artists are
+     * inserted properly into the 2-3 tree.
+     */
+    public void testFortyPairs() {
+        String[] args = new String[3];
+        args[0] = "10";
+        args[1] = "32";
+        args[2] = "FortyPairsTest.txt";
+        SearchTree.main(args);
+        String content = null;
+        File output = new File("FortyPairsTestOut.txt");
+        try {
+            Scanner scan = new Scanner(output);
+            content = scan.useDelimiter("\\Z").next();
+            scan.close();
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        assertEquals(content + "\n", systemOut().getHistory());
+    }
+
+    /**
+     * This unit test checks to see if a certain node exists in the tree
+     */
+    public void testFindTreeNode() {
+        TTTree tree = new TTTree();
+        MemoryManager memManager = new MemoryManager(30, 500);
+        Hashtable myHtb = new Hashtable(30, "Artist", memManager);
+        Handle zero = (Handle) myHtb.add("Maroon0",
+                new Handle("Maroon0".getBytes(), new byte[] { 0, 7 }, 0,
+                        memManager.getPool()));
+        Handle one = (Handle) myHtb.add("Maroon1",
+                new Handle("Maroon1".getBytes(), new byte[] { 0, 7 }, 9,
+                        memManager.getPool()));
+        Handle two = (Handle) myHtb.add("Maroon2",
+                new Handle("Maroon2".getBytes(), new byte[] { 0, 7 }, 18,
+                        memManager.getPool()));
+        Handle three = (Handle) myHtb.add("Maroon3",
+                new Handle("Maroon3".getBytes(), new byte[] { 0, 7 }, 27,
+                        memManager.getPool()));
+        Handle four = (Handle) myHtb.add("Maroon4",
+                new Handle("Maroon4".getBytes(), new byte[] { 0, 7 }, 36,
+                        memManager.getPool()));
+        Handle five = (Handle) myHtb.add("Maroon5",
+                new Handle("Maroon5".getBytes(), new byte[] { 0, 7 }, 45,
+                        memManager.getPool()));
+        Handle six = (Handle) myHtb.add("Maroon5",
+                new Handle("Maroon6".getBytes(), new byte[] { 0, 7 }, 54,
+                        memManager.getPool()));
+        Handle seven = (Handle) myHtb.add("Maroon5",
+                new Handle("Maroon7".getBytes(), new byte[] { 0, 7 }, 63,
+                        memManager.getPool()));
+        Handle eight = (Handle) myHtb.add("Maroon5",
+                new Handle("Maroon8".getBytes(), new byte[] { 0, 7 }, 72,
+                        memManager.getPool()));
+        Handle nine = (Handle) myHtb.add("Maroon5",
+                new Handle("Maroon9".getBytes(), new byte[] { 0, 7 }, 81,
+                        memManager.getPool()));
+        Handle ten = (Handle) myHtb.add("Maroon5",
+                new Handle("Maroon10".getBytes(), new byte[] { 0, 8 }, 91,
+                        memManager.getPool()));
+        Handle eleven = (Handle) myHtb.add("Maroon5",
+                new Handle("Maroon11".getBytes(), new byte[] { 0, 8 }, 101,
+                        memManager.getPool()));
+        KVPair p1 = new KVPair(zero, one);
+        KVPair p2 = new KVPair(two, three);
+        KVPair p3 = new KVPair(four, five);
+        KVPair p4 = new KVPair(six, seven);
+        KVPair p5 = new KVPair(eight, nine);
+        KVPair p6 = new KVPair(ten, eleven);
+        assertEquals(null, tree.findPair(tree.getRoot(), p1));
+        tree.insert(p1);
+        tree.insert(p2);
+        tree.insert(p3);
+        tree.insert(p4);
+        tree.insert(p5);
+        assertEquals(p1, tree.findPair(tree.getRoot(), p1));
+        assertEquals(p2, tree.findPair(tree.getRoot(), p2));
+        assertEquals(p3, tree.findPair(tree.getRoot(), p3));
+        assertEquals(p4, tree.findPair(tree.getRoot(), p4));
+        assertEquals(p5, tree.findPair(tree.getRoot(), p5));
+        assertEquals(null, tree.findPair(tree.getRoot(), p6));
     }
 }

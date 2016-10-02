@@ -1,0 +1,42 @@
+insert Groupa<SEP>Bliv Du Till Gran (If You Became A Spruce)
+insert Regina Belle<SEP>Quiet Time
+insert Ricardo Lemvo<SEP>Yiri Yiri Bon
+insert Andreas Dorau<SEP>So ist das nun mal
+insert Enslavement Of Beauty<SEP>Ye That Tempteth_ Ye That Bequeth
+insert Little Milton<SEP>Walking The Back Streets And Crying
+insert Les Ogres De Barback<SEP>De rien
+insert KRS-One<SEP>Getaway
+insert Slim Whitman<SEP>Indian Love Call
+insert Simply Red<SEP>So Not Over You (Motivo-Pop Lectro Mix)
+insert Seguridad Social<SEP>Soc Mediterrani
+insert Chroma Key<SEP>Salvation
+insert The Paul Butterfield Blues Band<SEP>Pretty Woman (LP Version)
+insert The Sugarhill Gang<SEP>8th Wonder
+insert Symphony in Peril<SEP>Inherent Scars
+insert Helmet<SEP>Tic
+insert Behemoth<SEP>No Sympathy For Fools
+insert Alice Cooper<SEP>Make That Money (Scrooge's Song) (Album Version)
+insert Fat Joe<SEP>Prove Something (explicit album version)
+insert Francis Lai<SEP>13 jours en France
+insert RUN-DMC<SEP>King Of Rock
+insert Spongebob Squarepants<SEP>Ripped Pants
+insert Red Stick Ramblers<SEP>Why_ Now Baby?
+insert Obie Bermudez<SEP>Antes (Salsa Version)
+insert V V Brown<SEP>LEAVE!
+insert Bravehearts<SEP>Sensations
+insert Evanescence<SEP>Good Enough
+insert Everyday Sunday<SEP>Wake Up! Wake Up! (Wake Up! Wake Up! Album Version)
+insert Robben Ford<SEP>Talk To Your Daughter (Album Version)
+insert High Strung_ The<SEP>Show a Sign of Life
+insert Maroon 5<SEP>Sweetest Goodbye
+insert Hem<SEP>Redwing
+insert Bikini Machine<SEP>The Race
+insert Jackson United<SEP>Undertow
+insert White Willow<SEP>The Dark Road
+insert Guns N' Roses<SEP>Patience
+insert Kitaro<SEP>Harmony Of The Forest
+insert Talib Kweli<SEP>Everything Man (Album Version)
+insert Zeromancer<SEP>Send Me An Angel
+insert Baby Bash / Grimm<SEP>Changed My Life
+insert Rickie Lee Jones<SEP>Danny's All-Star Joint (LP Version)
+print tree

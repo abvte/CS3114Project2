@@ -19,6 +19,14 @@ public class TTTree {
         root = new LeafNode(null, null, null);
         // count = 0;
     }
+    
+    /**
+     * Getter for root 
+     * @return root of the tree
+     */
+    public TreeNode getRoot() {
+        return root;
+    }
 
     /**
      * Insert method for tree
@@ -117,9 +125,6 @@ public class TTTree {
      * @return The pair if it's found. Null if not.
      */
     public KVPair findPair(TreeNode node, KVPair pair) {
-        if (node == null) {
-            return null;
-        }
         if (node.getPair1() == null) {
             return null;
         }

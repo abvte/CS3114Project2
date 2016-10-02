@@ -1,0 +1,378 @@
+|Groupa| is added to the artist database.
+Memory pool expanded to be 64 bytes.
+|Bliv Du Till Gran (If You Became A Spruce)| is added to the song database.
+The KVPair (|Groupa|,|Bliv Du Till Gran (If You Became A Spruce)|),(0,8) is added to the tree.
+The KVPair (|Bliv Du Till Gran (If You Became A Spruce)|,|Groupa|),(8,0) is added to the tree.
+Memory pool expanded to be 96 bytes.
+|Regina Belle| is added to the artist database.
+|Quiet Time| is added to the song database.
+The KVPair (|Regina Belle|,|Quiet Time|),(52,66) is added to the tree.
+The KVPair (|Quiet Time|,|Regina Belle|),(66,52) is added to the tree.
+|Ricardo Lemvo| is added to the artist database.
+Memory pool expanded to be 128 bytes.
+|Yiri Yiri Bon| is added to the song database.
+The KVPair (|Ricardo Lemvo|,|Yiri Yiri Bon|),(78,93) is added to the tree.
+The KVPair (|Yiri Yiri Bon|,|Ricardo Lemvo|),(93,78) is added to the tree.
+|Andreas Dorau| is added to the artist database.
+Memory pool expanded to be 160 bytes.
+|So ist das nun mal| is added to the song database.
+The KVPair (|Andreas Dorau|,|So ist das nun mal|),(108,123) is added to the tree.
+The KVPair (|So ist das nun mal|,|Andreas Dorau|),(123,108) is added to the tree.
+Memory pool expanded to be 192 bytes.
+|Enslavement Of Beauty| is added to the artist database.
+Memory pool expanded to be 224 bytes.
+|Ye That Tempteth_ Ye That Bequeth| is added to the song database.
+The KVPair (|Enslavement Of Beauty|,|Ye That Tempteth_ Ye That Bequeth|),(143,166) is added to the tree.
+The KVPair (|Ye That Tempteth_ Ye That Bequeth|,|Enslavement Of Beauty|),(166,143) is added to the tree.
+Artist hash table size doubled.
+|Little Milton| is added to the artist database.
+Song hash table size doubled.
+Memory pool expanded to be 256 bytes.
+|Walking The Back Streets And Crying| is added to the song database.
+The KVPair (|Little Milton|,|Walking The Back Streets And Crying|),(201,216) is added to the tree.
+The KVPair (|Walking The Back Streets And Crying|,|Little Milton|),(216,201) is added to the tree.
+Memory pool expanded to be 288 bytes.
+|Les Ogres De Barback| is added to the artist database.
+|De rien| is added to the song database.
+The KVPair (|Les Ogres De Barback|,|De rien|),(253,275) is added to the tree.
+The KVPair (|De rien|,|Les Ogres De Barback|),(275,253) is added to the tree.
+Memory pool expanded to be 320 bytes.
+|KRS-One| is added to the artist database.
+|Getaway| is added to the song database.
+The KVPair (|KRS-One|,|Getaway|),(284,293) is added to the tree.
+The KVPair (|Getaway|,|KRS-One|),(293,284) is added to the tree.
+|Slim Whitman| is added to the artist database.
+Memory pool expanded to be 352 bytes.
+|Indian Love Call| is added to the song database.
+The KVPair (|Slim Whitman|,|Indian Love Call|),(302,316) is added to the tree.
+The KVPair (|Indian Love Call|,|Slim Whitman|),(316,302) is added to the tree.
+|Simply Red| is added to the artist database.
+Memory pool expanded to be 384 bytes.
+Memory pool expanded to be 416 bytes.
+|So Not Over You (Motivo-Pop Lectro Mix)| is added to the song database.
+The KVPair (|Simply Red|,|So Not Over You (Motivo-Pop Lectro Mix)|),(334,346) is added to the tree.
+The KVPair (|So Not Over You (Motivo-Pop Lectro Mix)|,|Simply Red|),(346,334) is added to the tree.
+Artist hash table size doubled.
+|Seguridad Social| is added to the artist database.
+Song hash table size doubled.
+Memory pool expanded to be 448 bytes.
+|Soc Mediterrani| is added to the song database.
+The KVPair (|Seguridad Social|,|Soc Mediterrani|),(387,405) is added to the tree.
+The KVPair (|Soc Mediterrani|,|Seguridad Social|),(405,387) is added to the tree.
+|Chroma Key| is added to the artist database.
+|Salvation| is added to the song database.
+The KVPair (|Chroma Key|,|Salvation|),(422,434) is added to the tree.
+The KVPair (|Salvation|,|Chroma Key|),(434,422) is added to the tree.
+Memory pool expanded to be 480 bytes.
+|The Paul Butterfield Blues Band| is added to the artist database.
+Memory pool expanded to be 512 bytes.
+|Pretty Woman (LP Version)| is added to the song database.
+The KVPair (|The Paul Butterfield Blues Band|,|Pretty Woman (LP Version)|),(445,478) is added to the tree.
+The KVPair (|Pretty Woman (LP Version)|,|The Paul Butterfield Blues Band|),(478,445) is added to the tree.
+Memory pool expanded to be 544 bytes.
+|The Sugarhill Gang| is added to the artist database.
+|8th Wonder| is added to the song database.
+The KVPair (|The Sugarhill Gang|,|8th Wonder|),(505,525) is added to the tree.
+The KVPair (|8th Wonder|,|The Sugarhill Gang|),(525,505) is added to the tree.
+Memory pool expanded to be 576 bytes.
+|Symphony in Peril| is added to the artist database.
+|Inherent Scars| is added to the song database.
+The KVPair (|Symphony in Peril|,|Inherent Scars|),(537,556) is added to the tree.
+The KVPair (|Inherent Scars|,|Symphony in Peril|),(556,537) is added to the tree.
+Memory pool expanded to be 608 bytes.
+|Helmet| is added to the artist database.
+|Tic| is added to the song database.
+The KVPair (|Helmet|,|Tic|),(572,580) is added to the tree.
+The KVPair (|Tic|,|Helmet|),(580,572) is added to the tree.
+|Behemoth| is added to the artist database.
+Memory pool expanded to be 640 bytes.
+|No Sympathy For Fools| is added to the song database.
+The KVPair (|Behemoth|,|No Sympathy For Fools|),(585,595) is added to the tree.
+The KVPair (|No Sympathy For Fools|,|Behemoth|),(595,585) is added to the tree.
+|Alice Cooper| is added to the artist database.
+Memory pool expanded to be 672 bytes.
+Memory pool expanded to be 704 bytes.
+|Make That Money (Scrooge's Song) (Album Version)| is added to the song database.
+The KVPair (|Alice Cooper|,|Make That Money (Scrooge's Song) (Album Version)|),(618,632) is added to the tree.
+The KVPair (|Make That Money (Scrooge's Song) (Album Version)|,|Alice Cooper|),(632,618) is added to the tree.
+|Fat Joe| is added to the artist database.
+Memory pool expanded to be 736 bytes.
+|Prove Something (explicit album version)| is added to the song database.
+The KVPair (|Fat Joe|,|Prove Something (explicit album version)|),(682,691) is added to the tree.
+The KVPair (|Prove Something (explicit album version)|,|Fat Joe|),(691,682) is added to the tree.
+Memory pool expanded to be 768 bytes.
+|Francis Lai| is added to the artist database.
+|13 jours en France| is added to the song database.
+The KVPair (|Francis Lai|,|13 jours en France|),(733,746) is added to the tree.
+The KVPair (|13 jours en France|,|Francis Lai|),(746,733) is added to the tree.
+Artist hash table size doubled.
+Memory pool expanded to be 800 bytes.
+|RUN-DMC| is added to the artist database.
+Song hash table size doubled.
+|King Of Rock| is added to the song database.
+The KVPair (|RUN-DMC|,|King Of Rock|),(766,775) is added to the tree.
+The KVPair (|King Of Rock|,|RUN-DMC|),(775,766) is added to the tree.
+Memory pool expanded to be 832 bytes.
+|Spongebob Squarepants| is added to the artist database.
+|Ripped Pants| is added to the song database.
+The KVPair (|Spongebob Squarepants|,|Ripped Pants|),(789,812) is added to the tree.
+The KVPair (|Ripped Pants|,|Spongebob Squarepants|),(812,789) is added to the tree.
+Memory pool expanded to be 864 bytes.
+|Red Stick Ramblers| is added to the artist database.
+|Why_ Now Baby?| is added to the song database.
+The KVPair (|Red Stick Ramblers|,|Why_ Now Baby?|),(826,846) is added to the tree.
+The KVPair (|Why_ Now Baby?|,|Red Stick Ramblers|),(846,826) is added to the tree.
+Memory pool expanded to be 896 bytes.
+|Obie Bermudez| is added to the artist database.
+Memory pool expanded to be 928 bytes.
+|Antes (Salsa Version)| is added to the song database.
+The KVPair (|Obie Bermudez|,|Antes (Salsa Version)|),(862,877) is added to the tree.
+The KVPair (|Antes (Salsa Version)|,|Obie Bermudez|),(877,862) is added to the tree.
+|V V Brown| is added to the artist database.
+|LEAVE!| is added to the song database.
+The KVPair (|V V Brown|,|LEAVE!|),(900,911) is added to the tree.
+The KVPair (|LEAVE!|,|V V Brown|),(911,900) is added to the tree.
+Memory pool expanded to be 960 bytes.
+|Bravehearts| is added to the artist database.
+|Sensations| is added to the song database.
+The KVPair (|Bravehearts|,|Sensations|),(919,932) is added to the tree.
+The KVPair (|Sensations|,|Bravehearts|),(932,919) is added to the tree.
+|Evanescence| is added to the artist database.
+Memory pool expanded to be 992 bytes.
+|Good Enough| is added to the song database.
+The KVPair (|Evanescence|,|Good Enough|),(944,957) is added to the tree.
+The KVPair (|Good Enough|,|Evanescence|),(957,944) is added to the tree.
+|Everyday Sunday| is added to the artist database.
+Memory pool expanded to be 1024 bytes.
+Memory pool expanded to be 1056 bytes.
+|Wake Up! Wake Up! (Wake Up! Wake Up! Album Version)| is added to the song database.
+The KVPair (|Everyday Sunday|,|Wake Up! Wake Up! (Wake Up! Wake Up! Album Version)|),(970,987) is added to the tree.
+The KVPair (|Wake Up! Wake Up! (Wake Up! Wake Up! Album Version)|,|Everyday Sunday|),(987,970) is added to the tree.
+|Robben Ford| is added to the artist database.
+Memory pool expanded to be 1088 bytes.
+Memory pool expanded to be 1120 bytes.
+|Talk To Your Daughter (Album Version)| is added to the song database.
+The KVPair (|Robben Ford|,|Talk To Your Daughter (Album Version)|),(1040,1053) is added to the tree.
+The KVPair (|Talk To Your Daughter (Album Version)|,|Robben Ford|),(1053,1040) is added to the tree.
+|High Strung_ The| is added to the artist database.
+Memory pool expanded to be 1152 bytes.
+|Show a Sign of Life| is added to the song database.
+The KVPair (|High Strung_ The|,|Show a Sign of Life|),(1092,1110) is added to the tree.
+The KVPair (|Show a Sign of Life|,|High Strung_ The|),(1110,1092) is added to the tree.
+|Maroon 5| is added to the artist database.
+Memory pool expanded to be 1184 bytes.
+|Sweetest Goodbye| is added to the song database.
+The KVPair (|Maroon 5|,|Sweetest Goodbye|),(1131,1141) is added to the tree.
+The KVPair (|Sweetest Goodbye|,|Maroon 5|),(1141,1131) is added to the tree.
+|Hem| is added to the artist database.
+|Redwing| is added to the song database.
+The KVPair (|Hem|,|Redwing|),(1159,1164) is added to the tree.
+The KVPair (|Redwing|,|Hem|),(1164,1159) is added to the tree.
+Memory pool expanded to be 1216 bytes.
+|Bikini Machine| is added to the artist database.
+|The Race| is added to the song database.
+The KVPair (|Bikini Machine|,|The Race|),(1173,1189) is added to the tree.
+The KVPair (|The Race|,|Bikini Machine|),(1189,1173) is added to the tree.
+|Jackson United| is added to the artist database.
+Memory pool expanded to be 1248 bytes.
+|Undertow| is added to the song database.
+The KVPair (|Jackson United|,|Undertow|),(1199,1215) is added to the tree.
+The KVPair (|Undertow|,|Jackson United|),(1215,1199) is added to the tree.
+|White Willow| is added to the artist database.
+Memory pool expanded to be 1280 bytes.
+|The Dark Road| is added to the song database.
+The KVPair (|White Willow|,|The Dark Road|),(1225,1239) is added to the tree.
+The KVPair (|The Dark Road|,|White Willow|),(1239,1225) is added to the tree.
+|Guns N' Roses| is added to the artist database.
+|Patience| is added to the song database.
+The KVPair (|Guns N' Roses|,|Patience|),(1254,1269) is added to the tree.
+The KVPair (|Patience|,|Guns N' Roses|),(1269,1254) is added to the tree.
+Memory pool expanded to be 1312 bytes.
+|Kitaro| is added to the artist database.
+|Harmony Of The Forest| is added to the song database.
+The KVPair (|Kitaro|,|Harmony Of The Forest|),(1279,1287) is added to the tree.
+The KVPair (|Harmony Of The Forest|,|Kitaro|),(1287,1279) is added to the tree.
+Memory pool expanded to be 1344 bytes.
+|Talib Kweli| is added to the artist database.
+Memory pool expanded to be 1376 bytes.
+|Everything Man (Album Version)| is added to the song database.
+The KVPair (|Talib Kweli|,|Everything Man (Album Version)|),(1310,1323) is added to the tree.
+The KVPair (|Everything Man (Album Version)|,|Talib Kweli|),(1323,1310) is added to the tree.
+|Zeromancer| is added to the artist database.
+Memory pool expanded to be 1408 bytes.
+|Send Me An Angel| is added to the song database.
+The KVPair (|Zeromancer|,|Send Me An Angel|),(1355,1367) is added to the tree.
+The KVPair (|Send Me An Angel|,|Zeromancer|),(1367,1355) is added to the tree.
+|Baby Bash / Grimm| is added to the artist database.
+Memory pool expanded to be 1440 bytes.
+|Changed My Life| is added to the song database.
+The KVPair (|Baby Bash / Grimm|,|Changed My Life|),(1385,1404) is added to the tree.
+The KVPair (|Changed My Life|,|Baby Bash / Grimm|),(1404,1385) is added to the tree.
+Artist hash table size doubled.
+|Rickie Lee Jones| is added to the artist database.
+Song hash table size doubled.
+Memory pool expanded to be 1472 bytes.
+Memory pool expanded to be 1504 bytes.
+|Danny's All-Star Joint (LP Version)| is added to the song database.
+The KVPair (|Rickie Lee Jones|,|Danny's All-Star Joint (LP Version)|),(1421,1439) is added to the tree.
+The KVPair (|Danny's All-Star Joint (LP Version)|,|Rickie Lee Jones|),(1439,1421) is added to the tree.
+Printing 2-3 tree:
+585 595
+  302 316
+    143 166
+      78 93
+        52 66
+          8 0
+            0 8
+            8 0
+          66 52
+            52 66
+            66 52
+        108 123
+          93 78
+            78 93
+            93 78
+          123 108
+            108 123
+            123 108
+      253 275
+        201 216
+          166 143
+            143 166
+            166 143
+          216 201
+            201 216
+            216 201
+        284 293
+          275 253
+            253 275
+            275 253
+          293 284
+            284 293
+            293 284
+    445 478
+      387 405
+        334 346
+          316 302
+            302 316
+            316 302
+          346 334
+            334 346
+            346 334
+        422 434
+          405 387
+            387 405
+            405 387
+          434 422
+            422 434
+            434 422
+      537 556
+        505 525
+          478 445
+            445 478
+            478 445
+          525 505
+            505 525
+            525 505
+        572 580
+          556 537
+            537 556
+            556 537
+          580 572
+            572 580
+            580 572
+  900 911 1173 1189
+    766 775
+      682 691
+        618 632
+          595 585
+            585 595
+            595 585
+          632 618
+            618 632
+            632 618
+        733 746
+          691 682
+            682 691
+            691 682
+          746 733
+            733 746
+            746 733
+      826 846
+        789 812
+          775 766
+            766 775
+            775 766
+          812 789
+            789 812
+            812 789
+        862 877
+          846 826
+            826 846
+            846 826
+          877 862
+            862 877
+            877 862
+    1040 1053
+      944 957
+        919 932
+          911 900
+            900 911
+            911 900
+          932 919
+            919 932
+            932 919
+        970 987
+          957 944
+            944 957
+            957 944
+          987 970
+            970 987
+            987 970
+      1131 1141
+        1092 1110
+          1053 1040
+            1040 1053
+            1053 1040
+          1110 1092
+            1092 1110
+            1110 1092
+        1159 1164
+          1141 1131
+            1131 1141
+            1141 1131
+          1164 1159
+            1159 1164
+            1164 1159
+    1279 1287
+      1225 1239
+        1199 1215
+          1189 1173
+            1173 1189
+            1189 1173
+          1215 1199
+            1199 1215
+            1215 1199
+        1254 1269
+          1239 1225
+            1225 1239
+            1239 1225
+          1269 1254
+            1254 1269
+            1269 1254
+      1355 1367
+        1310 1323
+          1287 1279
+            1279 1287
+            1287 1279
+          1323 1310
+            1310 1323
+            1323 1310
+        1385 1404
+          1367 1355
+            1355 1367
+            1367 1355
+          1404 1385 1421 1439
+            1385 1404
+            1404 1385
+            1421 1439 1439 1421
