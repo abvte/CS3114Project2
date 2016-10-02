@@ -275,8 +275,9 @@ class InternalNode implements TreeNode {
 
                 if (count == 3) { // We need to split this internal node
                     InternalNode interimNode = new InternalNode(
-                            internNode.getCenter(), this.getRight(), null);
-                    this.setCenter(internNode.getLeft());
+                            this.getCenter(), this.getRight(), null);
+                    this.setLeft(internNode.getLeft());
+                    this.setCenter(internNode.getCenter());
                     this.setRight(null);
                     return new InternalNode(this, interimNode, null);
                 }
