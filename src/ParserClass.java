@@ -82,12 +82,30 @@ public class ParserClass {
      *            command
      */
     public void runCommand(String[] x) {
+        Handle first;
+        Handle second;
         // x[0] is the command
         if (x[0].equals("insert")) {
             // Parse the artist song combination
             String[] info = parseArtistSong(x[1]);
-            searchTree.processHandles(memManager.insert(info[0], true),
-                    memManager.insert(info[1], false), info[1], info[0]);
+            first = memManager.insert(info[0], true); //Artist
+            second = memManager.insert(info[1], false); //Song
+            if (first != null && second != null) {
+                searchTree.processHandles(first, second, info[1], info[0], false);
+            }
+            else if (first == null && second != null) {
+                first = memManager.artists.get(info[0], memManager.getPool());
+                searchTree.processHandles(first, second, info[1], info[0], false);
+            }
+            else if (first != null && second == null) {
+                second = memManager.artists.get(info[1], memManager.getPool());
+                searchTree.processHandles(first, second, info[1], info[0], false);
+            }
+            else {
+                first = memManager.artists.get(info[0], memManager.getPool());
+                second = memManager.songs.get(info[1], memManager.getPool());
+                searchTree.processHandles(first, second, info[1], info[0], true);
+            }
         }
         else if (x[0].equals("remove")) {
             String[] processed = x[1].split(" ", 2);

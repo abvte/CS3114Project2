@@ -1,3 +1,4 @@
 insert Blind Lemon Jefferson<SEP>Long Lonesome Blues
 insert Passion Pit<SEP>Talk a Walk
+insert Blind Lemon Jefferson<SEP>Long Lonesome Blues
 print tree

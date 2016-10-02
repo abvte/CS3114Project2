@@ -39,17 +39,27 @@ public class TTTree {
      *            Artist name
      */
     public void processHandles(Handle first, Handle second, String song,
-            String artist) {
+            String artist, boolean duplicate) {
         KVPair firstPair = new KVPair(first, second);
         KVPair secondPair = new KVPair(second, first);
-        this.insert(firstPair);
-        System.out.println("The KVPair (|" + artist + "|,|" + song + "|),("
-                + first.toString() + "," + second.toString()
-                + ") is added to the tree.");
-        this.insert(secondPair);
-        System.out.println("The KVPair (|" + song + "|,|" + artist + "|),("
-                + second.toString() + "," + first.toString()
-                + ") is added to the tree.");
+        if (!duplicate) {
+            this.insert(firstPair);
+            System.out.println("The KVPair (|" + artist + "|,|" + song + "|),("
+                    + first.toString() + "," + second.toString()
+                    + ") is added to the tree.");
+            this.insert(secondPair);
+            System.out.println("The KVPair (|" + song + "|,|" + artist + "|),("
+                    + second.toString() + "," + first.toString()
+                    + ") is added to the tree.");
+        }
+        else {
+            System.out.println("The KVPair (|" + artist + "|,|" + song + "|),("
+                    + first.toString() + "," + second.toString()
+                    + ") duplicates a record already in the tree.");
+            System.out.println("The KVPair (|" + song + "|,|" + artist + "|),("
+                    + second.toString() + "," + first.toString()
+                    + ") duplicates a record already in the tree..");
+        }
 
     }
 
@@ -88,5 +98,39 @@ public class TTTree {
             this.preorder(temp.getRight(), "  " + indent);
         }
 
+    }
+
+    public KVPair findPair(TreeNode node, KVPair pair) {
+        if (node == null) {
+            return null;
+        }
+        if (node.getPair1() == null) {
+            return null;
+        }
+        if (pair.compareTo(node.getPair1()) == 0) {
+            return node.getPair1();
+        }
+        if ((node.getPair2() != null)
+                && (pair.compareTo(node.getPair2()) == 0)) {
+            return node.getPair2();
+        }
+
+        if (!(node instanceof LeafNode)) {
+            InternalNode temp = (InternalNode) node;
+            if (pair.compareTo(temp.getPair1()) < 0) { // Search left
+                return findPair(temp.getLeft(), pair);
+            }
+            else if (temp.getPair2() == null) { // Search center
+                return findPair(temp.getCenter(), pair);
+            }
+            else if (pair.compareTo(temp.getPair2()) < 0) {
+                return findPair(temp.getCenter(), pair);
+            }
+            else {
+                return findPair(temp.getCenter(), pair);
+            }
+        }
+        
+        return null;
     }
 }
