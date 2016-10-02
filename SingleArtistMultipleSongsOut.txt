@@ -57,11 +57,11 @@ The KVPair (|Where We Belong|,|Passion Pit|),(206,0) is added to the tree.
 |Passion Pit| duplicates a record already in the artist database.
 |I'll Be Alright| duplicates a record already in the song database.
 The KVPair (|Passion Pit|,|I'll Be Alright|),(0,26) duplicates a record already in the tree.
-The KVPair (|I'll Be Alright|,|Passion Pit|),(26,0) duplicates a record already in the tree..
+The KVPair (|I'll Be Alright|,|Passion Pit|),(26,0) duplicates a record already in the tree.
 |Passion Pit| duplicates a record already in the artist database.
 |Take a Walk| duplicates a record already in the song database.
 The KVPair (|Passion Pit|,|Take a Walk|),(0,13) duplicates a record already in the tree.
-The KVPair (|Take a Walk|,|Passion Pit|),(13,0) duplicates a record already in the tree..
+The KVPair (|Take a Walk|,|Passion Pit|),(13,0) duplicates a record already in the tree.
 Printing 2-3 tree:
 13 0
   0 81

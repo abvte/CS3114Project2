@@ -72,7 +72,7 @@ public class TTTree {
                     + ") duplicates a record already in the tree.");
             System.out.println("The KVPair (|" + song + "|,|" + artist + "|),("
                     + second.toString() + "," + first.toString()
-                    + ") duplicates a record already in the tree..");
+                    + ") duplicates a record already in the tree.");
         }
 
     }
