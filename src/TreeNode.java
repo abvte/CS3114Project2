@@ -19,7 +19,7 @@ interface TreeNode {
     void swap();
 
     TreeNode insert(KVPair pair);
-    
+
     KVPair getMinimum(int level, boolean center);
     // remove
 }
@@ -117,7 +117,7 @@ class LeafNode implements TreeNode {
     public void setPair2(KVPair pair) {
         pair2 = pair;
     }
-    
+
     public KVPair getMinimum(int level, boolean center) {
         return pair1;
     }
@@ -133,7 +133,7 @@ class LeafNode implements TreeNode {
             this.setPair1(pair);
             return this;
         }
-        
+
         int pair1Comparison = pair.compareTo(pair1);
         if (pair1Comparison > 0 && pair2 == null) { // greater start value than
                                                     // pair1
@@ -195,14 +195,15 @@ class InternalNode implements TreeNode {
      * @param rightNode
      *            Pointer to the right node
      */
-    public InternalNode(TreeNode leftNode, TreeNode centerNode, 
+    public InternalNode(TreeNode leftNode, TreeNode centerNode,
             TreeNode rightNode) {
         pair1 = null;
         pair2 = null;
         left = leftNode;
         center = centerNode;
         right = rightNode;
-        if (leftNode != null) count++;
+        if (leftNode != null)
+            count++;
         if (centerNode != null) {
             count++;
             pair1 = this.getMinimum(0, true);
@@ -216,8 +217,9 @@ class InternalNode implements TreeNode {
     public TreeNode insert(KVPair pair) {
         int pair1Comparison = pair.compareTo(pair1);
         int pair2Comparison = 0;
-        if (pair2 != null) pair2Comparison = pair.compareTo(pair2);
-        
+        if (pair2 != null)
+            pair2Comparison = pair.compareTo(pair2);
+
         if (pair1Comparison > 0 && pair2 == null) { // greater start value than
             TreeNode tempNode = this.getCenter().insert(pair);
             if (tempNode != this.getCenter()) { // We know it has split
@@ -231,15 +233,16 @@ class InternalNode implements TreeNode {
             TreeNode tempNode = this.getLeft().insert(pair);
             if (tempNode != this.getLeft()) {
                 InternalNode internNode = (InternalNode) tempNode;
-                
-                if (count == 3) { //We need to split this internal node
-                    InternalNode interimNode = new InternalNode(internNode.getCenter(), 
-                            this.getRight(), null);
+
+                if (count == 3) { // We need to split this internal node
+                    InternalNode interimNode = new InternalNode(
+                            internNode.getCenter(), this.getRight(), null);
                     this.setCenter(internNode.getLeft());
                     this.setRight(null);
                     return new InternalNode(this, interimNode, null);
                 }
                 else {
+                    this.setRight(this.getCenter());
                     this.setCenter(internNode.getCenter());
                     this.setLeft(internNode.getLeft());
                 }
@@ -250,9 +253,9 @@ class InternalNode implements TreeNode {
             TreeNode tempNode = this.getCenter().insert(pair);
             if (tempNode != this.getCenter()) {
                 InternalNode internNode = (InternalNode) tempNode;
-                if (count == 3) { //We need to split this internal node
-                    InternalNode interimNode = new InternalNode(internNode.getCenter(), 
-                            this.getRight(), null);
+                if (count == 3) { // We need to split this internal node
+                    InternalNode interimNode = new InternalNode(
+                            internNode.getCenter(), this.getRight(), null);
                     this.setCenter(internNode.getLeft());
                     this.setRight(null);
                     return new InternalNode(this, interimNode, null);
@@ -268,9 +271,9 @@ class InternalNode implements TreeNode {
             TreeNode tempNode = this.getCenter().insert(pair);
             if (tempNode != this.getCenter()) {
                 InternalNode internNode = (InternalNode) tempNode;
-                if (count == 3) { //We need to split this internal node
-                    InternalNode interimNode = new InternalNode(internNode.getCenter(), 
-                            this.getRight(), null);
+                if (count == 3) { // We need to split this internal node
+                    InternalNode interimNode = new InternalNode(
+                            internNode.getCenter(), this.getRight(), null);
                     this.setCenter(internNode.getLeft());
                     this.setRight(null);
                     return new InternalNode(this, interimNode, null);
@@ -284,16 +287,15 @@ class InternalNode implements TreeNode {
         else {
             // go right
             TreeNode tempNode = this.getRight().insert(pair);
-            if (tempNode != this.getRight()) {  
+            if (tempNode != this.getRight()) {
                 InternalNode internNode = (InternalNode) tempNode;
-                InternalNode interimNode = new InternalNode(internNode.getLeft(), 
-                        internNode.getCenter(), null);
+                InternalNode interimNode = new InternalNode(
+                        internNode.getLeft(), internNode.getCenter(), null);
                 this.setRight(null);
                 return new InternalNode(this, interimNode, null);
             }
 
         }
-        
 
         return this;
     }
@@ -303,6 +305,10 @@ class InternalNode implements TreeNode {
      *            Pointer to the left node to set
      */
     public void setLeft(TreeNode leftNode) {
+        if (left != null && leftNode == null)
+            count--;
+        else if (left == null && leftNode != null)
+            count++;
         left = leftNode;
     }
 
@@ -311,9 +317,15 @@ class InternalNode implements TreeNode {
      *            Pointer to the right node to set
      */
     public void setRight(TreeNode rightNode) {
+        if (right != null && rightNode == null)
+            count--;
+        else if (right == null && rightNode != null)
+            count++;
         right = rightNode;
-        if (right != null) pair2 = this.getMinimum(0, false);
-        else pair2 = null;
+        if (right != null)
+            pair2 = this.getMinimum(0, false);
+        else
+            pair2 = null;
     }
 
     /**
@@ -321,9 +333,15 @@ class InternalNode implements TreeNode {
      *            Pointer to the center node to set
      */
     public void setCenter(TreeNode centerNode) {
+        if (center != null && centerNode == null)
+            count--;
+        else if (center == null && centerNode != null)
+            count++;
         center = centerNode;
-        if (center != null) pair1 = this.getMinimum(0, true);
-        else pair1 = null;
+        if (center != null)
+            pair1 = this.getMinimum(0, true);
+        else
+            pair1 = null;
     }
 
     /**
@@ -384,7 +402,7 @@ class InternalNode implements TreeNode {
     public void setPair2(KVPair pair) {
         pair2 = pair;
     }
-    
+
     public KVPair getMinimum(int level, boolean center) {
         if (level == 0) {
             if (center)
@@ -392,7 +410,8 @@ class InternalNode implements TreeNode {
             else
                 return this.getRight().getMinimum(1, false);
         }
-        else return this.getLeft().getMinimum(++level, false);
+        else
+            return this.getLeft().getMinimum(++level, false);
     }
 
     public void swap() {
