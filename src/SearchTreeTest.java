@@ -232,10 +232,14 @@ public class SearchTreeTest extends TestCase {
         assertEquals(0, myHtb.getItems());
         myHtb.extend(memManager.getPool());
         assertEquals(20, myHtb.getSize());
+        one.getStart();
+        two.getStart();
+        three.getStart();
     }
 
-
-
+    /**
+     * 
+     */
     public void testHashtableQuadraticFail() {
         MemoryManager memManager = new MemoryManager(1024, 32);
         Hashtable myHtb = new Hashtable(11, "Artist", memManager);
