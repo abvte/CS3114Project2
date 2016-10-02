@@ -1,0 +1,11 @@
+insert Bruce Rowland<SEP>Mountain Theme
+insert Thomas Dolby<SEP>She Blinded Me With Science
+insert Johnny Winter<SEP>Be Careful With A Fool
+insert Cheo Feliciano<SEP>Juguete
+insert Kings Of Leon<SEP>Wicker Chair
+insert Happy Mondays<SEP>Wrote For Luck (12 - Remastered version)
+insert Rita Chiarelli<SEP>Doggin' Around
+insert Tim Wilson<SEP>I Think My Wife Is Running Around On Me (Taco Hell)
+insert Ennio Morricone<SEP>Sporco Ma Distinto
+insert Tiny Bradshaw<SEP>Well Oh Well
+print tree

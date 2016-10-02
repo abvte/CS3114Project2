@@ -1,0 +1,90 @@
+|Bruce Rowland| is added to the artist database.
+|Mountain Theme| is added to the song database.
+The KVPair (|Bruce Rowland|,|Mountain Theme|),(0,15) is added to the tree.
+The KVPair (|Mountain Theme|,|Bruce Rowland|),(15,0) is added to the tree.
+Memory pool expanded to be 64 bytes.
+|Thomas Dolby| is added to the artist database.
+Memory pool expanded to be 96 bytes.
+|She Blinded Me With Science| is added to the song database.
+The KVPair (|Thomas Dolby|,|She Blinded Me With Science|),(31,45) is added to the tree.
+The KVPair (|She Blinded Me With Science|,|Thomas Dolby|),(45,31) is added to the tree.
+|Johnny Winter| is added to the artist database.
+Memory pool expanded to be 128 bytes.
+|Be Careful With A Fool| is added to the song database.
+The KVPair (|Johnny Winter|,|Be Careful With A Fool|),(74,89) is added to the tree.
+The KVPair (|Be Careful With A Fool|,|Johnny Winter|),(89,74) is added to the tree.
+Memory pool expanded to be 160 bytes.
+|Cheo Feliciano| is added to the artist database.
+|Juguete| is added to the song database.
+The KVPair (|Cheo Feliciano|,|Juguete|),(113,129) is added to the tree.
+The KVPair (|Juguete|,|Cheo Feliciano|),(129,113) is added to the tree.
+|Kings Of Leon| is added to the artist database.
+Memory pool expanded to be 192 bytes.
+|Wicker Chair| is added to the song database.
+The KVPair (|Kings Of Leon|,|Wicker Chair|),(138,153) is added to the tree.
+The KVPair (|Wicker Chair|,|Kings Of Leon|),(153,138) is added to the tree.
+Artist hash table size doubled.
+|Happy Mondays| is added to the artist database.
+Song hash table size doubled.
+Memory pool expanded to be 224 bytes.
+|Wrote For Luck (12 - Remastered version)| is added to the song database.
+The KVPair (|Happy Mondays|,|Wrote For Luck (12 - Remastered version)|),(167,182) is added to the tree.
+The KVPair (|Wrote For Luck (12 - Remastered version)|,|Happy Mondays|),(182,167) is added to the tree.
+Memory pool expanded to be 256 bytes.
+|Rita Chiarelli| is added to the artist database.
+|Doggin' Around| is added to the song database.
+The KVPair (|Rita Chiarelli|,|Doggin' Around|),(224,240) is added to the tree.
+The KVPair (|Doggin' Around|,|Rita Chiarelli|),(240,224) is added to the tree.
+Memory pool expanded to be 288 bytes.
+|Tim Wilson| is added to the artist database.
+Memory pool expanded to be 320 bytes.
+Memory pool expanded to be 352 bytes.
+|I Think My Wife Is Running Around On Me (Taco Hell)| is added to the song database.
+The KVPair (|Tim Wilson|,|I Think My Wife Is Running Around On Me (Taco Hell)|),(256,268) is added to the tree.
+The KVPair (|I Think My Wife Is Running Around On Me (Taco Hell)|,|Tim Wilson|),(268,256) is added to the tree.
+|Ennio Morricone| is added to the artist database.
+Memory pool expanded to be 384 bytes.
+|Sporco Ma Distinto| is added to the song database.
+The KVPair (|Ennio Morricone|,|Sporco Ma Distinto|),(321,338) is added to the tree.
+The KVPair (|Sporco Ma Distinto|,|Ennio Morricone|),(338,321) is added to the tree.
+|Tiny Bradshaw| is added to the artist database.
+Memory pool expanded to be 416 bytes.
+|Well Oh Well| is added to the song database.
+The KVPair (|Tiny Bradshaw|,|Well Oh Well|),(358,373) is added to the tree.
+The KVPair (|Well Oh Well|,|Tiny Bradshaw|),(373,358) is added to the tree.
+Printing 2-3 tree:
+138 153
+  74 89
+    31 45
+      15 0
+        0 15
+        15 0
+      45 31
+        31 45
+        45 31
+    113 129
+      89 74
+        74 89
+        89 74
+      129 113
+        113 129
+        129 113
+  224 240
+    167 182
+      153 138
+        138 153
+        153 138
+      182 167
+        167 182
+        182 167
+    256 268 321 338
+      240 224
+        224 240
+        240 224
+      268 256
+        256 268
+        268 256
+      338 321 358 373
+        321 338
+        338 321
+        358 373 373 358

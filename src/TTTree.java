@@ -139,11 +139,11 @@ public class TTTree {
             else if (temp.getPair2() == null) { // Search center
                 return findPair(temp.getCenter(), pair);
             }
-            else if (pair.compareTo(temp.getPair2()) < 0) {
+            else if (pair.compareTo(temp.getPair2()) < 0) { //Search center 
                 return findPair(temp.getCenter(), pair);
             }
             else {
-                return findPair(temp.getCenter(), pair);
+                return findPair(temp.getCenter(), pair); //Search right 
             }
         }
         return null;

@@ -1,0 +1,104 @@
+|Passion Pit| is added to the artist database.
+|Take a Walk| is added to the song database.
+The KVPair (|Passion Pit|,|Take a Walk|),(0,13) is added to the tree.
+The KVPair (|Take a Walk|,|Passion Pit|),(13,0) is added to the tree.
+|Passion Pit| duplicates a record already in the artist database.
+Memory pool expanded to be 64 bytes.
+|I'll Be Alright| is added to the song database.
+The KVPair (|Passion Pit|,|I'll Be Alright|),(0,26) is added to the tree.
+The KVPair (|I'll Be Alright|,|Passion Pit|),(26,0) is added to the tree.
+|Passion Pit| duplicates a record already in the artist database.
+|Carried Away| is added to the song database.
+The KVPair (|Passion Pit|,|Carried Away|),(0,43) is added to the tree.
+The KVPair (|Carried Away|,|Passion Pit|),(43,0) is added to the tree.
+|Passion Pit| duplicates a record already in the artist database.
+Memory pool expanded to be 96 bytes.
+|Constant Conversations| is added to the song database.
+The KVPair (|Passion Pit|,|Constant Conversations|),(0,57) is added to the tree.
+The KVPair (|Constant Conversations|,|Passion Pit|),(57,0) is added to the tree.
+|Passion Pit| duplicates a record already in the artist database.
+|Mirrored Sea| is added to the song database.
+The KVPair (|Passion Pit|,|Mirrored Sea|),(0,81) is added to the tree.
+The KVPair (|Mirrored Sea|,|Passion Pit|),(81,0) is added to the tree.
+|Passion Pit| duplicates a record already in the artist database.
+Song hash table size doubled.
+Memory pool expanded to be 128 bytes.
+|Cry Like a Ghost| is added to the song database.
+The KVPair (|Passion Pit|,|Cry Like a Ghost|),(0,95) is added to the tree.
+The KVPair (|Cry Like a Ghost|,|Passion Pit|),(95,0) is added to the tree.
+|Passion Pit| duplicates a record already in the artist database.
+|On My Way| is added to the song database.
+The KVPair (|Passion Pit|,|On My Way|),(0,113) is added to the tree.
+The KVPair (|On My Way|,|Passion Pit|),(113,0) is added to the tree.
+|Passion Pit| duplicates a record already in the artist database.
+Memory pool expanded to be 160 bytes.
+|Hideaway| is added to the song database.
+The KVPair (|Passion Pit|,|Hideaway|),(0,124) is added to the tree.
+The KVPair (|Hideaway|,|Passion Pit|),(124,0) is added to the tree.
+|Passion Pit| duplicates a record already in the artist database.
+Memory pool expanded to be 192 bytes.
+|Two Veils to Hide My Face| is added to the song database.
+The KVPair (|Passion Pit|,|Two Veils to Hide My Face|),(0,134) is added to the tree.
+The KVPair (|Two Veils to Hide My Face|,|Passion Pit|),(134,0) is added to the tree.
+|Passion Pit| duplicates a record already in the artist database.
+|Love is Greed| is added to the song database.
+The KVPair (|Passion Pit|,|Love is Greed|),(0,161) is added to the tree.
+The KVPair (|Love is Greed|,|Passion Pit|),(161,0) is added to the tree.
+|Passion Pit| duplicates a record already in the artist database.
+Song hash table size doubled.
+Memory pool expanded to be 224 bytes.
+|It's Not My Fault, I'm Happy| is added to the song database.
+The KVPair (|Passion Pit|,|It's Not My Fault, I'm Happy|),(0,176) is added to the tree.
+The KVPair (|It's Not My Fault, I'm Happy|,|Passion Pit|),(176,0) is added to the tree.
+|Passion Pit| duplicates a record already in the artist database.
+|Where We Belong| is added to the song database.
+The KVPair (|Passion Pit|,|Where We Belong|),(0,206) is added to the tree.
+The KVPair (|Where We Belong|,|Passion Pit|),(206,0) is added to the tree.
+|Passion Pit| duplicates a record already in the artist database.
+|I'll Be Alright| duplicates a record already in the song database.
+The KVPair (|Passion Pit|,|I'll Be Alright|),(0,26) duplicates a record already in the tree.
+The KVPair (|I'll Be Alright|,|Passion Pit|),(26,0) duplicates a record already in the tree..
+|Passion Pit| duplicates a record already in the artist database.
+|Take a Walk| duplicates a record already in the song database.
+The KVPair (|Passion Pit|,|Take a Walk|),(0,13) duplicates a record already in the tree.
+The KVPair (|Take a Walk|,|Passion Pit|),(13,0) duplicates a record already in the tree..
+Printing 2-3 tree:
+13 0
+  0 81
+    0 43
+      0 26
+        0 13
+        0 26
+      0 57
+        0 43
+        0 57
+    0 113 0 134
+      0 95
+        0 81
+        0 95
+      0 124
+        0 113
+        0 124
+      0 161 0 176
+        0 134
+        0 161
+        0 176 0 206
+  81 0
+    43 0
+      26 0
+        13 0
+        26 0
+      57 0
+        43 0
+        57 0
+    113 0 134 0
+      95 0
+        81 0
+        95 0
+      124 0
+        113 0
+        124 0
+      161 0 176 0
+        134 0
+        161 0
+        176 0 206 0

@@ -1,3 +1,7 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 import student.TestCase;
 
 /**
@@ -134,7 +138,7 @@ public class SearchTreeTest extends TestCase {
     }
 
     /**
-     * tests adding an entry to the hashtable
+     * Tests adding an entry to the hashtable
      */
     public void testHashtableAdd() {
         MemoryManager memManager = new MemoryManager(1024, 32);
@@ -148,7 +152,7 @@ public class SearchTreeTest extends TestCase {
     
     /**
     /**
-     * tests adding an entry to the hashtable with tombstone
+     * Tests adding an entry to the hashtable with tombstone
      */
     public void testHashtableAddWithTombstone() {
         MemoryManager memManager = new MemoryManager(1024, 32);
@@ -209,7 +213,7 @@ public class SearchTreeTest extends TestCase {
     }
 
     /**
-     * tests extending the hashtable
+     * Tests extending the hashtable
      */
     public void testHashtableExtend() {
         MemoryManager memManager = new MemoryManager(5, 32);
@@ -238,7 +242,7 @@ public class SearchTreeTest extends TestCase {
     }
 
     /**
-     * 
+     * Tests quadratic probing 
      */
     public void testHashtableQuadraticFail() {
         MemoryManager memManager = new MemoryManager(1024, 32);
@@ -254,7 +258,6 @@ public class SearchTreeTest extends TestCase {
             myHtb.getTable()[i] = new Hash(null);
         }
         assertNull(myHtb.get("e", memManager.getPool()));
-        //assertFalse(myHtb.remove("e"));
         assertNull(myHtb.get("e", memManager.getPool()));
         assertNull(myHtb.remove("e", memManager.getPool()));
     }
@@ -389,5 +392,51 @@ public class SearchTreeTest extends TestCase {
         ParserClass pc = new ParserClass(2, 2, "testFile.txt");
         pc.run();
         assertEquals(pc, pc);
+    }
+    
+    //2-3 Tree Tests
+        
+    /**
+     * Insertion test for one artists with multiple songs
+     */
+    public void testInsertOneArtistMultipleSongs() {
+        String[] args = new String[3];
+        args[0] = "10";
+        args[1] = "32";
+        args[2] = "SingleArtistMultipleSongs.txt";
+        SearchTree.main(args);
+        String content = null;
+        File output = new File("SingleArtistMultipleSongsOut.txt");
+        try {
+            Scanner scan = new Scanner(output);
+            content = scan.useDelimiter("\\Z").next();
+            scan.close();
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        assertEquals(content + "\n", systemOut().getHistory());
+    }
+    
+    /**
+     * This unit tests checks for inserts with ten songs
+     */
+    public void testInsertTenSongs() {
+        String[] args = new String[3];
+        args[0] = "10";
+        args[1] = "32";
+        args[2] = "InsertTenSongs.txt";
+        SearchTree.main(args);
+        String content = null;
+        File output = new File("InsertTenSongsOut.txt");
+        try {
+            Scanner scan = new Scanner(output);
+            content = scan.useDelimiter("\\Z").next();
+            scan.close();
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        assertEquals(content + "\n", systemOut().getHistory());
     }
 }
