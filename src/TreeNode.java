@@ -8,18 +8,56 @@
  *
  */
 interface TreeNode {
+    /**
+     * Setter for left pair
+     * 
+     * @param newPair
+     *            Pair to be set
+     */
     void setPair1(KVPair newPair);
 
+    /**
+     * Setter for right pair
+     * 
+     * @param newPair
+     *            Pair to be set
+     */
     void setPair2(KVPair newPair);
 
+    /**
+     * Getter for left pair
+     * 
+     * @return left pair
+     * 
+     */
     public KVPair getPair1();
 
+    /**
+     * Getter for right pair
+     * 
+     * @return right pair
+     */
     public KVPair getPair2();
 
+    /**
+     * Simple swap function
+     */
     void swap();
 
+    /**
+     * @param pair
+     *            Pair to be inserted
+     * @return root node
+     */
     TreeNode insert(KVPair pair);
 
+    /**
+     * @param level
+     *            Height of the tree
+     * @param center
+     *            Boolean to check if it's the center child
+     * @return Minimum value in the tree
+     */
     KVPair getMinimum(int level, boolean center);
     // remove
 }
@@ -34,20 +72,19 @@ class LeafNode implements TreeNode {
     private KVPair pair1;
     private KVPair pair2;
     private TreeNode next;
-    private TreeNode prev;
 
     /**
      * @param firstPair
      *            First key-value pair
      * @param secondPair
      *            Second key-value pair
+     * @param nextNode
+     *            Pointer to the next leaf
      */
-    public LeafNode(KVPair firstPair, KVPair secondPair, TreeNode nextNode,
-            TreeNode prevNode) {
+    public LeafNode(KVPair firstPair, KVPair secondPair, TreeNode nextNode) {
         pair1 = firstPair;
         pair2 = secondPair;
         next = nextNode;
-        prev = prevNode;
     }
 
     /**
@@ -55,21 +92,6 @@ class LeafNode implements TreeNode {
      */
     public TreeNode getNext() {
         return next;
-    }
-
-    /**
-     * @param node
-     *            Previous node of the leaf
-     */
-    public void setPrev(TreeNode node) {
-        prev = node;
-    }
-
-    /**
-     * @return previous node of the leaf
-     */
-    public TreeNode getPrev() {
-        return prev;
     }
 
     /**
@@ -118,16 +140,31 @@ class LeafNode implements TreeNode {
         pair2 = pair;
     }
 
+    /**
+     * @param level
+     *            Height of the tree
+     * @param center
+     *            Boolean to check if it's the center child
+     * @return Minimum value in the tree
+     */
     public KVPair getMinimum(int level, boolean center) {
         return pair1;
     }
 
+    /**
+     * Simple swap function
+     */
     public void swap() {
         KVPair temp = pair1;
         pair1 = pair2;
         pair2 = temp;
     }
 
+    /**
+     * @param pair
+     *            Pair to be inserted
+     * @return root node
+     */
     public TreeNode insert(KVPair pair) {
         if (pair1 == null) {
             this.setPair1(pair);
@@ -149,18 +186,18 @@ class LeafNode implements TreeNode {
         int pair2Comparison = pair.compareTo(pair2);
 
         if (pair1Comparison < 0 && pair2Comparison < 0) { // Split to the left
-            TreeNode splitNode = new LeafNode(pair, null, this, null);
+            TreeNode splitNode = new LeafNode(pair, null, this);
 
             return new InternalNode(splitNode, this, this.next);
         }
         else if (pair1Comparison >= 0 && pair2Comparison < 0) {
-            TreeNode splitNode = new LeafNode(this.pair1, null, this, null);
+            TreeNode splitNode = new LeafNode(this.pair1, null, this);
             this.setPair1(pair);
 
             return new InternalNode(splitNode, this, null);
         }
         else {
-            TreeNode splitNode = new LeafNode(pair1, null, this, null);
+            TreeNode splitNode = new LeafNode(pair1, null, this);
             this.setPair1(pair);
             this.swap();
 
@@ -184,10 +221,6 @@ class InternalNode implements TreeNode {
     private int count;
 
     /**
-     * @param firstPair
-     *            First key-value pair
-     * @param secondPair
-     *            Second key-value pair
      * @param leftNode
      *            Pointer to the left node
      * @param centerNode
@@ -202,8 +235,9 @@ class InternalNode implements TreeNode {
         left = leftNode;
         center = centerNode;
         right = rightNode;
-        if (leftNode != null)
+        if (leftNode != null) {
             count++;
+        }
         if (centerNode != null) {
             count++;
             pair1 = this.getMinimum(0, true);
@@ -214,12 +248,17 @@ class InternalNode implements TreeNode {
         }
     }
 
+    /**
+     * @param pair
+     *            Pair to be inserted
+     * @return root node
+     */
     public TreeNode insert(KVPair pair) {
         int pair1Comparison = pair.compareTo(pair1);
         int pair2Comparison = 0;
-        if (pair2 != null)
+        if (pair2 != null) {
             pair2Comparison = pair.compareTo(pair2);
-
+        }
         if (pair1Comparison > 0 && pair2 == null) { // greater start value than
             TreeNode tempNode = this.getCenter().insert(pair);
             if (tempNode != this.getCenter()) { // We know it has split
@@ -304,10 +343,12 @@ class InternalNode implements TreeNode {
      *            Pointer to the left node to set
      */
     public void setLeft(TreeNode leftNode) {
-        if (left != null && leftNode == null)
+        if (left != null && leftNode == null) {
             count--;
-        else if (left == null && leftNode != null)
+        }
+        else if (left == null && leftNode != null) {
             count++;
+        }
         left = leftNode;
     }
 
@@ -316,15 +357,19 @@ class InternalNode implements TreeNode {
      *            Pointer to the right node to set
      */
     public void setRight(TreeNode rightNode) {
-        if (right != null && rightNode == null)
+        if (right != null && rightNode == null) {
             count--;
-        else if (right == null && rightNode != null)
+        }
+        else if (right == null && rightNode != null) {
             count++;
+        }
         right = rightNode;
-        if (right != null)
+        if (right != null) {
             pair2 = this.getMinimum(0, false);
-        else
+        }
+        else {
             pair2 = null;
+        }
     }
 
     /**
@@ -332,15 +377,19 @@ class InternalNode implements TreeNode {
      *            Pointer to the center node to set
      */
     public void setCenter(TreeNode centerNode) {
-        if (center != null && centerNode == null)
+        if (center != null && centerNode == null) {
             count--;
-        else if (center == null && centerNode != null)
+        }
+        else if (center == null && centerNode != null) {
             count++;
+        }
         center = centerNode;
-        if (center != null)
+        if (center != null) {
             pair1 = this.getMinimum(0, true);
-        else
+        }
+        else {
             pair1 = null;
+        }
     }
 
     /**
@@ -402,17 +451,30 @@ class InternalNode implements TreeNode {
         pair2 = pair;
     }
 
-    public KVPair getMinimum(int level, boolean center) {
+    /**
+     * @param level
+     *            Height of the tree
+     * @param centerCheck
+     *            Boolean to check if it's the center child
+     * @return Minimum value in the tree
+     */
+    public KVPair getMinimum(int level, boolean centerCheck) {
         if (level == 0) {
-            if (center)
+            if (centerCheck) {
                 return this.getCenter().getMinimum(1, false);
-            else
+            }
+            else {
                 return this.getRight().getMinimum(1, false);
+            }
         }
-        else
+        else {
             return this.getLeft().getMinimum(++level, false);
+        }
     }
 
+    /**
+     * Simple swap function
+     */
     public void swap() {
         KVPair temp = pair1;
         pair1 = pair2;
