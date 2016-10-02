@@ -88,23 +88,27 @@ public class ParserClass {
         if (x[0].equals("insert")) {
             // Parse the artist song combination
             String[] info = parseArtistSong(x[1]);
-            first = memManager.insert(info[0], true); //Artist
-            second = memManager.insert(info[1], false); //Song
+            first = memManager.insert(info[0], true); // Artist
+            second = memManager.insert(info[1], false); // Song
             if (first != null && second != null) {
-                searchTree.processHandles(first, second, info[1], info[0], false);
+                searchTree.processHandles(first, second, info[1], info[0],
+                        false);
             }
             else if (first == null && second != null) {
                 first = memManager.artists.get(info[0], memManager.getPool());
-                searchTree.processHandles(first, second, info[1], info[0], false);
+                searchTree.processHandles(first, second, info[1], info[0],
+                        false);
             }
             else if (first != null && second == null) {
                 second = memManager.artists.get(info[1], memManager.getPool());
-                searchTree.processHandles(first, second, info[1], info[0], false);
+                searchTree.processHandles(first, second, info[1], info[0],
+                        false);
             }
             else {
                 first = memManager.artists.get(info[0], memManager.getPool());
                 second = memManager.songs.get(info[1], memManager.getPool());
-                searchTree.processHandles(first, second, info[1], info[0], true);
+                searchTree.processHandles(first, second, info[1], info[0],
+                        true);
             }
         }
         else if (x[0].equals("remove")) {
@@ -140,9 +144,11 @@ public class ParserClass {
             String[] processed = x[1].split(" ", 2);
             if (processed[0].equals("artist")) {
                 // List from tree
+                System.out.println("List from tree");
             }
             else if (processed[0].equals("song")) {
                 // List from tree
+                System.out.println("List from tree");
             }
             else {
                 System.out.println("Unknown type in list command");

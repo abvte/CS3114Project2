@@ -9,18 +9,20 @@
  */
 public class TTTree {
     private TreeNode root;
-    private int depth;
-    private int count;
+    // private int depth;
+    // private int count;
 
     /**
      * Constructor
      */
     TTTree() {
-        root = new LeafNode(null, null, null, null);
-        count = 0;
+        root = new LeafNode(null, null, null);
+        // count = 0;
     }
 
     /**
+     * Insert method for tree
+     * 
      * @param pair
      *            KVPair to be inserted
      */
@@ -29,6 +31,8 @@ public class TTTree {
     }
 
     /**
+     * Method to process handles
+     * 
      * @param first
      *            First handle
      * @param second
@@ -37,6 +41,8 @@ public class TTTree {
      *            Song name
      * @param artist
      *            Artist name
+     * @param duplicate
+     *            Boolean value to see if duplicate exists in tree already.
      */
     public void processHandles(Handle first, Handle second, String song,
             String artist, boolean duplicate) {
@@ -72,10 +78,12 @@ public class TTTree {
     }
 
     /**
-     * Preorder traversal
+     * Pre order traversal
      * 
      * @param node
      *            Root node of tree
+     * @param indent
+     *            Spacing to print tree
      */
     public void preorder(TreeNode node, String indent) {
         if (node == null) {
@@ -89,8 +97,9 @@ public class TTTree {
             System.out.println(indent + node.getPair1().toString());
         }
 
-        if (node instanceof LeafNode)
+        if (node instanceof LeafNode) {
             return;
+        }
         else {
             InternalNode temp = (InternalNode) node;
             this.preorder(temp.getLeft(), "  " + indent);
@@ -100,6 +109,13 @@ public class TTTree {
 
     }
 
+    /**
+     * @param node
+     *            Root node
+     * @param pair
+     *            Pair to find
+     * @return The pair if it's found. Null if not.
+     */
     public KVPair findPair(TreeNode node, KVPair pair) {
         if (node == null) {
             return null;
@@ -130,7 +146,6 @@ public class TTTree {
                 return findPair(temp.getCenter(), pair);
             }
         }
-        
         return null;
     }
 }
