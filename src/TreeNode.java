@@ -8,18 +8,48 @@
  *
  */
 interface TreeNode {
+    /**
+     * Sets first KVPair
+     * @param newPair
+     */
     void setPair1(KVPair newPair);
 
+    /**
+     * Sets second KVPair
+     * @param newPair
+     */
     void setPair2(KVPair newPair);
 
+    /**
+     * Gets first KVPair
+     * @return first KVPair
+     */
     public KVPair getPair1();
 
+    /**
+     * Gets second KVPair
+     * @return second KVPair
+     */
     public KVPair getPair2();
 
+    /**
+     * Swaps first and second KVPair
+     */
     void swap();
 
+    /**
+     * Inserts a KVPair recursively
+     * @param pair Pair to insert
+     * @return InternalNode or LeafNode based on outcome of insert
+     */
     TreeNode insert(KVPair pair);
 
+    /**
+     * Returns minimum value of center or right child
+     * @param level 0 if root, non-zero otherwise
+     * @param center false to go down center path, right path otherwise
+     * @return minimum KVPair
+     */
     KVPair getMinimum(int level, boolean center);
     // remove
 }
@@ -118,16 +148,25 @@ class LeafNode implements TreeNode {
         pair2 = pair;
     }
 
+    /*
+     * @see TreeNode#getMinimum(int, boolean)
+     */
     public KVPair getMinimum(int level, boolean center) {
         return pair1;
     }
 
+    /*
+     * @see TreeNode#swap()
+     */
     public void swap() {
         KVPair temp = pair1;
         pair1 = pair2;
         pair2 = temp;
     }
 
+    /*
+     * @see TreeNode#insert(KVPair)
+     */
     public TreeNode insert(KVPair pair) {
         if (pair1 == null) {
             this.setPair1(pair);
@@ -214,6 +253,9 @@ class InternalNode implements TreeNode {
         }
     }
 
+    /*
+     * @see TreeNode#insert(KVPair)
+     */
     public TreeNode insert(KVPair pair) {
         int pair1Comparison = pair.compareTo(pair1);
         int pair2Comparison = 0;
@@ -402,6 +444,9 @@ class InternalNode implements TreeNode {
         pair2 = pair;
     }
 
+    /*
+     * @see TreeNode#getMinimum(int, boolean)
+     */
     public KVPair getMinimum(int level, boolean center) {
         if (level == 0) {
             if (center)
@@ -413,6 +458,9 @@ class InternalNode implements TreeNode {
             return this.getLeft().getMinimum(++level, false);
     }
 
+    /*
+     * @see TreeNode#swap()
+     */
     public void swap() {
         KVPair temp = pair1;
         pair1 = pair2;
