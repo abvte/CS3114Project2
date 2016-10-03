@@ -19,9 +19,10 @@ public class TTTree {
         root = new LeafNode(null, null, null);
         // count = 0;
     }
-    
+
     /**
-     * Getter for root 
+     * Getter for root
+     * 
      * @return root of the tree
      */
     public TreeNode getRoot() {
@@ -40,14 +41,15 @@ public class TTTree {
 
     /**
      * Searches for a pair
-     * @param pair Pair to search for
-     * @param root Node to start at
+     * 
+     * @param pair
+     *            Pair to search for
      * @return Null if the pair is not found, an object otherwise
      */
     public KVPair search(KVPair pair) {
         return root.search(pair);
     }
-    
+
     /**
      * Method to process handles
      * 
@@ -66,7 +68,15 @@ public class TTTree {
             String artist, boolean duplicate) {
         KVPair firstPair = new KVPair(first, second);
         KVPair secondPair = new KVPair(second, first);
-        if (!duplicate) {
+        if (duplicate && root.search(firstPair) != null) {
+            System.out.println("The KVPair (|" + artist + "|,|" + song + "|),("
+                    + first.toString() + "," + second.toString()
+                    + ") duplicates a record already in the tree.");
+            System.out.println("The KVPair (|" + song + "|,|" + artist + "|),("
+                    + second.toString() + "," + first.toString()
+                    + ") duplicates a record already in the tree.");
+        }
+        else {
             this.insert(firstPair);
             System.out.println("The KVPair (|" + artist + "|,|" + song + "|),("
                     + first.toString() + "," + second.toString()
@@ -75,14 +85,6 @@ public class TTTree {
             System.out.println("The KVPair (|" + song + "|,|" + artist + "|),("
                     + second.toString() + "," + first.toString()
                     + ") is added to the tree.");
-        }
-        else {
-            System.out.println("The KVPair (|" + artist + "|,|" + song + "|),("
-                    + first.toString() + "," + second.toString()
-                    + ") duplicates a record already in the tree.");
-            System.out.println("The KVPair (|" + song + "|,|" + artist + "|),("
-                    + second.toString() + "," + first.toString()
-                    + ") duplicates a record already in the tree.");
         }
 
     }
@@ -127,40 +129,4 @@ public class TTTree {
 
     }
 
-    /**
-     * @param node
-     *            Root node
-     * @param pair
-     *            Pair to find
-     * @return The pair if it's found. Null if not.
-     */
-    public KVPair findPair(TreeNode node, KVPair pair) {
-        if (node.getPair1() == null) {
-            return null;
-        }
-        if (pair.compareTo(node.getPair1()) == 0) {
-            return node.getPair1();
-        }
-        if ((node.getPair2() != null)
-                && (pair.compareTo(node.getPair2()) == 0)) {
-            return node.getPair2();
-        }
-
-        if (!(node instanceof LeafNode)) {
-            InternalNode temp = (InternalNode) node;
-            if (pair.compareTo(temp.getPair1()) < 0) { // Search left
-                return findPair(temp.getLeft(), pair);
-            }
-            else if (temp.getPair2() == null) { // Search center
-                return findPair(temp.getCenter(), pair);
-            }
-            else if (pair.compareTo(temp.getPair2()) < 0) { //Search center 
-                return findPair(temp.getCenter(), pair);
-            }
-            else {
-                return findPair(temp.getCenter(), pair); //Search right 
-            }
-        }
-        return null;
-    }
 }

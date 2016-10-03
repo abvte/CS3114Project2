@@ -592,10 +592,10 @@ public class SearchTreeTest extends TestCase {
     }
 
     /**
-     * This unit test checks to see if a certain node exists in the tree
+     * This unit test checks to see if a certain node exists in the leaves of the 
+     * tree
      */
     public void testFindTreeNode() {
-        TTTree tree = new TTTree();
         MemoryManager memManager = new MemoryManager(30, 500);
         Hashtable myHtb = new Hashtable(30, "Artist", memManager);
         Handle zero = (Handle) myHtb.add("Maroon0",
@@ -640,17 +640,13 @@ public class SearchTreeTest extends TestCase {
         KVPair p4 = new KVPair(six, seven);
         KVPair p5 = new KVPair(eight, nine);
         KVPair p6 = new KVPair(ten, eleven);
-        assertEquals(null, tree.findPair(tree.getRoot(), p1));
-        tree.insert(p1);
-        tree.insert(p2);
-        tree.insert(p3);
-        tree.insert(p4);
-        tree.insert(p5);
-        assertEquals(p1, tree.findPair(tree.getRoot(), p1));
-        assertEquals(p2, tree.findPair(tree.getRoot(), p2));
-        assertEquals(p3, tree.findPair(tree.getRoot(), p3));
-        assertEquals(p4, tree.findPair(tree.getRoot(), p4));
-        assertEquals(p5, tree.findPair(tree.getRoot(), p5));
-        assertEquals(null, tree.findPair(tree.getRoot(), p6));
+        LeafNode leaf1 = new LeafNode(p1, p2, null);
+        LeafNode leaf2 = new LeafNode(p3, p4, null);
+        LeafNode leaf3 = new LeafNode(p5, null, null);
+        LeafNode leaf4 = new LeafNode(null, null, null);
+        assertEquals(null, leaf3.search(p6));
+        assertEquals(p2, leaf1.search(p2));
+        assertEquals(p4, leaf2.search(p4));
+        assertNull(leaf4.search(p5));
     }
 }

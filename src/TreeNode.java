@@ -66,7 +66,6 @@ interface TreeNode {
      * 
      * @param pair
      *            Search key
-     * @param root
      *            Node to start at
      * @return Null if not found, an object otherwise
      */
@@ -174,7 +173,7 @@ class LeafNode implements TreeNode {
     /**
      * @param pair
      *            Pair to be inserted
-     * @return root node
+     * @return root
      */
     public TreeNode insert(KVPair pair) {
         if (pair1 == null) {
@@ -221,8 +220,6 @@ class LeafNode implements TreeNode {
      * 
      * @param pair
      *            Search key
-     * @param root
-     *            Node to start at
      * @return Null if not found, an object otherwise
      */
     public KVPair search(KVPair pair) {
@@ -517,8 +514,6 @@ class InternalNode implements TreeNode {
      * 
      * @param pair
      *            Search key
-     * @param root
-     *            Node to start at
      * @return Null if not found, an object otherwise
      */
     public KVPair search(KVPair pair) {
