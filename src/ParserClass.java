@@ -107,8 +107,14 @@ public class ParserClass {
             else {
                 first = memManager.artists.get(info[0], memManager.getPool());
                 second = memManager.songs.get(info[1], memManager.getPool());
-                searchTree.processHandles(first, second, info[1], info[0],
-                        true);
+                if (searchTree.search(new KVPair(first, second)) == null) {
+                    searchTree.processHandles(first, second, info[1], info[0],
+                            false);
+                }
+                else {
+                    searchTree.processHandles(first, second, info[1], info[0],
+                            true);
+                }
             }
         }
         else if (x[0].equals("remove")) {

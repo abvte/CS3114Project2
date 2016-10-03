@@ -39,6 +39,16 @@ public class TTTree {
     }
 
     /**
+     * Searches for a pair
+     * @param pair Pair to search for
+     * @param root Node to start at
+     * @return Null if the pair is not found, an object otherwise
+     */
+    public KVPair search(KVPair pair) {
+        return root.search(pair);
+    }
+    
+    /**
      * Method to process handles
      * 
      * @param first

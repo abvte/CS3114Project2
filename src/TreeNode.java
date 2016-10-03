@@ -60,6 +60,17 @@ interface TreeNode {
      */
     KVPair getMinimum(int level, boolean center);
     // remove
+
+    /**
+     * Searches recursively through tree
+     * 
+     * @param pair
+     *            Search key
+     * @param root
+     *            Node to start at
+     * @return Null if not found, an object otherwise
+     */
+    KVPair search(KVPair pair);
 }
 
 /**
@@ -204,6 +215,31 @@ class LeafNode implements TreeNode {
             return new InternalNode(splitNode, this, null);
         }
     }
+
+    /**
+     * Searches recursively through tree
+     * 
+     * @param pair
+     *            Search key
+     * @param root
+     *            Node to start at
+     * @return Null if not found, an object otherwise
+     */
+    public KVPair search(KVPair pair) {
+        if (this.getPair1() == null || pair == null) {
+            return null;
+        }
+
+        if (pair.compareTo(this.pair1) == 0) {
+            return pair1;
+        }
+        else if (this.pair2 != null && pair.compareTo(this.pair2) == 0) {
+            return pair2;
+        }
+        else {
+            return null;
+        }
+    }
 }
 
 /**
@@ -272,7 +308,6 @@ class InternalNode implements TreeNode {
             TreeNode tempNode = this.getLeft().insert(pair);
             if (tempNode != this.getLeft()) {
                 InternalNode internNode = (InternalNode) tempNode;
-
                 if (count == 3) { // We need to split this internal node
                     InternalNode interimNode = new InternalNode(
                             this.getCenter(), this.getRight(), null);
@@ -298,11 +333,6 @@ class InternalNode implements TreeNode {
                 this.setCenter(internNode.getLeft());
                 this.setRight(null);
                 return new InternalNode(this, interimNode, null);
-                //Don't think this
-//                else {
-//                    this.setCenter(internNode.getLeft());
-//                    this.setRight(internNode.getCenter());
-//                }
             }
         }
         else if (pair1Comparison > 0 && pair2Comparison <= 0) {
@@ -480,5 +510,42 @@ class InternalNode implements TreeNode {
         KVPair temp = pair1;
         pair1 = pair2;
         pair2 = temp;
+    }
+
+    /**
+     * Searches recursively through tree
+     * 
+     * @param pair
+     *            Search key
+     * @param root
+     *            Node to start at
+     * @return Null if not found, an object otherwise
+     */
+    public KVPair search(KVPair pair) {
+        if (pair1 == null || pair == null) {
+            return null;
+        }
+
+        int pair1Comparison = pair.compareTo(pair1);
+        int pair2Comparison = 0;
+        if (pair2 != null) {
+            pair2Comparison = pair.compareTo(pair2);
+        }
+
+        if (pair1Comparison >= 0 && pair2 == null) { // greater start value than
+            return this.getCenter().search(pair);
+        }
+        else if (pair1Comparison < 0) {
+            // go left
+            return this.getLeft().search(pair);
+        }
+        else if (pair2Comparison >= 0) {
+            // go right
+            return this.getRight().search(pair);
+        }
+        else {
+            // go center
+            return this.getCenter().search(pair);
+        }
     }
 }
