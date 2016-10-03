@@ -592,8 +592,8 @@ public class SearchTreeTest extends TestCase {
     }
 
     /**
-     * This unit test checks to see if a certain node exists in the leaves of the 
-     * tree
+     * This unit test checks to see if a certain node exists in the leaves of
+     * the tree
      */
     public void testFindTreeNode() {
         MemoryManager memManager = new MemoryManager(30, 500);
