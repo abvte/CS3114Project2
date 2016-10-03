@@ -1,5 +1,5 @@
 /**
- * Elements in the 2-3+ tree class
+ * Interface for nodes in the 2-3+ Tree
  * 
  * @author Kevin Zhang
  * @author Adam Bishop
@@ -45,6 +45,8 @@ interface TreeNode {
     void swap();
 
     /**
+     * Insert function for tree nodes
+     * 
      * @param pair
      *            Pair to be inserted
      * @return root node
@@ -52,6 +54,8 @@ interface TreeNode {
     TreeNode insert(KVPair pair);
 
     /**
+     * Helper function with insert to return minimum value
+     * 
      * @param level
      *            Height of the tree
      * @param center
@@ -65,14 +69,15 @@ interface TreeNode {
      * Searches recursively through tree
      * 
      * @param pair
-     *            Search key
-     *            Node to start at
+     *            Search key Node to start at
      * @return Null if not found, an object otherwise
      */
     KVPair search(KVPair pair);
 }
 
 /**
+ * Leaf Node subclass
+ * 
  * @author Kevin Zhang
  * @author Adam Bishop
  * @version 1
@@ -84,6 +89,8 @@ class LeafNode implements TreeNode {
     private TreeNode next;
 
     /**
+     * Constructor
+     * 
      * @param firstPair
      *            First key-value pair
      * @param secondPair
@@ -98,6 +105,8 @@ class LeafNode implements TreeNode {
     }
 
     /**
+     * Getter for next pointer
+     * 
      * @return next node of the leaf
      */
     public TreeNode getNext() {
@@ -105,6 +114,8 @@ class LeafNode implements TreeNode {
     }
 
     /**
+     * Setter for next pointer
+     * 
      * @param node
      *            Next node of the leaf
      */
@@ -151,6 +162,8 @@ class LeafNode implements TreeNode {
     }
 
     /**
+     * Returns the minimum value in the leaf node
+     * 
      * @param level
      *            Height of the tree
      * @param center
@@ -171,6 +184,8 @@ class LeafNode implements TreeNode {
     }
 
     /**
+     * Insert method for leaf node
+     * 
      * @param pair
      *            Pair to be inserted
      * @return root
@@ -201,16 +216,16 @@ class LeafNode implements TreeNode {
             return new InternalNode(splitNode, this, this.next);
         }
         else if (pair1Comparison >= 0 && pair2Comparison < 0) {
+            //Moves the current pair 1 to the new node
             TreeNode splitNode = new LeafNode(this.pair1, null, this);
             this.setPair1(pair);
-
             return new InternalNode(splitNode, this, null);
         }
         else {
-            TreeNode splitNode = new LeafNode(pair1, null, this);
+            //Moves the current pair 1 to the new node
+            TreeNode splitNode = new LeafNode(this.pair1, null, this);
             this.setPair1(pair);
             this.swap();
-
             return new InternalNode(splitNode, this, null);
         }
     }
@@ -240,6 +255,8 @@ class LeafNode implements TreeNode {
 }
 
 /**
+ * Internal node subclass
+ * 
  * @author Kevin Zhang
  * @author Adam Bishop
  * @version 1
@@ -254,6 +271,8 @@ class InternalNode implements TreeNode {
     private int count;
 
     /**
+     * Constructor for the internal node
+     * 
      * @param leftNode
      *            Pointer to the left node
      * @param centerNode
@@ -282,6 +301,8 @@ class InternalNode implements TreeNode {
     }
 
     /**
+     * Insert method for internal nodes
+     * 
      * @param pair
      *            Pair to be inserted
      * @return root node
@@ -300,7 +321,7 @@ class InternalNode implements TreeNode {
                 this.setRight(internNode.getCenter());
             }
         }
-        else if (pair1Comparison <= 0) {
+        else if (pair1Comparison <= 0) { 
             // go left
             TreeNode tempNode = this.getLeft().insert(pair);
             if (tempNode != this.getLeft()) {
@@ -360,13 +381,13 @@ class InternalNode implements TreeNode {
                 this.setRight(null);
                 return new InternalNode(this, interimNode, null);
             }
-
         }
-
         return this;
     }
 
     /**
+     * Setter for left node
+     * 
      * @param leftNode
      *            Pointer to the left node to set
      */
@@ -381,6 +402,8 @@ class InternalNode implements TreeNode {
     }
 
     /**
+     * Setter for right node
+     * 
      * @param rightNode
      *            Pointer to the right node to set
      */
@@ -401,6 +424,8 @@ class InternalNode implements TreeNode {
     }
 
     /**
+     * Setter for center node 
+     * 
      * @param centerNode
      *            Pointer to the center node to set
      */
@@ -421,6 +446,8 @@ class InternalNode implements TreeNode {
     }
 
     /**
+     * Getter for left node 
+     * 
      * @return Pointer to the left node
      */
     public TreeNode getLeft() {
@@ -428,6 +455,8 @@ class InternalNode implements TreeNode {
     }
 
     /**
+     * Getter for right node 
+     * 
      * @return Pointer to the right node
      */
     public TreeNode getRight() {
@@ -435,6 +464,8 @@ class InternalNode implements TreeNode {
     }
 
     /**
+     * Getter for center node 
+     * 
      * @return Pointer to the center node
      */
     public TreeNode getCenter() {
