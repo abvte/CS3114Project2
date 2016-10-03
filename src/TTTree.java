@@ -94,7 +94,7 @@ public class TTTree {
      *            Spacing to print tree
      */
     public void preorder(TreeNode node, String indent) {
-        if (node == null) {
+        if (node == null || root.getPair1() == null) {
             return;
         }
         if (node.getPair2() != null) { // Full node
