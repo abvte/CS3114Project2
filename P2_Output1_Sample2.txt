@@ -1,0 +1,71 @@
+(0,32)
+total songs: 0
+total artists: 0
+Printing 2-3 tree:
+|Bukka White| is added to the artist database.
+|Bukka White's first song| is added to the song database.
+The KVPair (|Bukka White|,|Bukka White's first song|),(0,13) is added to the tree.
+The KVPair (|Bukka White's first song|,|Bukka White|),(13,0) is added to the tree.
+(39,25)
+Printing 2-3 tree:
+0 13 13 0
+|Sleepy John Estes| is added to the artist database.
+|Street Car Blues| is added to the song database.
+The KVPair (|Sleepy John Estes|,|Street Car Blues|),(39,58) is added to the tree.
+The KVPair (|Street Car Blues|,|Sleepy John Estes|),(58,39) is added to the tree.
+|Bukka White| duplicates a record already in the artist database.
+Memory pool expanded to be 128 bytes.
+|Bukka White's second song| is added to the song database.
+The KVPair (|Bukka White|,|Bukka White's second song|),(0,76) is added to the tree.
+The KVPair (|Bukka White's second song|,|Bukka White|),(76,0) is added to the tree.
+(103,25)
+|Another Bukka White| is added to the artist database.
+|Bukka White's first song| duplicates a record already in the song database.
+The KVPair (|Another Bukka White|,|Bukka White's first song|),(103,13) is added to the tree.
+The KVPair (|Bukka White's first song|,|Another Bukka White|),(13,103) is added to the tree.
+|Bukka White| duplicates a record already in the artist database.
+Memory pool expanded to be 160 bytes.
+|Bukka White's third song| is added to the song database.
+The KVPair (|Bukka White|,|Bukka White's third song|),(0,124) is added to the tree.
+The KVPair (|Bukka White's third song|,|Bukka White|),(124,0) is added to the tree.
+|Another Bukka White| duplicates a record already in the artist database.
+|Bukka White's second song| duplicates a record already in the song database.
+The KVPair (|Another Bukka White|,|Bukka White's second song|),(103,76) is added to the tree.
+The KVPair (|Bukka White's second song|,|Another Bukka White|),(76,103) is added to the tree.
+|Bukka White| duplicates a record already in the artist database.
+Memory pool expanded to be 192 bytes.
+|Bukka White's fourth song| is added to the song database.
+The KVPair (|Bukka White|,|Bukka White's fourth song|),(0,150) is added to the tree.
+The KVPair (|Bukka White's fourth song|,|Bukka White|),(150,0) is added to the tree.
+|Another Bukka White| duplicates a record already in the artist database.
+|Bukka White's third song| duplicates a record already in the song database.
+The KVPair (|Another Bukka White|,|Bukka White's third song|),(103,124) is added to the tree.
+The KVPair (|Bukka White's third song|,|Another Bukka White|),(124,103) is added to the tree.
+|Johnny Winter| is added to the artist database.
+|Bukka White's first song| duplicates a record already in the song database.
+The KVPair (|Johnny Winter|,|Bukka White's first song|),(177,13) is added to the tree.
+The KVPair (|Bukka White's first song|,|Johnny Winter|),(13,177) is added to the tree.
+Printing 2-3 tree:
+39 58 103 76
+  0 124
+    0 76
+      0 13
+      0 76
+    13 0 13 103
+      0 124 0 150
+      13 0
+      13 103 13 177
+  76 0
+    58 39
+      39 58
+      58 39
+    103 13
+      76 0 76 103
+      103 13
+  124 103
+    124 0
+      103 76 103 124
+      124 0
+    150 0
+      124 103
+      150 0 177 13
