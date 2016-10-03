@@ -98,6 +98,39 @@ public class TTTree {
     }
 
     /**
+     * List method for TTTree
+     * 
+     * @param item
+     *            Song/artists to list
+     * @param pool
+     *            MemoryManager object
+     * @param artist
+     *            Checks to see if string passed in is artist or not
+     */
+    public void list(String item, MemoryManager pool, boolean artist) {
+        if (artist) {
+            Handle location = pool.artists.get(item, pool.getPool());
+            if (location == null) {
+                System.out.println("|" + item + "| "
+                        + "does not exist in the artist database.");
+            }
+            else {
+                System.out.println("List artist items.");
+            }
+        }
+        else {
+            Handle location = pool.songs.get(item, pool.getPool());
+            if (location == null) {
+                System.out.println("|" + item + "| "
+                        + "does not exist in the song database.");
+            }
+            else {
+                System.out.println("List song items.");
+            }
+        }
+    }
+
+    /**
      * Pre order traversal
      * 
      * @param node

@@ -13,3 +13,5 @@ insert Tiny Bradshaw<SEP>Well Oh Well
 insert Pleb<SEP>Be Careful With A Fool
 insert Thomas Dolby<SEP>She Blinded Me With Science
 print tree
+list song Thriller
+list artist As Tall As Lions

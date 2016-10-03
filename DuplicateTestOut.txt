@@ -112,3 +112,5 @@ Printing 2-3 tree:
       391 376
         376 391
         391 376 405 89
+|Thriller| does not exist in the song database.
+|As Tall As Lions| does not exist in the artist database.

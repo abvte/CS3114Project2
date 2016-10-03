@@ -216,13 +216,13 @@ class LeafNode implements TreeNode {
             return new InternalNode(splitNode, this, this.next);
         }
         else if (pair1Comparison >= 0 && pair2Comparison < 0) {
-            //Moves the current pair 1 to the new node
+            // Moves the current pair 1 to the new node
             TreeNode splitNode = new LeafNode(this.pair1, null, this);
             this.setPair1(pair);
             return new InternalNode(splitNode, this, null);
         }
         else {
-            //Moves the current pair 1 to the new node
+            // Moves the current pair 1 to the new node
             TreeNode splitNode = new LeafNode(this.pair1, null, this);
             this.setPair1(pair);
             this.swap();
@@ -321,7 +321,7 @@ class InternalNode implements TreeNode {
                 this.setRight(internNode.getCenter());
             }
         }
-        else if (pair1Comparison <= 0) { 
+        else if (pair1Comparison <= 0) {
             // go left
             TreeNode tempNode = this.getLeft().insert(pair);
             if (tempNode != this.getLeft()) {
@@ -424,7 +424,7 @@ class InternalNode implements TreeNode {
     }
 
     /**
-     * Setter for center node 
+     * Setter for center node
      * 
      * @param centerNode
      *            Pointer to the center node to set
@@ -446,7 +446,7 @@ class InternalNode implements TreeNode {
     }
 
     /**
-     * Getter for left node 
+     * Getter for left node
      * 
      * @return Pointer to the left node
      */
@@ -455,7 +455,7 @@ class InternalNode implements TreeNode {
     }
 
     /**
-     * Getter for right node 
+     * Getter for right node
      * 
      * @return Pointer to the right node
      */
@@ -464,7 +464,7 @@ class InternalNode implements TreeNode {
     }
 
     /**
-     * Getter for center node 
+     * Getter for center node
      * 
      * @return Pointer to the center node
      */
@@ -574,4 +574,5 @@ class InternalNode implements TreeNode {
             return this.getCenter().search(pair);
         }
     }
+    
 }

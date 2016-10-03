@@ -144,11 +144,11 @@ public class ParserClass {
             String[] processed = x[1].split(" ", 2);
             if (processed[0].equals("artist")) {
                 // List from tree
-                System.out.println("List from tree");
+                searchTree.list(processed[1], memManager, true);
             }
             else if (processed[0].equals("song")) {
                 // List from tree
-                System.out.println("List from tree");
+                searchTree.list(processed[1], memManager, false);
             }
             else {
                 System.out.println("Unknown type in list command");
