@@ -73,6 +73,13 @@ interface TreeNode {
      * @return Null if not found, an object otherwise
      */
     KVPair search(KVPair pair);
+
+    /**
+     * @param location
+     *                 Handle location
+     * @return TreeNode
+     */
+    TreeNode handleSearch(Handle location);
 }
 
 /**
@@ -247,6 +254,26 @@ class LeafNode implements TreeNode {
         }
         else if (this.pair2 != null && pair.compareTo(this.pair2) == 0) {
             return pair2;
+        }
+        else {
+            return null;
+        }
+    }
+
+    /**
+     * @param location
+     *            Handle location
+     * @return TreeNode
+     */
+    public TreeNode handleSearch(Handle location) {
+        if (this.getPair1() == null) {
+            return null;
+        }
+        if (pair1.compareTo(location) == 0) {
+            return this;
+        }
+        else if (pair2 != null && pair2.compareTo(location) == 0) {
+            return this;
         }
         else {
             return null;
@@ -574,5 +601,37 @@ class InternalNode implements TreeNode {
             return this.getCenter().search(pair);
         }
     }
-    
+
+    /**
+     * @param location
+     *            Handle location
+     * @return TreeNode
+     */
+    public TreeNode handleSearch(Handle location) {
+        if (this.getPair1() == null) {
+            return null;
+        }
+        int pair1Comparison = location.compareTo(pair1.getKey());
+        int pair2Comparison = 0;
+        if (pair2 != null) {
+            pair2Comparison = location.compareTo(pair2.getKey());
+        }
+
+        if (pair1Comparison >= 0 && pair2 == null) { // greater start value than
+            return this.getCenter().handleSearch(location);
+        }
+        else if (pair1Comparison < 0) {
+            // go left
+            return this.getLeft().handleSearch(location);
+        }
+        else if (pair2Comparison >= 0) {
+            // go right
+            return this.getRight().handleSearch(location);
+        }
+        else {
+            // go center
+            return this.getCenter().handleSearch(location);
+        }
+    }
+
 }
