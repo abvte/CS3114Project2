@@ -126,15 +126,12 @@ public class TTTree {
                         System.out.println("|" + song + "| ");
                         complete = false;
                     }
-                    if (treeList.getPair2() != null) {
-                        if (treeList.getPair2().getKey().getStart() == location
-                                .getStart()) {
-                            String song = pool.handle2String(
-                                    treeList.getPair2().getValue(),
-                                    pool.getPool());
-                            System.out.println("|" + song + "| ");
-                            complete = false;
-                        }
+                    if ((treeList.getPair2() != null) && (treeList.getPair2()
+                            .getKey().getStart() == location.getStart())) {
+                        String song = pool.handle2String(
+                                treeList.getPair2().getValue(), pool.getPool());
+                        System.out.println("|" + song + "| ");
+                        complete = false;
                     }
                     if (complete) {
                         break;
@@ -161,16 +158,15 @@ public class TTTree {
                         System.out.println("|" + artists + "| ");
                         complete = false;
                     }
-                    if (treeList.getPair2() != null) {
-                        if (treeList.getPair2().getKey().getStart() == location
-                                .getStart()) {
-                            String artists = pool.handle2String(
-                                    treeList.getPair2().getValue(),
-                                    pool.getPool());
-                            System.out.println("|" + artists + "| ");
-                            complete = false;
-                        }
+
+                    if ((treeList.getPair2() != null) && (treeList.getPair2()
+                            .getKey().getStart() == location.getStart())) {
+                        String artists = pool.handle2String(
+                                treeList.getPair2().getValue(), pool.getPool());
+                        System.out.println("|" + artists + "| ");
+                        complete = false;
                     }
+
                     if (complete) {
                         break;
                     }
