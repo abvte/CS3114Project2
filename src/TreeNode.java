@@ -76,7 +76,7 @@ interface TreeNode {
 
     /**
      * @param location
-     *                 Handle location
+     *            Handle location
      * @return TreeNode
      */
     TreeNode handleSearch(Handle location);
@@ -618,7 +618,15 @@ class InternalNode implements TreeNode {
         }
 
         if (pair1Comparison >= 0 && pair2 == null) { // greater start value than
-            return this.getCenter().handleSearch(location);
+            if ((this.getLeft().getPair1().compareTo(location) == 0
+                    && this.getLeft().getPair1() != null)
+                    || (this.getLeft().getPair2().compareTo(location) == 0
+                            && this.getLeft().getPair2() != null)) {
+                return this.getLeft().handleSearch(location);
+            }
+            else {
+                return this.getCenter().handleSearch(location);
+            }
         }
         else if (pair1Comparison < 0) {
             // go left
