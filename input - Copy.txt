@@ -1,16 +1,4 @@
 insert Passion Pit<SEP>Take a Walk
 insert Passion Pit<SEP>I'll Be Alright
-insert Passion Pit<SEP>Carried Away
-insert Passion Pit<SEP>Constant Conversations
-insert Passion Pit<SEP>Mirrored Sea
-insert Passion Pit<SEP>Cry Like a Ghost
-insert Passion Pit<SEP>On My Way
-insert Passion Pit<SEP>Hideaway
-insert Passion Pit<SEP>Two Veils to Hide My Face
-insert Passion Pit<SEP>Love is Greed
-insert Passion Pit<SEP>It's Not My Fault, I'm Happy
-insert Passion Pit<SEP>Where We Belong
-insert Passion Pit<SEP>I'll Be Alright
-insert Passion Pit<SEP>Take a Walk
 list artist Passion Pit
 print tree

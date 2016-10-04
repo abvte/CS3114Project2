@@ -220,7 +220,7 @@ class LeafNode implements TreeNode {
         if (pair1Comparison < 0 && pair2Comparison < 0) { // Split to the left
             TreeNode splitNode = new LeafNode(pair, null, this);
 
-            return new InternalNode(splitNode, this, this.next);
+            return new InternalNode(splitNode, this, null);
         }
         else if (pair1Comparison >= 0 && pair2Comparison < 0) {
             // Moves the current pair 1 to the new node
@@ -637,8 +637,16 @@ class InternalNode implements TreeNode {
             return this.getRight().handleSearch(location);
         }
         else {
-            // go center
-            return this.getCenter().handleSearch(location);
+            if ((this.getLeft().getPair1().compareTo(location) == 0
+                    && this.getLeft().getPair1() != null)
+                    || (this.getLeft().getPair2().compareTo(location) == 0
+                            && this.getLeft().getPair2() != null)) {
+                return this.getLeft().handleSearch(location);
+            }
+            else {
+                // Go center
+                return this.getCenter().handleSearch(location);
+            }
         }
     }
 
