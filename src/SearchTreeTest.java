@@ -444,6 +444,8 @@ public class SearchTreeTest extends TestCase {
         assertEquals(test, node1.getLeft());
         node1.setLeft(null);
         assertNull(node1.getLeft());
+        node1.setLeft(test);
+        assertEquals(test, node1.getLeft());
     }
 
     /**
@@ -662,6 +664,29 @@ public class SearchTreeTest extends TestCase {
         SearchTree.main(args);
         String content = null;
         File output = new File("ListTestOut.txt");
+        try {
+            Scanner scan = new Scanner(output);
+            content = scan.useDelimiter("\\Z").next();
+            scan.close();
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        assertEquals(content + "\n", systemOut().getHistory());
+    }
+    
+    /**
+     * Unit test to check if it inserts and prints
+     * 100+ entries properly
+     */
+    public void testHugeInsert() {
+        String[] args = new String[3];
+        args[0] = "10";
+        args[1] = "32";
+        args[2] = "MultipleInserts.txt";
+        SearchTree.main(args);
+        String content = null;
+        File output = new File("MultipleInsertsOut.txt");
         try {
             Scanner scan = new Scanner(output);
             content = scan.useDelimiter("\\Z").next();
