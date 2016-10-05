@@ -1,0 +1,162 @@
+|Funeral For A Friend| is added to the artist database.
+Memory pool expanded to be 64 bytes.
+|Your Revolution Is A Joke| is added to the song database.
+The KVPair (|Funeral For A Friend|,|Your Revolution Is A Joke|),(0,22) is added to the tree.
+The KVPair (|Your Revolution Is A Joke|,|Funeral For A Friend|),(22,0) is added to the tree.
+|Y&T| is added to the artist database.
+Memory pool expanded to be 96 bytes.
+|Black Tiger| is added to the song database.
+The KVPair (|Y&T|,|Black Tiger|),(49,54) is added to the tree.
+The KVPair (|Black Tiger|,|Y&T|),(54,49) is added to the tree.
+|Dons| is added to the artist database.
+|American Lovebite| is added to the song database.
+The KVPair (|Dons|,|American Lovebite|),(67,73) is added to the tree.
+The KVPair (|American Lovebite|,|Dons|),(73,67) is added to the tree.
+Memory pool expanded to be 128 bytes.
+|Hot Chip| is added to the artist database.
+|No| is added to the song database.
+The KVPair (|Hot Chip|,|No|),(92,102) is added to the tree.
+The KVPair (|No|,|Hot Chip|),(102,92) is added to the tree.
+|Sister Hazel| is added to the artist database.
+Memory pool expanded to be 160 bytes.
+|Cerilene| is added to the song database.
+The KVPair (|Sister Hazel|,|Cerilene|),(106,120) is added to the tree.
+The KVPair (|Cerilene|,|Sister Hazel|),(120,106) is added to the tree.
+Artist hash table size doubled.
+|Delirious| is added to the artist database.
+Song hash table size doubled.
+Memory pool expanded to be 192 bytes.
+|God You Are My God| is added to the song database.
+The KVPair (|Delirious|,|God You Are My God|),(130,141) is added to the tree.
+The KVPair (|God You Are My God|,|Delirious|),(141,130) is added to the tree.
+Memory pool expanded to be 224 bytes.
+|Winston McAnuff_ The Bazbaz Orchestra| is added to the artist database.
+|Common sense| is added to the song database.
+The KVPair (|Winston McAnuff_ The Bazbaz Orchestra|,|Common sense|),(161,200) is added to the tree.
+The KVPair (|Common sense|,|Winston McAnuff_ The Bazbaz Orchestra|),(200,161) is added to the tree.
+Memory pool expanded to be 256 bytes.
+|Teenage Fanclub| is added to the artist database.
+|The World'll Be OK| is added to the song database.
+The KVPair (|Teenage Fanclub|,|The World'll Be OK|),(214,231) is added to the tree.
+The KVPair (|The World'll Be OK|,|Teenage Fanclub|),(231,214) is added to the tree.
+Memory pool expanded to be 288 bytes.
+|Samy Deluxe| is added to the artist database.
+|Die Meisten| is added to the song database.
+The KVPair (|Samy Deluxe|,|Die Meisten|),(251,264) is added to the tree.
+The KVPair (|Die Meisten|,|Samy Deluxe|),(264,251) is added to the tree.
+Memory pool expanded to be 320 bytes.
+|James Horner| is added to the artist database.
+|Good Friend| is added to the song database.
+The KVPair (|James Horner|,|Good Friend|),(277,291) is added to the tree.
+The KVPair (|Good Friend|,|James Horner|),(291,277) is added to the tree.
+Artist hash table size doubled.
+Memory pool expanded to be 352 bytes.
+|Jennifer Lopez featuring Ja Rule| is added to the artist database.
+Song hash table size doubled.
+|I'm Real| is added to the song database.
+The KVPair (|Jennifer Lopez featuring Ja Rule|,|I'm Real|),(304,338) is added to the tree.
+The KVPair (|I'm Real|,|Jennifer Lopez featuring Ja Rule|),(338,304) is added to the tree.
+Memory pool expanded to be 384 bytes.
+|The Presets| is added to the artist database.
+|If I Know You| is added to the song database.
+The KVPair (|The Presets|,|If I Know You|),(348,361) is added to the tree.
+The KVPair (|If I Know You|,|The Presets|),(361,348) is added to the tree.
+Memory pool expanded to be 416 bytes.
+|Arturo Sandoval| is added to the artist database.
+|Waheera| is added to the song database.
+The KVPair (|Arturo Sandoval|,|Waheera|),(376,393) is added to the tree.
+The KVPair (|Waheera|,|Arturo Sandoval|),(393,376) is added to the tree.
+Memory pool expanded to be 448 bytes.
+|Drowning Pool| is added to the artist database.
+|Reborn (Explicit)| is added to the song database.
+The KVPair (|Drowning Pool|,|Reborn (Explicit)|),(402,417) is added to the tree.
+The KVPair (|Reborn (Explicit)|,|Drowning Pool|),(417,402) is added to the tree.
+Memory pool expanded to be 480 bytes.
+|Faith Hill & Tim McGraw| is added to the artist database.
+Memory pool expanded to be 512 bytes.
+|Let's Make Love (Album Version)| is added to the song database.
+The KVPair (|Faith Hill & Tim McGraw|,|Let's Make Love (Album Version)|),(436,461) is added to the tree.
+The KVPair (|Let's Make Love (Album Version)|,|Faith Hill & Tim McGraw|),(461,436) is added to the tree.
+|Gene Autry| is added to the artist database.
+Memory pool expanded to be 544 bytes.
+|Frankie And Johnny| is added to the song database.
+The KVPair (|Gene Autry|,|Frankie And Johnny|),(494,506) is added to the tree.
+The KVPair (|Frankie And Johnny|,|Gene Autry|),(506,494) is added to the tree.
+Memory pool expanded to be 576 bytes.
+|Sergio Mendes / Black Eyed Peas| is added to the artist database.
+|Mas Que Nada| is added to the song database.
+The KVPair (|Sergio Mendes / Black Eyed Peas|,|Mas Que Nada|),(526,559) is added to the tree.
+The KVPair (|Mas Que Nada|,|Sergio Mendes / Black Eyed Peas|),(559,526) is added to the tree.
+Memory pool expanded to be 608 bytes.
+|Kassav'| is added to the artist database.
+|Loko| is added to the song database.
+The KVPair (|Kassav'|,|Loko|),(573,582) is added to the tree.
+The KVPair (|Loko|,|Kassav'|),(582,573) is added to the tree.
+|Liam O'Flynn| is added to the artist database.
+Memory pool expanded to be 640 bytes.
+|Romeo's Exile| is added to the song database.
+The KVPair (|Liam O'Flynn|,|Romeo's Exile|),(588,602) is added to the tree.
+The KVPair (|Romeo's Exile|,|Liam O'Flynn|),(602,588) is added to the tree.
+|Open Hand| is added to the artist database.
+Memory pool expanded to be 672 bytes.
+|11th Street| is added to the song database.
+The KVPair (|Open Hand|,|11th Street|),(617,628) is added to the tree.
+The KVPair (|11th Street|,|Open Hand|),(628,617) is added to the tree.
+Artist hash table size doubled.
+|Tilman Sillescu| is added to the artist database.
+Song hash table size doubled.
+Memory pool expanded to be 704 bytes.
+|Escape From The Underrealm| is added to the song database.
+The KVPair (|Tilman Sillescu|,|Escape From The Underrealm|),(641,658) is added to the tree.
+The KVPair (|Escape From The Underrealm|,|Tilman Sillescu|),(658,641) is added to the tree.
+|Novaspace| is added to the artist database.
+Memory pool expanded to be 736 bytes.
+Memory pool expanded to be 768 bytes.
+|Dancing With Tears In My Eyes 2004 (Nova Mix (Club Version))| is added to the song database.
+The KVPair (|Novaspace|,|Dancing With Tears In My Eyes 2004 (Nova Mix (Club Version))|),(686,697) is added to the tree.
+The KVPair (|Dancing With Tears In My Eyes 2004 (Nova Mix (Club Version))|,|Novaspace|),(697,686) is added to the tree.
+Memory pool expanded to be 800 bytes.
+|The Ruby Suns| is added to the artist database.
+|Function Of The Sun| is added to the song database.
+The KVPair (|The Ruby Suns|,|Function Of The Sun|),(759,774) is added to the tree.
+The KVPair (|Function Of The Sun|,|The Ruby Suns|),(774,759) is added to the tree.
+Memory pool expanded to be 832 bytes.
+|Buddy Miles| is added to the artist database.
+Memory pool expanded to be 864 bytes.
+|Don't Keep Me Wondering| is added to the song database.
+The KVPair (|Buddy Miles|,|Don't Keep Me Wondering|),(795,808) is added to the tree.
+The KVPair (|Don't Keep Me Wondering|,|Buddy Miles|),(808,795) is added to the tree.
+Memory pool expanded to be 896 bytes.
+|Esperanza Spalding / Leo Genovese| is added to the artist database.
+|If That's True| is added to the song database.
+The KVPair (|Esperanza Spalding / Leo Genovese|,|If That's True|),(833,868) is added to the tree.
+The KVPair (|If That's True|,|Esperanza Spalding / Leo Genovese|),(868,833) is added to the tree.
+|Dave Eggar| is added to the artist database.
+Memory pool expanded to be 928 bytes.
+|Deep Blue| is added to the song database.
+The KVPair (|Dave Eggar|,|Deep Blue|),(884,896) is added to the tree.
+The KVPair (|Deep Blue|,|Dave Eggar|),(896,884) is added to the tree.
+|Michael Gettel| is added to the artist database.
+Memory pool expanded to be 960 bytes.
+|Safe Passage| is added to the song database.
+The KVPair (|Michael Gettel|,|Safe Passage|),(907,923) is added to the tree.
+The KVPair (|Safe Passage|,|Michael Gettel|),(923,907) is added to the tree.
+|John Cale| is added to the artist database.
+Memory pool expanded to be 992 bytes.
+|Movement 4 [from Kiss] (Album Version)| is added to the song database.
+The KVPair (|John Cale|,|Movement 4 [from Kiss] (Album Version)|),(937,948) is added to the tree.
+The KVPair (|Movement 4 [from Kiss] (Album Version)|,|John Cale|),(948,937) is added to the tree.
+Memory pool expanded to be 1024 bytes.
+|Jean Corti| is added to the artist database.
+|C'Etait Bien| is added to the song database.
+The KVPair (|Jean Corti|,|C'Etait Bien|),(988,1000) is added to the tree.
+The KVPair (|C'Etait Bien|,|Jean Corti|),(1000,988) is added to the tree.
+|L7| is added to the artist database.
+Memory pool expanded to be 1056 bytes.
+|Baggage| is added to the song database.
+The KVPair (|L7|,|Baggage|),(1014,1018) is added to the tree.
+The KVPair (|Baggage|,|L7|),(1018,1014) is added to the tree.
+|Black Tiger| 
+|Hot Chip| 
+|The World'll Be OK| 
+|Delirious| 

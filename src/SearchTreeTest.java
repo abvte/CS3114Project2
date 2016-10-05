@@ -649,4 +649,27 @@ public class SearchTreeTest extends TestCase {
         assertEquals(p4, leaf2.search(p4));
         assertNull(leaf4.search(p5));
     }
+    
+    /**
+     * Unit test to check if it lists songs and artists
+     * with single entries
+     */
+    public void testList() {
+        String[] args = new String[3];
+        args[0] = "10";
+        args[1] = "32";
+        args[2] = "ListTest.txt";
+        SearchTree.main(args);
+        String content = null;
+        File output = new File("ListTestOut.txt");
+        try {
+            Scanner scan = new Scanner(output);
+            content = scan.useDelimiter("\\Z").next();
+            scan.close();
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        assertEquals(content + "\n", systemOut().getHistory());
+    }
 }

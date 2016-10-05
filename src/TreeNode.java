@@ -620,8 +620,8 @@ class InternalNode implements TreeNode {
         if (pair1Comparison >= 0 && pair2 == null) { // greater start value than
             if ((this.getLeft().getPair1().compareTo(location) == 0
                     && this.getLeft().getPair1() != null)
-                    || (this.getLeft().getPair2().compareTo(location) == 0
-                            && this.getLeft().getPair2() != null)) {
+                    || (this.getLeft().getPair2() != null && this.getLeft()
+                            .getPair2().compareTo(location) == 0)) {
                 return this.getLeft().handleSearch(location);
             }
             else {
@@ -632,21 +632,13 @@ class InternalNode implements TreeNode {
             // go left
             return this.getLeft().handleSearch(location);
         }
-        else if (pair2Comparison >= 0) {
+        else if (pair2Comparison >= 0 && pair2 != null) {
             // go right
             return this.getRight().handleSearch(location);
         }
         else {
-            if ((this.getLeft().getPair1().compareTo(location) == 0
-                    && this.getLeft().getPair1() != null)
-                    || (this.getLeft().getPair2().compareTo(location) == 0
-                            && this.getLeft().getPair2() != null)) {
-                return this.getLeft().handleSearch(location);
-            }
-            else {
-                // Go center
-                return this.getCenter().handleSearch(location);
-            }
+            // Go center
+            return this.getCenter().handleSearch(location);
         }
     }
 

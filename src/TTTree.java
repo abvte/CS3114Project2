@@ -68,7 +68,7 @@ public class TTTree {
             String artist, boolean duplicate) {
         KVPair firstPair = new KVPair(first, second);
         KVPair secondPair = new KVPair(second, first);
-        if (duplicate && root.search(firstPair) != null) {
+        if (duplicate && this.search(firstPair) != null) {
             System.out.println("The KVPair (|" + artist + "|,|" + song + "|),("
                     + first.toString() + "," + second.toString()
                     + ") duplicates a record already in the tree.");
@@ -108,70 +108,44 @@ public class TTTree {
      *            Checks to see if string passed in is artist or not
      */
     public void list(String item, MemoryManager pool, boolean artist) {
+        Handle location;
+        String itemType;
+        String poolItem;
         if (artist) {
-            Handle location = pool.artists.get(item, pool.getPool());
-            if (location == null) {
-                System.out.println("|" + item + "| "
-                        + "does not exist in the artist database.");
-            }
-            else {
-                TreeNode temp = root.handleSearch(location);
-                LeafNode treeList = (LeafNode) temp;
-                while (treeList.getNext() != null) {
-                    boolean complete = true;
-                    if (treeList.getPair1().getKey().getStart() == location
-                            .getStart()) {
-                        String song = pool.handle2String(
-                                treeList.getPair1().getValue(), pool.getPool());
-                        System.out.println("|" + song + "| ");
-                        complete = false;
-                    }
-                    if ((treeList.getPair2() != null) && (treeList.getPair2()
-                            .getKey().getStart() == location.getStart())) {
-                        String song = pool.handle2String(
-                                treeList.getPair2().getValue(), pool.getPool());
-                        System.out.println("|" + song + "| ");
-                        complete = false;
-                    }
-                    if (complete) {
-                        break;
-                    }
-                    treeList = (LeafNode) treeList.getNext();
-                }
-            }
+            location = pool.artists.get(item, pool.getPool());
+            itemType = "artist";
         }
         else {
-            Handle location = pool.songs.get(item, pool.getPool());
-            if (location == null) {
-                System.out.println("|" + item + "| "
-                        + "does not exist in the song database.");
-            }
-            else {
-                TreeNode temp = root.handleSearch(location);
-                LeafNode treeList = (LeafNode) temp;
-                while (treeList.getNext() != null) {
-                    boolean complete = true;
-                    if (treeList.getPair1().getKey().getStart() == location
-                            .getStart()) {
-                        String artists = pool.handle2String(
-                                treeList.getPair1().getValue(), pool.getPool());
-                        System.out.println("|" + artists + "| ");
-                        complete = false;
-                    }
-
-                    if ((treeList.getPair2() != null) && (treeList.getPair2()
-                            .getKey().getStart() == location.getStart())) {
-                        String artists = pool.handle2String(
-                                treeList.getPair2().getValue(), pool.getPool());
-                        System.out.println("|" + artists + "| ");
-                        complete = false;
-                    }
-
-                    if (complete) {
-                        break;
-                    }
-                    treeList = (LeafNode) treeList.getNext();
+            location = pool.songs.get(item, pool.getPool());
+            itemType = "song";
+        }
+        if (location == null) {
+            System.out.println("|" + item + "| " + "does not exist in the "
+                    + itemType + " database.");
+        }
+        else {
+            TreeNode temp = root.handleSearch(location);
+            LeafNode treeList = (LeafNode) temp;
+            while (treeList != null) {
+                boolean complete = true;
+                if (treeList.getPair1().getKey().getStart() == location
+                        .getStart()) {
+                    poolItem = pool.handle2String(
+                            treeList.getPair1().getValue(), pool.getPool());
+                    System.out.println("|" + poolItem + "| ");
+                    complete = false;
                 }
+                if ((treeList.getPair2() != null) && (treeList.getPair2()
+                        .getKey().getStart() == location.getStart())) {
+                    poolItem = pool.handle2String(
+                            treeList.getPair2().getValue(), pool.getPool());
+                    System.out.println("|" + poolItem + "| ");
+                    complete = false;
+                }
+                if (complete) {
+                    break;
+                }
+                treeList = (LeafNode) treeList.getNext();
             }
         }
     }

@@ -1,0 +1,34 @@
+insert Funeral For A Friend<SEP>Your Revolution Is A Joke
+insert Y&T<SEP>Black Tiger
+insert Dons<SEP>American Lovebite
+insert Hot Chip<SEP>No
+insert Sister Hazel<SEP>Cerilene
+insert Delirious<SEP>God You Are My God
+insert Winston McAnuff_ The Bazbaz Orchestra<SEP>Common sense
+insert Teenage Fanclub<SEP>The World'll Be OK
+insert Samy Deluxe<SEP>Die Meisten
+insert James Horner<SEP>Good Friend
+insert Jennifer Lopez featuring Ja Rule<SEP>I'm Real
+insert The Presets<SEP>If I Know You
+insert Arturo Sandoval<SEP>Waheera
+insert Drowning Pool<SEP>Reborn (Explicit)
+insert Faith Hill & Tim McGraw<SEP>Let's Make Love (Album Version)
+insert Gene Autry<SEP>Frankie And Johnny
+insert Sergio Mendes / Black Eyed Peas<SEP>Mas Que Nada
+insert Kassav'<SEP>Loko
+insert Liam O'Flynn<SEP>Romeo's Exile
+insert Open Hand<SEP>11th Street
+insert Tilman Sillescu<SEP>Escape From The Underrealm
+insert Novaspace<SEP>Dancing With Tears In My Eyes 2004 (Nova Mix (Club Version))
+insert The Ruby Suns<SEP>Function Of The Sun
+insert Buddy Miles<SEP>Don't Keep Me Wondering
+insert Esperanza Spalding / Leo Genovese<SEP>If That's True
+insert Dave Eggar<SEP>Deep Blue
+insert Michael Gettel<SEP>Safe Passage
+insert John Cale<SEP>Movement 4 [from Kiss] (Album Version)
+insert Jean Corti<SEP>C'Etait Bien
+insert L7<SEP>Baggage
+list artist Y&T
+list song No
+list artist Teenage Fanclub
+list song God You Are My God
