@@ -343,13 +343,15 @@ class InternalNode implements TreeNode {
             TreeNode tempNode = this.getCenter().insert(pair);
             if (tempNode != this.getCenter()) { // We know it has split
                 InternalNode internNode = (InternalNode) tempNode;
+
                 this.setCenter(internNode.getLeft());
                 this.setRight(internNode.getCenter());
-            }
-            if (this.getCenter() instanceof LeafNode) {
-                LeafNode tempLeaf = (LeafNode) this.getLeft();
-                tempLeaf.setNext(this.getCenter());
-                tempLeaf = (LeafNode) this.getCenter();
+                if (this.getLeft() instanceof LeafNode) {
+                    LeafNode temp = (LeafNode) this.getLeft();
+                    temp.setNext(this.getCenter());
+                    this.left = temp;
+                }
+                
             }
         }
         else if (pair1Comparison <= 0) {
@@ -362,6 +364,7 @@ class InternalNode implements TreeNode {
                             this.getCenter(), this.getRight(), null);
                     this.setLeft(internNode.getLeft());
                     this.setCenter(internNode.getCenter());
+                    
                     this.setRight(null);
                     return new InternalNode(this, interimNode, null);
                 }
@@ -380,6 +383,8 @@ class InternalNode implements TreeNode {
                 InternalNode interimNode = new InternalNode(
                         internNode.getCenter(), this.getRight(), null);
                 this.setCenter(internNode.getLeft());
+                splitHelper(interimNode, true);
+                
                 this.setRight(null);
                 return new InternalNode(this, interimNode, null);
             }
@@ -394,6 +399,8 @@ class InternalNode implements TreeNode {
                     InternalNode interimNode = new InternalNode(
                             internNode.getCenter(), this.getRight(), null);
                     this.setCenter(internNode.getLeft());
+                    splitHelper(interimNode, true);
+                    
                     this.setRight(null);
                     return new InternalNode(this, interimNode, null);
                 }
@@ -410,6 +417,8 @@ class InternalNode implements TreeNode {
                 InternalNode internNode = (InternalNode) tempNode;
                 InternalNode interimNode = new InternalNode(
                         internNode.getLeft(), internNode.getCenter(), null);
+                splitHelper(interimNode, false);
+                
                 this.setRight(null);
                 return new InternalNode(this, interimNode, null);
             }
@@ -417,6 +426,32 @@ class InternalNode implements TreeNode {
         return this;
     }
 
+    /**
+     * Helps link the nodes
+     * @param node Node to connect to
+     * @param centerCheck Indicates whether to change center path or right path
+     */
+    public void splitHelper(InternalNode node, boolean centerCheck) {
+        LeafNode left;
+        LeafNode center;
+        if (!(this.getLeft() instanceof LeafNode)) {
+            return;
+        }
+        else {
+            left = (LeafNode) this.getLeft();
+            center = (LeafNode) this.getCenter();
+            if (centerCheck) {   //center
+                left.setNext(node.getLeft());
+            }
+            else if (!centerCheck) {   //right
+                center.setNext(node.getLeft());
+            }
+            else {
+                return;
+            }
+        }
+    }
+    
     /**
      * Setter for left node
      * 
