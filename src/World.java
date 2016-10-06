@@ -6,10 +6,25 @@
  * @version 1.0
  */
 public class World {
+    /**
+     * 
+     */
     protected TTTree searchTree;
+    /**
+     * 
+     */
     protected MemoryManager memManager;
+    /**
+     * 
+     */
     protected Hashtable<Handle> artists;
+    /**
+     * 
+     */
     protected Hashtable<Handle> songs;
+    /**
+     * 
+     */
     protected ParserClass parser;
 
     /**
