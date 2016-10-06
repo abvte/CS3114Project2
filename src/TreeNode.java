@@ -219,7 +219,6 @@ class LeafNode implements TreeNode {
 
         if (pair1Comparison < 0 && pair2Comparison < 0) { // Split to the left
             TreeNode splitNode = new LeafNode(pair, null, this);
-
             return new InternalNode(splitNode, this, null);
         }
         else if (pair1Comparison >= 0 && pair2Comparison < 0) {
@@ -347,6 +346,11 @@ class InternalNode implements TreeNode {
                 this.setCenter(internNode.getLeft());
                 this.setRight(internNode.getCenter());
             }
+            if (this.getCenter() instanceof LeafNode) {
+                LeafNode tempLeaf = (LeafNode) this.getLeft();
+                tempLeaf.setNext(this.getCenter());
+                tempLeaf = (LeafNode) this.getCenter();
+            }
         }
         else if (pair1Comparison <= 0) {
             // go left
@@ -379,6 +383,7 @@ class InternalNode implements TreeNode {
                 this.setRight(null);
                 return new InternalNode(this, interimNode, null);
             }
+
         }
         else if (pair1Comparison > 0 && pair2Comparison <= 0) {
             // go center
@@ -632,13 +637,20 @@ class InternalNode implements TreeNode {
             // go left
             return this.getLeft().handleSearch(location);
         }
-        else if (pair2Comparison >= 0 && pair2 != null) {
+        else if (pair2Comparison > 0 && pair2 != null) {
             // go right
             return this.getRight().handleSearch(location);
         }
         else {
-            // Go center
-            return this.getCenter().handleSearch(location);
+            if ((this.getLeft().getPair1().compareTo(location) == 0
+                    && this.getLeft().getPair1() != null)
+                    || (this.getLeft().getPair2() != null && this.getLeft()
+                            .getPair2().compareTo(location) == 0)) {
+                return this.getLeft().handleSearch(location);
+            }
+            else {
+                return this.getCenter().handleSearch(location);
+            }
         }
     }
 
