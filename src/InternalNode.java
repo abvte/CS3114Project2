@@ -150,19 +150,19 @@ class InternalNode implements TreeNode {
      * @param centerCheck Indicates whether to change center path or right path
      */
     public void splitHelper(InternalNode node, boolean centerCheck) {
-        LeafNode left;
-        LeafNode center;
+        LeafNode leftNode;
+        LeafNode centerNode;
         if (!(this.getLeft() instanceof LeafNode)) {
             return;
         }
         else {
-            left = (LeafNode) this.getLeft();
-            center = (LeafNode) this.getCenter();
+            leftNode = (LeafNode) this.getLeft();
+            centerNode = (LeafNode) this.getCenter();
             if (centerCheck) {   //center
-                left.setNext(node.getLeft());
+                leftNode.setNext(node.getLeft());
             }
             else if (!centerCheck) {   //right
-                center.setNext(node.getLeft());
+                centerNode.setNext(node.getLeft());
             }
             else {
                 return;
