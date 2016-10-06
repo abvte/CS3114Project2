@@ -13,24 +13,14 @@ public class ParserClass {
 
     private String fileName; // File name of the file
                              // containing the input commands
-    private MemoryManager memManager; // Instantiation of the
-                                      // memory manager itself
-    private TTTree searchTree;
 
     /**
-     * Constructor which defines initial hash table size, pool size, and
-     * location of input file
+     * Constructor which defines location of input file
      * 
-     * @param hashSize
-     *            Initial hash table size
-     * @param blockSize
-     *            Initial pool size
      * @param filename
      *            Points to the command file
      */
-    public ParserClass(int hashSize, int blockSize, String filename) {
-        memManager = new MemoryManager(hashSize, blockSize);
-        searchTree = new TTTree();
+    public ParserClass(String filename) {
         fileName = filename;
     }
 
@@ -82,42 +72,21 @@ public class ParserClass {
      *            command
      */
     public void runCommand(String[] x) {
-        Handle first;
-        Handle second;
         // x[0] is the command
         if (x[0].equals("insert")) {
             // Parse the artist song combination
             String[] info = parseArtistSong(x[1]);
-            first = memManager.insert(info[0], true); // Artist
-            second = memManager.insert(info[1], false); // Song
-            if (first != null && second != null) {
-                searchTree.processHandles(first, second, info[1], info[0],
-                        false);
-            }
-            else if (first == null && second != null) {
-                first = memManager.artists.get(info[0], memManager.getPool());
-                searchTree.processHandles(first, second, info[1], info[0],
-                        false);
-            }
-            else if (first != null && second == null) {
-                second = memManager.songs.get(info[1], memManager.getPool());
-                searchTree.processHandles(first, second, info[1], info[0],
-                        false);
-            }
-            else {
-                first = memManager.artists.get(info[0], memManager.getPool());
-                second = memManager.songs.get(info[1], memManager.getPool());
-                searchTree.processHandles(first, second, info[1], info[0],
-                        true);
-            }
+            SearchTree.world.insert(info[0], true);
+            SearchTree.world.insert(info[1], false);
+            SearchTree.world.insertToTree(info[0], info[1]);
         }
         else if (x[0].equals("remove")) {
             String[] processed = x[1].split(" ", 2);
             if (processed[0].equals("artist")) {
-                memManager.remove(processed[1], true);
+                SearchTree.world.remove(processed[1], true);
             }
             else if (processed[0].equals("song")) {
-                memManager.remove(processed[1], false);
+                SearchTree.world.remove(processed[1], false);
             }
             else {
                 System.out.println("Unknown type in remove command");
@@ -125,16 +94,16 @@ public class ParserClass {
         }
         else if (x[0].equals("print")) {
             if (x[1].equals("artist")) {
-                memManager.print(true, false, false);
+                SearchTree.world.print(true, false, false);
             }
             else if (x[1].equals("song")) {
-                memManager.print(false, true, false);
+                SearchTree.world.print(false, true, false);
             }
             else if (x[1].equals("blocks")) {
-                memManager.print(false, false, true);
+                SearchTree.world.print(false, false, true);
             }
             else if (x[1].equals("tree")) {
-                searchTree.print();
+                SearchTree.world.searchTree.print();
             }
             else {
                 System.out.println("Unknown type in print command");
@@ -144,11 +113,13 @@ public class ParserClass {
             String[] processed = x[1].split(" ", 2);
             if (processed[0].equals("artist")) {
                 // List from tree
-                searchTree.list(processed[1], memManager, true);
+                SearchTree.world.listTree(processed[1],
+                        SearchTree.world.memManager, true);
             }
             else if (processed[0].equals("song")) {
                 // List from tree
-                searchTree.list(processed[1], memManager, false);
+                SearchTree.world.listTree(processed[1],
+                        SearchTree.world.memManager, false);
             }
             else {
                 System.out.println("Unknown type in list command");

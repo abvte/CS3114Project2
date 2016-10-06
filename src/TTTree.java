@@ -9,15 +9,12 @@
  */
 public class TTTree {
     private TreeNode root;
-    // private int depth;
-    // private int count;
 
     /**
      * Constructor
      */
     TTTree() {
         root = new LeafNode(null, null, null);
-        // count = 0;
     }
 
     /**
@@ -50,6 +47,12 @@ public class TTTree {
         return root.search(pair);
     }
 
+    // public KVPair delete(KVPair toDelete) {
+    // if (search(toDelete) == null) {
+    // if ()
+    // }
+    // }
+
     /**
      * Method to process handles
      * 
@@ -61,14 +64,13 @@ public class TTTree {
      *            Song name
      * @param artist
      *            Artist name
-     * @param duplicate
-     *            Boolean value to see if duplicate exists in tree already.
      */
     public void processHandles(Handle first, Handle second, String song,
-            String artist, boolean duplicate) {
+            String artist) {
+
         KVPair firstPair = new KVPair(first, second);
         KVPair secondPair = new KVPair(second, first);
-        if (duplicate && this.search(firstPair) != null) {
+        if (this.search(firstPair) != null) {
             System.out.println("The KVPair (|" + artist + "|,|" + song + "|),("
                     + first.toString() + "," + second.toString()
                     + ") duplicates a record already in the tree.");
@@ -107,46 +109,30 @@ public class TTTree {
      * @param artist
      *            Checks to see if string passed in is artist or not
      */
-    public void list(String item, MemoryManager pool, boolean artist) {
-        Handle location;
-        String itemType;
+    public void list(Handle location, MemoryManager pool) {
         String poolItem;
-        if (artist) {
-            location = pool.artists.get(item, pool.getPool());
-            itemType = "artist";
-        }
-        else {
-            location = pool.songs.get(item, pool.getPool());
-            itemType = "song";
-        }
-        if (location == null) {
-            System.out.println("|" + item + "| " + "does not exist in the "
-                    + itemType + " database.");
-        }
-        else {
-            TreeNode temp = root.handleSearch(location);
-            LeafNode treeList = (LeafNode) temp;
-            while (treeList != null) {
-                boolean complete = true;
-                if (treeList.getPair1().getKey().getStart() == location
-                        .getStart()) {
-                    poolItem = pool.handle2String(
-                            treeList.getPair1().getValue(), pool.getPool());
-                    System.out.println("|" + poolItem + "| ");
-                    complete = false;
-                }
-                if ((treeList.getPair2() != null) && (treeList.getPair2()
-                        .getKey().getStart() == location.getStart())) {
-                    poolItem = pool.handle2String(
-                            treeList.getPair2().getValue(), pool.getPool());
-                    System.out.println("|" + poolItem + "| ");
-                    complete = false;
-                }
-                if (complete) {
-                    break;
-                }
-                treeList = (LeafNode) treeList.getNext();
+        TreeNode temp = root.handleSearch(location);
+        LeafNode treeList = (LeafNode) temp;
+        while (treeList != null) {
+            boolean complete = true;
+            if (treeList.getPair1().getKey().getStart() == location
+                    .getStart()) {
+                poolItem = pool.handle2String(treeList.getPair1().getValue(),
+                        pool.getPool());
+                System.out.println("|" + poolItem + "| ");
+                complete = false;
             }
+            if ((treeList.getPair2() != null) && (treeList.getPair2().getKey()
+                    .getStart() == location.getStart())) {
+                poolItem = pool.handle2String(treeList.getPair2().getValue(),
+                        pool.getPool());
+                System.out.println("|" + poolItem + "| ");
+                complete = false;
+            }
+            if (complete) {
+                break;
+            }
+            treeList = (LeafNode) treeList.getNext();
         }
     }
 

@@ -13,14 +13,8 @@ public class MemoryManager {
     private byte[] pool; // Data pool holding the free and used bytes
 
     /**
-     * Holds hashes of Artists with handles being their values
+     * Linked list of memory blocks
      */
-    protected Hashtable<Handle> artists;
-
-    /**
-     * Holds hashes of Song with handles being their values
-     */
-    protected Hashtable<Handle> songs;
     private DoublyLinkedList<Handle> freeBlocks; // LinkedList
     // holding handles to free MemoryBlocks
     private int blockSize; // Initial pool size and the size of added
@@ -29,15 +23,11 @@ public class MemoryManager {
     /**
      * Constructor
      * 
-     * @param hashSize
-     *            Initial hashtable size
      * @param newBlockSize
      *            Initial pool size and the size of added freeblocks
      */
-    MemoryManager(int hashSize, int newBlockSize) {
+    MemoryManager(int newBlockSize) {
         freeBlocks = new DoublyLinkedList<Handle>();
-        artists = new Hashtable<Handle>(hashSize, "Artist", this);
-        songs = new Hashtable<Handle>(hashSize, "Song", this);
         pool = new byte[newBlockSize];
         blockSize = newBlockSize;
 
@@ -56,30 +46,6 @@ public class MemoryManager {
      */
     public Handle insert(String record, boolean artist) {
         Handle handle; // Empty Handle
-        if (artist) { // If this is an artist, check the artist table
-            if (artists.get(record, pool) != null) {
-                System.out.println("|" + record + "| duplicates a record "
-                        + "already in the artist database.");
-                return null;
-            }
-            // Make sure the amount of items doesn't
-            // exceed half the size of the hashtable
-            else if (artists.getItems() == (artists.getSize() / 2)) {
-                artists.extend(pool);
-            }
-        }
-        else { // If this is a song, check the song table
-            if (songs.get(record, pool) != null) {
-                System.out.println("|" + record + "| duplicates a record "
-                        + "already in the song database.");
-                return null;
-            }
-            // Make sure the amount of items doesn't
-            // exceed half the size of the hashtable
-            else if (songs.getItems() == (songs.getSize() / 2)) {
-                songs.extend(pool);
-            }
-        }
 
         // Begin checking for the best fit block
         do {
@@ -87,18 +53,12 @@ public class MemoryManager {
             if (handle == null) { // null means there was no fit at all
                 expandPool(); // Add a block of size blockSize
             }
-        } while (handle == null);
+        }
+        while (handle == null);
 
         // New handle with the best fit block's position and length
         Handle newBlock = new Handle(record.getBytes(), toByte(record.length()),
                 handle.getStart(), pool);
-
-        if (artist) {
-            artists.add(record, newBlock);
-        }
-        else {
-            songs.add(record, newBlock);
-        }
 
         // This checks to see if the new block is exactly
         // the length of the free block it's displacing
@@ -112,14 +72,6 @@ public class MemoryManager {
                     handle.getLength() - newBlock.getLength());
         }
 
-        if (artist) {
-            System.out.println(
-                    "|" + record + "|" + " is added to the artist database.");
-        }
-        else {
-            System.out.println(
-                    "|" + record + "|" + " is added to the song database.");
-        }
         return newBlock;
     }
 
@@ -136,7 +88,7 @@ public class MemoryManager {
     }
 
     /**
-     * Removes a record into memory
+     * Removes a record from memory
      * 
      * @param record
      *            The song/artist to remove
@@ -144,34 +96,7 @@ public class MemoryManager {
      *            Indicates if the record belongs in the artist table or not
      * @return handle to the removed memory block
      */
-    public Handle remove(String record, boolean artist) {
-        Handle handle; // Empty Handle
-        if (artist) {
-            if (artists.get(record, pool) == null) {
-                System.out.println("|" + record
-                        + "| does not exist in the artist database.");
-                return null;
-            }
-            else { // Else if the record exists, remove the handle
-                handle = (Handle) artists.get(record, pool);
-                artists.remove(record, pool);
-                System.out.println("|" + record
-                        + "| is removed from the artist database.");
-            }
-        }
-        else {
-            if (songs.get(record, pool) == null) {
-                System.out.println("|" + record
-                        + "| does not exist in the song database.");
-                return null;
-            }
-            else { // Else if the record exists, remove the handle
-                handle = (Handle) songs.get(record, pool);
-                songs.remove(record, pool);
-                System.out.println(
-                        "|" + record + "| is removed from the song database.");
-            }
-        }
+    public Handle remove(String record, boolean artist, Handle handle) {
 
         // Tell the LinkedList to jump to the
         // head to prepare for sequential searching
@@ -214,68 +139,6 @@ public class MemoryManager {
     }
 
     /**
-     * Prints all artists, songs, or free blocks
-     * 
-     * @param artist
-     *            indicates to print artists
-     * @param song
-     *            indicates to print songs
-     * @param block
-     *            indicates to print available blocks, their starting points,
-     *            and their length
-     * @return true or false based on the success of the printing
-     */
-    public boolean print(boolean artist, boolean song, boolean block) {
-        if (artist) {
-            Hash<Handle>[] table = artists.getTable();
-            for (int i = 0; i < table.length; i++) {
-                Hash<Handle> item = table[i];
-                if (item != null && item.getValue() != null) {
-                    Handle memBlock = item.getValue();
-                    byte[] memory = new byte[memBlock.getLength()];
-                    System.arraycopy(pool, memBlock.getStart(), memory, 0,
-                            memory.length);
-                    String artistStr = decodeMemory(memory);
-                    System.out.println("|" + artistStr + "| " + i);
-                }
-            }
-            System.out.println("total artists: " + artists.getItems());
-        }
-        else if (song) {
-            Hash<Handle>[] table = songs.getTable();
-            for (int i = 0; i < table.length; i++) {
-                Hash<Handle> item = table[i];
-                if (item != null && item.getValue() != null) {
-                    Handle memBlock = item.getValue();
-                    byte[] memory = new byte[memBlock.getLength()];
-                    System.arraycopy(pool, memBlock.getStart(), memory, 0,
-                            memory.length);
-                    String songStr = decodeMemory(memory);
-                    System.out.println("|" + songStr + "| " + i);
-                }
-            }
-            System.out.println("total songs: " + songs.getItems());
-        }
-        else {
-            StringBuffer buf = new StringBuffer();
-            freeBlocks.jumpToHead();
-            while (freeBlocks.stepForward()) {
-                Node<Handle> current = freeBlocks.getCurrent();
-                buf.append("(" + current.getNodeData().getStart() + ","
-                        + current.getNodeData().getLength() + ")");
-                if (current.getAfter().getNodeData() != null) {
-                    buf.append(" -> ");
-                }
-            }
-            if (buf.length() == 0) { // If no free blocks available..
-                buf.append("(" + pool.length + "," + "0)");
-            }
-            System.out.println(buf.toString());
-        }
-        return true;
-    }
-
-    /**
      * Decodes a byte array which holds both the length of the string and the
      * string itself
      * 
@@ -283,7 +146,7 @@ public class MemoryManager {
      *            that holds the encoded string
      * @return String that the memory represents
      */
-    private String decodeMemory(byte[] memory) {
+    public String decodeMemory(byte[] memory) {
         ByteBuffer byteBuff = null;
         byteBuff = ByteBuffer.wrap(memory);
 
@@ -302,7 +165,7 @@ public class MemoryManager {
      * @param location
      *            Location of the string within the byte array
      * @param bytePool
-     *            Byte pool           
+     *            Byte pool
      * @return String conversion
      */
     public String handle2String(Handle location, byte[] bytePool) {
@@ -319,6 +182,26 @@ public class MemoryManager {
             System.out.println("String conversion failed.");
         }
         return poolItem;
+    }
+
+    /**
+     * Prints blocks
+     */
+    public void print() {
+        StringBuffer buf = new StringBuffer();
+        freeBlocks.jumpToHead();
+        while (freeBlocks.stepForward()) {
+            Node<Handle> current = freeBlocks.getCurrent();
+            buf.append("(" + current.getNodeData().getStart() + ","
+                    + current.getNodeData().getLength() + ")");
+            if (current.getAfter().getNodeData() != null) {
+                buf.append(" -> ");
+            }
+        }
+        if (buf.length() == 0) { // If no free blocks available..
+            buf.append("(" + pool.length + "," + "0)");
+        }
+        System.out.println(buf.toString());
     }
 
     /**

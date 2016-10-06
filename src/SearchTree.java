@@ -34,25 +34,24 @@
  */
 
 public class SearchTree {
+    
+    public static World world;
     /**
      * @param args
-     *              args[0] = initial hash size,
-     *              args[1] = block size,
-     *              args[2] = command file
+     *            args[0] = initial hash size, args[1] = block size, args[2] =
+     *            command file
      */
     public static void main(String[] args) {
-
         // args[0] = initial hash size
         // args[1] = block size
         // args[2] = command file
         if (args != null) {
             try {
-                //Initialize the parser and parse the command file
-                ParserClass parser = new ParserClass(Integer.parseInt(args[0]),
-                        Integer.parseInt(args[1]),
-                        args[2]);
-                parser.run();
-            } 
+                // Initialize the parser and parse the command file
+                world = new World(Integer.parseInt(args[0]),
+                        Integer.parseInt(args[1]), args[2]);
+                world.run();
+            }
             catch (Exception e) {
                 System.out.println("Invalid Arguments");
                 e.printStackTrace();
