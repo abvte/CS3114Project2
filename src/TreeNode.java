@@ -80,6 +80,13 @@ interface TreeNode {
      * @return TreeNode
      */
     TreeNode handleSearch(Handle location);
+    
+    /**
+     * @param pair
+     *            pair to find
+     * @return TreeNode the node containing the pair
+     */
+    TreeNode searchNode(KVPair pair);
 }
 
 /**
