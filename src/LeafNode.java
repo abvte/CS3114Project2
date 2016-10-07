@@ -151,6 +151,33 @@ class LeafNode implements TreeNode {
             return new InternalNode(splitNode, this, null);
         }
     }
+    
+    /**
+     * Delete method for leaf node
+     * 
+     * @param pair
+     *            Pair to be deleted
+     * @return root
+     */
+    public TreeNode delete(KVPair pair) {
+        int pair1Comparison = pair.compareTo(pair1);
+        if (pair1Comparison == 0 && pair2 == null) {
+            return null;
+            // restructure needed
+        }
+        else if (pair1Comparison == 0) {
+            this.swap();
+            this.setPair2(null);
+        }
+        else {
+	        int pair2Comparison = pair.compareTo(pair2);
+	
+	        if (pair2Comparison == 0) {
+	            this.setPair2(null);
+	        }
+        }
+        return this;
+    }
 
     /**
      * Searches recursively through tree
@@ -176,6 +203,27 @@ class LeafNode implements TreeNode {
     }
 
     /**
+     * @param pair
+     *            pair to find
+     * @return TreeNode the node containing the pair
+     */
+//    public TreeNode searchNode(KVPair pair) {
+//        if (this.getPair1() == null || pair == null) {
+//            return null;
+//        }
+//
+//        if (pair.compareTo(this.pair1) == 0) {
+//            return this;
+//        }
+//        else if (this.pair2 != null && pair.compareTo(this.pair2) == 0) {
+//            return this;
+//        }
+//        else {
+//            return null;
+//        }
+//    }
+    
+    /**
      * @param location
      *            Handle location
      * @return TreeNode
@@ -193,5 +241,17 @@ class LeafNode implements TreeNode {
         else {
             return null;
         }
+    }
+    
+    /**
+     * Sets next for a leaf node by casting first
+     * @param node to cast
+     * @param next to set to next
+     * @return new node
+     */
+    public TreeNode lazySetNext(TreeNode node, TreeNode next) {
+    	LeafNode interimNode = (LeafNode) node;
+    	interimNode.setNext(next);
+    	return interimNode;
     }
 }

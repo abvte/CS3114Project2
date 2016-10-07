@@ -47,11 +47,9 @@ public class TTTree {
         return root.search(pair);
     }
 
-    // public KVPair delete(KVPair toDelete) {
-    // if (search(toDelete) == null) {
-    // if ()
-    // }
-    // }
+    public TreeNode delete(KVPair toDelete) {
+        return root.delete(toDelete);
+    }
 
     /**
      * Method to process handles

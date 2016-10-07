@@ -86,5 +86,7 @@ interface TreeNode {
      *            pair to find
      * @return TreeNode the node containing the pair
      */
-    TreeNode searchNode(KVPair pair);
+    //TreeNode searchNode(KVPair pair);
+    
+    TreeNode delete(KVPair toDelete);
 }

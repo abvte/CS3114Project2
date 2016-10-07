@@ -203,6 +203,27 @@ public class World {
         }
         searchTree.processHandles(first, second, song, artist);
     }
+    
+    public void deleteTree(String artist, String song) {
+        Handle first = artists.get(artist, memManager.getPool()); // Artist
+        Handle second = songs.get(song, memManager.getPool()); // Song
+        
+        if (first == null) {
+            System.out.println("|" + artist
+                    + "| does not exist in the artist database.");
+            return;
+        }
+        else if (second == null) {
+            System.out.println("|" + song
+                    + "| does not exist in the song database.");
+            return;
+        }
+        
+        KVPair artistSong = new KVPair(first, second);
+        KVPair songArtist = new KVPair(second, first);
+        searchTree.delete(artistSong);
+        searchTree.delete(songArtist);
+    }
 
     /**
      * Lists leaf nodes of the tree

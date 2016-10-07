@@ -129,6 +129,7 @@ public class ParserClass {
             // Parse the artist song combination
             String[] info = parseArtistSong(x[1]);
             // Delete from the tree and possibly delete from hashtables
+            SearchTree.world.deleteTree(info[0], info[1]);
         }
         else {
             System.out.println("Command not recognized");
