@@ -131,14 +131,31 @@ class InternalNode implements TreeNode {
     }
 
     private TreeNode deleteHelper(TreeNode node, int path) {
-        if (node == center && path == 2) {
+        if (node == left && path == 1) {
+            // do nothing
+        }
+        else if (node == center && path == 2) { //simple deletion
             this.setCenter(node);
         }
-        else if (node == right && path == 3) {
+        else if (node == right && path == 3) { //simple deletion
             this.setRight(right);
         }
-        else if (node instanceof LeafNode) { //this was from an internal node
-            // restructure
+        else if (node != null) { //this was from an internal node, restructure
+            InternalNode internal = (InternalNode) node;
+            InternalNode centerNode = (InternalNode) center;
+            //if (path == 1 && this.getLeft() != node || path == 2 && this.getCenter() != node || path == 3 && this.getRight() != node) 
+            if (path == 1) {
+                if (center.getPair2() != null) { //borrow from sibling
+                    internal.setCenter(centerNode.getLeft());
+                    centerNode.setLeft(centerNode.getCenter());
+                    centerNode.setCenter(centerNode.getRight());
+                    centerNode.setRight(null);
+                    center = centerNode;
+                    this.setLeft(internal);
+                }
+            }
+            this.setPair1(this.getMinimum(0, true));    //Make sure to keep the
+            this.setPair2(this.getMinimum(0, false));   //KVPairs up to date
         }
         else if (path == 1) { // left stuff
             if (center.getPair2() != null) {
@@ -155,7 +172,11 @@ class InternalNode implements TreeNode {
                 left = leaf.lazySetNext(left, center);
             }
             else {
-                return center;
+                LeafNode leaf = (LeafNode) left;    // Conserve next pointers
+                LeafNode centerLeaf = (LeafNode) center;
+                left = leaf.lazySetNext(left, centerLeaf.getNext());
+                left.setPair1(center.getPair1());
+                return new InternalNode(left, null, null);
             }
         }
         else if (path == 2) { // center stuff
@@ -183,7 +204,7 @@ class InternalNode implements TreeNode {
                     LeafNode leaf = (LeafNode) left;
                     LeafNode centerLeaf = (LeafNode) center;
                     left = leaf.lazySetNext(left, centerLeaf.getNext());
-                    return left;
+                    return new InternalNode(left, null, null);
                 }
                 
         }
