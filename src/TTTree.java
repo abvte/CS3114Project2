@@ -100,12 +100,10 @@ public class TTTree {
     /**
      * List method for TTTree
      * 
-     * @param item
-     *            Song/artists to list
+     * @param location 
+     *            Handle location
      * @param pool
      *            MemoryManager object
-     * @param artist
-     *            Checks to see if string passed in is artist or not
      */
     public void list(Handle location, MemoryManager pool) {
         String poolItem;

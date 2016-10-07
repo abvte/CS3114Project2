@@ -89,4 +89,6 @@ interface TreeNode {
     //TreeNode searchNode(KVPair pair);
     
     TreeNode delete(KVPair toDelete);
+    //TreeNode searchNode(KVPair pair);*/
+
 }
