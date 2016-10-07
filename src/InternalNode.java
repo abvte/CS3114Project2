@@ -131,14 +131,14 @@ class InternalNode implements TreeNode {
     }
 
     private TreeNode deleteHelper(TreeNode node, int path) {
-        if (node == center) {
+        if (node == center && path == 2) {
             this.setCenter(node);
         }
-        else if (node == right) {
+        else if (node == right && path == 3) {
             this.setRight(right);
         }
         else if (node instanceof LeafNode) { //this was from an internal node
-            
+            // restructure
         }
         else if (path == 1) { // left stuff
             if (center.getPair2() != null) {
@@ -222,7 +222,7 @@ class InternalNode implements TreeNode {
             TreeNode tempNode = this.getLeft().delete(pair);
             return deleteHelper(tempNode, 1);
         }
-        else if (pair1Comparison == 0 || 0 < pair2Comparison) {
+        else if (pair1Comparison == 0 || 0 > pair2Comparison) {
             // go center
             TreeNode tempNode = this.getCenter().delete(pair);
             return deleteHelper(tempNode, 2);
