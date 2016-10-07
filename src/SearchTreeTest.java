@@ -678,6 +678,56 @@ public class SearchTreeTest extends TestCase {
         }
         assertEquals(content + "\n", systemOut().getHistory());
     }
+    
+    /**
+     * tests tree delete without restructuring
+     */
+    public void testTreeSimpleDelete() {
+        TTTree tree = new TTTree();
+        byte[] pool = new byte[1024];
+        byte[] mem = {0,2};
+        
+        tree.insert(new KVPair(new Handle(mem,mem,1,pool),new
+        Handle(mem,mem,0,pool)));
+        tree.insert(new KVPair(new Handle(mem,mem,3,pool),new
+        Handle(mem,mem,0,pool)));
+        tree.insert(new KVPair(new Handle(mem,mem,5,pool),new
+        Handle(mem,mem,0,pool)));
+        tree.insert(new KVPair(new Handle(mem,mem,2,pool),new
+        Handle(mem,mem,0,pool)));
+        tree.insert(new KVPair(new Handle(mem,mem,4,pool),new
+        Handle(mem,mem,0,pool)));
+        
+        tree.delete(new KVPair(new Handle(mem,mem,1,pool),new
+                Handle(mem,mem,0,pool)));
+        tree.delete(new KVPair(new Handle(mem,mem,3,pool),new
+                Handle(mem,mem,0,pool)));
+        tree.delete(new KVPair(new Handle(mem,mem,5,pool),new
+                Handle(mem,mem,0,pool)));
+        tree.print();
+        assertEquals(systemOut().getHistory(), "Printing 2-3 tree:\n4 0\n  2 0\n  4 0\n");
+        systemOut().clearHistory();
+        tree.insert(new KVPair(new Handle(mem,mem,6,pool),new
+        Handle(mem,mem,0,pool)));
+        tree.insert(new KVPair(new Handle(mem,mem,9,pool),new
+        Handle(mem,mem,0,pool)));
+        tree.delete(new KVPair(new Handle(mem,mem,2,pool),new
+                Handle(mem,mem,0,pool)));
+        tree.print();
+        assertEquals(systemOut().getHistory(), "Printing 2-3 tree:\n6 0\n  4 0\n  6 0 9 0\n");
+        tree.insert(new KVPair(new Handle(mem,mem,2,pool),new
+        Handle(mem,mem,0,pool)));
+        tree.insert(new KVPair(new Handle(mem,mem,1,pool),new
+        Handle(mem,mem,0,pool)));
+        tree.delete(new KVPair(new Handle(mem,mem,4,pool),new
+                Handle(mem,mem,0,pool)));
+        tree.print();
+        tree.delete(new KVPair(new Handle(mem,mem,2,pool),new
+                Handle(mem,mem,0,pool)));
+        systemOut().clearHistory();
+        tree.print();
+        assertEquals(systemOut().getHistory(), "Printing 2-3 tree:\n6 0 9 0\n  1 0\n  6 0\n  9 0\n");
+    }
 }
 
 // Tests to be implemented:

@@ -170,6 +170,7 @@ class InternalNode implements TreeNode {
                         right.setPair1(null);
                         right.swap();
                         this.setPair2(right.getPair1());
+                        this.setPair1(center.getPair1());
                     }
                     else {
                         LeafNode leaf = (LeafNode) left;
