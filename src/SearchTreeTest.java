@@ -61,306 +61,6 @@ public class SearchTreeTest extends TestCase {
                 output);
     }
 
-    // Doubly Linked List
-    /**
-     * Tests doubly linked list commands
-     */
-    public void testDoublyLinkedList() {
-        DoublyLinkedList<String> newlist = new DoublyLinkedList<String>();
-        assertNotNull(newlist);
-        newlist.add("First");
-        newlist.add("Second");
-        newlist.append("Third");
-        // make sure there are 5 items(3 items + 2)
-        assertEquals(5, newlist.getSize());
-        // make sure that getNodedata method works
-        assertEquals("Second", newlist.getCurrent().getNodeData());
-        newlist.stepForward();
-        // Make sure that stepping forward was successful
-        assertEquals("First", newlist.getData());
-        newlist.stepBack();
-        // Make sure that stepping back was successful
-        assertEquals("Second", newlist.getData());
-        newlist.jumpToTail(); // go to tail
-        newlist.stepBack();
-        // make sure that jumpToTail was successful
-        assertEquals("Third", newlist.getData());
-        // make sure that remove returns the correct data
-        assertEquals("Third", newlist.remove().getNodeData());
-        // make sure that remove was successfully
-        assertEquals(4, newlist.getSize());
-        // go to head
-        newlist.jumpToHead();
-        // Checks for Head's data
-        assertEquals(null, newlist.getData());
-    }
-
-    // Doubly Linked List
-    /**
-     * Tests removing the head
-     */
-    public void testLinkedListRemoveNull() {
-        DoublyLinkedList<String> newlist = new DoublyLinkedList<String>();
-        assertNotNull(newlist);
-        Node<String> nullNode = newlist.remove();
-        assertEquals(null, nullNode); // Checks for Head's data
-    }
-
-    // HASH TABLE
-    /**
-     * Tests initialization of the hash table
-     */
-    public void testHashtableinit() {
-        MemoryManager memManager = new MemoryManager(1024);
-        Hashtable myHtb = new Hashtable(1024, "Artist", memManager);
-        assertNotNull(myHtb);
-        assertEquals(1024, myHtb.getSize());
-        assertEquals(1024, myHtb.getTable().length);
-    }
-
-    /**
-     * Tests adding an entry to the hashtable
-     */
-    public void testHashtableAdd() {
-        MemoryManager memManager = new MemoryManager(1024);
-        Hashtable myHtb = new Hashtable(1024, "Artist", memManager);
-        myHtb.add("key", "Maroon5");
-        assertEquals(1, myHtb.getItems());
-        myHtb.add("keys", "Maroon6");
-        myHtb.add("keys", "Maroon7");
-        assertEquals(3, myHtb.getItems());
-    }
-
-    /**
-     * /** Tests adding an entry to the hashtable with tombstone
-     */
-    public void testHashtableAddWithTombstone() {
-        MemoryManager memManager = new MemoryManager(1024);
-        Hashtable myHtb = new Hashtable(10, "Artist", memManager);
-        myHtb.add("Maroon5", new Handle("Maroon5".getBytes(),
-                new byte[] { 0, 7 }, 0, memManager.getPool()));
-        assertEquals(1, myHtb.getItems());
-        myHtb.remove("Maroon5", memManager.getPool());
-        assertNotNull(myHtb.getTable()[8]);
-        assertEquals(0, myHtb.getItems());
-        myHtb.add("Maroon5", new Handle("Maroon5".getBytes(),
-                new byte[] { 0, 7 }, 0, memManager.getPool()));
-        assertEquals(1, myHtb.getItems());
-        Handle newHandle = (Handle) myHtb.getTable()[8].getValue();
-        assertEquals(memManager.handle2String(newHandle, memManager.getPool()),
-                "Maroon5");
-    }
-
-    /**
-     * Tests getting an object from the hashtable
-     */
-    public void testHashtableGet() {
-        MemoryManager memManager = new MemoryManager(1024);
-        Hashtable myHtb = new Hashtable(1024, "Artist", memManager);
-        Handle one = (Handle) myHtb.add("Maroon5",
-                new Handle("Maroon5".getBytes(), new byte[] { 0, 7 }, 0,
-                        memManager.getPool()));
-        Handle two = (Handle) myHtb.add("Maroon6",
-                new Handle("Maroon6".getBytes(), new byte[] { 0, 7 }, 9,
-                        memManager.getPool()));
-
-        Handle handle5 = (Handle) myHtb.get("Maroon5", memManager.getPool());
-        Handle handle6 = (Handle) myHtb.get("Maroon6", memManager.getPool());
-        assertEquals(memManager.handle2String(one, memManager.getPool()),
-                memManager.handle2String(handle5, memManager.getPool()));
-        assertEquals(memManager.handle2String(two, memManager.getPool()),
-                memManager.handle2String(handle6, memManager.getPool()));
-        assertEquals(null, myHtb.get("test", memManager.getPool()));
-    }
-
-    /**
-     * Tests removing an entry from the hashtable
-     */
-    public void testHashtableRemove() {
-        MemoryManager memManager = new MemoryManager(1024);
-        Hashtable myHtb = new Hashtable(1024, "Artist", memManager);
-        Handle one = (Handle) myHtb.add("Maroon5",
-                new Handle("Maroon5".getBytes(), new byte[] { 0, 7 }, 0,
-                        memManager.getPool()));
-        Handle two = (Handle) myHtb.add("Maroon6",
-                new Handle("Maroon6".getBytes(), new byte[] { 0, 7 }, 9,
-                        memManager.getPool()));
-
-        // removes the existing key value pair
-        assertEquals(myHtb.remove("Maroon5", memManager.getPool()), one);
-        // tries to remove a non-existing key value pair
-        assertEquals(myHtb.remove("Maroon6", memManager.getPool()), two);
-    }
-
-    /**
-     * Tests extending the hashtable
-     */
-    public void testHashtableExtend() {
-        MemoryManager memManager = new MemoryManager(32);
-        Hashtable myHtb = new Hashtable(5, "Artist", memManager);
-        Handle one = (Handle) myHtb.add("Maroon5",
-                new Handle("Maroon5".getBytes(), new byte[] { 0, 7 }, 0,
-                        memManager.getPool()));
-        Handle two = (Handle) myHtb.add("Maroon6",
-                new Handle("Maroon6".getBytes(), new byte[] { 0, 7 }, 9,
-                        memManager.getPool()));
-        Handle three = (Handle) myHtb.add("Maroon7",
-                new Handle("Maroon7".getBytes(), new byte[] { 0, 7 }, 18,
-                        memManager.getPool()));
-        assertEquals(3, myHtb.getItems());
-        myHtb.extend(memManager.getPool());
-        assertEquals(10, myHtb.getSize());
-        myHtb.remove("Maroon5", memManager.getPool());
-        myHtb.remove("Maroon6", memManager.getPool());
-        myHtb.remove("Maroon7", memManager.getPool());
-        assertEquals(0, myHtb.getItems());
-        myHtb.extend(memManager.getPool());
-        assertEquals(20, myHtb.getSize());
-        one.getStart();
-        two.getStart();
-        three.getStart();
-    }
-
-    /**
-     * Tests quadratic probing
-     */
-    public void testHashtableQuadraticFail() {
-        MemoryManager memManager = new MemoryManager(1024);
-        Hashtable myHtb = new Hashtable(11, "Artist", memManager);
-        myHtb.add("a", "");
-        myHtb.add("a", "");
-        myHtb.add("a", "");
-        myHtb.add("a", "");
-        myHtb.add("a", "");
-        myHtb.add("a", "");
-        assertNull(myHtb.add("a", ""));
-        for (int i = 0; i < 11; i++) {
-            myHtb.getTable()[i] = new Hash(null);
-        }
-        assertNull(myHtb.get("e", memManager.getPool()));
-        assertNull(myHtb.get("e", memManager.getPool()));
-        assertNull(myHtb.remove("e", memManager.getPool()));
-    }
-
-    // MemoryManagerTest
-    /**
-     * Tests the memory manager insertion
-     */
-    public void testMemoryManagerArtistInsert() {
-        World master = new World(2, 1, "file.txt");
-        master.insert("Micheal Jackson", true);
-        master.insert("Micheal Jackson", true);
-        master.insert("Suck my kiss", false);
-        master.insert("Suck my kiss", false);
-        master.insert("Eagles", true);
-        assertEquals(2, master.artists.getItems());
-        assertEquals(1, master.songs.getItems());
-    }
-
-    /**
-     * Tests inserting a song
-     */
-    public void testMemoryManagerSongsInsert() {
-        World master = new World(2, 1, "file.txt");
-        master.insert("Billy Jean", false);
-        master.insert("Billy Jean", false);
-        master.insert("Hotel California", false);
-        assertEquals(2, master.songs.getItems());
-    }
-
-    /**
-     * Tests the MemoryManager's artist remove function
-     */
-    public void testMemoryManagerArtistRemove() {
-        World master = new World(2, 2, "file.txt");
-        master.insert("Micheal Jackson", true);
-        master.insert("Eagles", true);
-        master.remove("Micheal Jackson", true);
-        assertEquals(master.artists.getItems(), 1);
-        master.remove("Micheal Jackson", true);
-        master.remove("Eagles", true);
-        assertEquals(master.artists.getItems(), 0);
-    }
-
-    /**
-     * Tests the MemoryManager's song remove function
-     */
-    public void testMemoryManagerSongRemove() {
-        World master = new World(2, 2, "file.txt");
-        master.insert("Billy Jean", false);
-        master.insert("Hotel California", false);
-
-        master.remove("Billy Jean", false);
-        assertEquals(master.songs.getItems(), 1);
-        master.remove("Billy Jean", false);
-        master.remove("Hotel California", false);
-        assertEquals(master.songs.getItems(), 0);
-    }
-
-    /**
-     * Tests the MemoryManager's song printing
-     */
-    public void testMemoryManagerSongPrint() {
-        World master = new World(2, 100, "file.txt");
-        master.insert("Michael Jackson", true);
-        master.insert("Maroon5", true);
-        master.insert("Billy Jean", false);
-        master.insert("Hotel California", false);
-        String output = "|Michael Jackson| is added to the artist database.\n"
-                + "Artist hash table size doubled.\n|Maroon5|"
-                + " is added to the artist database.\n|"
-                + "Billy Jean| is added to the song database.\n"
-                + "Song hash table size doubled.\n"
-                + "|Hotel California| is added to the song database.\n";
-        assertEquals(output, systemOut().getHistory());
-    }
-
-    /**
-     * Tests output when all blocks are taken
-     */
-    public void testMemoryManagerPrintNoFreeBlocks() {
-        MemoryManager mm = new MemoryManager(5);
-        mm.insert("xyz", true);
-        mm.print();
-        String output = systemOut().getHistory();
-        assertEquals("(5,0)\n", output);
-    }
-
-    /**
-     * Tests the print function with blocks that have used blocks between them
-     */
-    public void testMemoryManagerFreeBlocksMergePrint() {
-        MemoryManager mm = new MemoryManager(15);
-        Handle one = mm.insert("xyz", true);
-        mm.insert("abc", true);
-        Handle three = mm.insert("qwe", true);
-        mm.remove("xyz", true, one);
-        mm.remove("qwe", true, three);
-        mm.print();
-        String output = systemOut().getHistory();
-        assertTrue(output.contains("(0,5) -> (10,5)"));
-    }
-
-    /**
-     * Tests that the free block list will merge with both a block to the right
-     * and a block to the left.
-     */
-    public void testMemoryManagerMerge() {
-        MemoryManager mm = new MemoryManager(15);
-        Handle one = mm.insert("xyz", true);
-        Handle two = mm.insert("abc", true);
-        Handle three = mm.insert("qwe", true);
-        mm.remove("xyz", true, one);
-        mm.remove("qwe", true, three);
-        mm.print();
-        String output = systemOut().getHistory();
-        assertTrue(output.contains("(0,5) -> (10,5)"));
-        mm.remove("abc", true, two); // Merge here
-        mm.print();
-        output = systemOut().getHistory();
-        assertTrue(output.contains("(0,15)\n"));
-    }
-
     /**
      * Tests the parser
      */
@@ -673,55 +373,58 @@ public class SearchTreeTest extends TestCase {
         }
         assertEquals(content + "\n", systemOut().getHistory());
     }
-    
+
     /**
      * tests tree delete without restructuring
      */
     public void testTreeSimpleDelete() {
         TTTree tree = new TTTree();
         byte[] pool = new byte[1024];
-        byte[] mem = {0,2};
-        
-        tree.insert(new KVPair(new Handle(mem,mem,1,pool),new
-        Handle(mem,mem,0,pool)));
-        tree.insert(new KVPair(new Handle(mem,mem,3,pool),new
-        Handle(mem,mem,0,pool)));
-        tree.insert(new KVPair(new Handle(mem,mem,5,pool),new
-        Handle(mem,mem,0,pool)));
-        tree.insert(new KVPair(new Handle(mem,mem,2,pool),new
-        Handle(mem,mem,0,pool)));
-        tree.insert(new KVPair(new Handle(mem,mem,4,pool),new
-        Handle(mem,mem,0,pool)));
-        
-        tree.delete(new KVPair(new Handle(mem,mem,1,pool),new
-                Handle(mem,mem,0,pool)));
-        tree.delete(new KVPair(new Handle(mem,mem,3,pool),new
-                Handle(mem,mem,0,pool)));
-        tree.delete(new KVPair(new Handle(mem,mem,5,pool),new
-                Handle(mem,mem,0,pool)));
+        byte[] mem = { 0, 2 };
+
+        tree.insert(new KVPair(new Handle(mem, mem, 1, pool),
+                new Handle(mem, mem, 0, pool)));
+        tree.insert(new KVPair(new Handle(mem, mem, 3, pool),
+                new Handle(mem, mem, 0, pool)));
+        tree.insert(new KVPair(new Handle(mem, mem, 5, pool),
+                new Handle(mem, mem, 0, pool)));
+        tree.insert(new KVPair(new Handle(mem, mem, 2, pool),
+                new Handle(mem, mem, 0, pool)));
+        tree.insert(new KVPair(new Handle(mem, mem, 4, pool),
+                new Handle(mem, mem, 0, pool)));
+
+        tree.delete(new KVPair(new Handle(mem, mem, 1, pool),
+                new Handle(mem, mem, 0, pool)));
+        tree.delete(new KVPair(new Handle(mem, mem, 3, pool),
+                new Handle(mem, mem, 0, pool)));
+        tree.delete(new KVPair(new Handle(mem, mem, 5, pool),
+                new Handle(mem, mem, 0, pool)));
         tree.print();
-        assertEquals(systemOut().getHistory(), "Printing 2-3 tree:\n4 0\n  2 0\n  4 0\n");
+        assertEquals(systemOut().getHistory(),
+                "Printing 2-3 tree:\n4 0\n  2 0\n  4 0\n");
         systemOut().clearHistory();
-        tree.insert(new KVPair(new Handle(mem,mem,6,pool),new
-        Handle(mem,mem,0,pool)));
-        tree.insert(new KVPair(new Handle(mem,mem,9,pool),new
-        Handle(mem,mem,0,pool)));
-        tree.delete(new KVPair(new Handle(mem,mem,2,pool),new
-                Handle(mem,mem,0,pool)));
+        tree.insert(new KVPair(new Handle(mem, mem, 6, pool),
+                new Handle(mem, mem, 0, pool)));
+        tree.insert(new KVPair(new Handle(mem, mem, 9, pool),
+                new Handle(mem, mem, 0, pool)));
+        tree.delete(new KVPair(new Handle(mem, mem, 2, pool),
+                new Handle(mem, mem, 0, pool)));
         tree.print();
-        assertEquals(systemOut().getHistory(), "Printing 2-3 tree:\n6 0\n  4 0\n  6 0 9 0\n");
-        tree.insert(new KVPair(new Handle(mem,mem,2,pool),new
-        Handle(mem,mem,0,pool)));
-        tree.insert(new KVPair(new Handle(mem,mem,1,pool),new
-        Handle(mem,mem,0,pool)));
-        tree.delete(new KVPair(new Handle(mem,mem,4,pool),new
-                Handle(mem,mem,0,pool)));
+        assertEquals(systemOut().getHistory(),
+                "Printing 2-3 tree:\n6 0\n  4 0\n  6 0 9 0\n");
+        tree.insert(new KVPair(new Handle(mem, mem, 2, pool),
+                new Handle(mem, mem, 0, pool)));
+        tree.insert(new KVPair(new Handle(mem, mem, 1, pool),
+                new Handle(mem, mem, 0, pool)));
+        tree.delete(new KVPair(new Handle(mem, mem, 4, pool),
+                new Handle(mem, mem, 0, pool)));
         tree.print();
-        tree.delete(new KVPair(new Handle(mem,mem,2,pool),new
-                Handle(mem,mem,0,pool)));
+        tree.delete(new KVPair(new Handle(mem, mem, 2, pool),
+                new Handle(mem, mem, 0, pool)));
         systemOut().clearHistory();
         tree.print();
-        assertEquals(systemOut().getHistory(), "Printing 2-3 tree:\n6 0 9 0\n  1 0\n  6 0\n  9 0\n");
+        assertEquals(systemOut().getHistory(),
+                "Printing 2-3 tree:\n6 0 9 0\n  1 0\n  6 0\n  9 0\n");
     }
 }
 
