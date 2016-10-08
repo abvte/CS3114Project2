@@ -426,6 +426,44 @@ public class SearchTreeTest extends TestCase {
         assertEquals(systemOut().getHistory(),
                 "Printing 2-3 tree:\n6 0 9 0\n  1 0\n  6 0\n  9 0\n");
     }
+    
+    public void testTreeDeleteRestructure() {
+        TTTree tree = new TTTree();
+        byte[] pool = new byte[1024];
+        byte[] mem = { 0, 2 };
+
+        tree.insert(new KVPair(new Handle(mem, mem, 1, pool),
+                new Handle(mem, mem, 0, pool)));
+        tree.insert(new KVPair(new Handle(mem, mem, 3, pool),
+                new Handle(mem, mem, 0, pool)));
+        tree.insert(new KVPair(new Handle(mem, mem, 5, pool),
+                new Handle(mem, mem, 0, pool)));
+        tree.insert(new KVPair(new Handle(mem, mem, 7, pool),
+                new Handle(mem, mem, 0, pool)));
+        tree.insert(new KVPair(new Handle(mem, mem, 9, pool),
+                new Handle(mem, mem, 0, pool)));
+        tree.insert(new KVPair(new Handle(mem, mem, 11, pool),
+                new Handle(mem, mem, 0, pool)));
+        tree.insert(new KVPair(new Handle(mem, mem, 13, pool),
+                new Handle(mem, mem, 0, pool)));
+        tree.insert(new KVPair(new Handle(mem, mem, 15, pool),
+                new Handle(mem, mem, 0, pool)));
+        tree.insert(new KVPair(new Handle(mem, mem, 16, pool),
+                new Handle(mem, mem, 0, pool)));
+        tree.insert(new KVPair(new Handle(mem, mem, 17, pool),
+                new Handle(mem, mem, 0, pool)));
+        tree.insert(new KVPair(new Handle(mem, mem, 19, pool),
+                new Handle(mem, mem, 0, pool)));
+
+        tree.delete(new KVPair(new Handle(mem, mem, 1, pool),
+                new Handle(mem, mem, 0, pool)));
+        tree.print();
+        String output = "Printing 2-3 tree:\n13 0\n  9 0\n    5 0 7 0\n"
+                + "      3 0\n      5 0\n      7 0\n    11 0\n      9 0"
+                + "\n      11 0\n  16 0\n    15 0\n      13 0\n      15 0"
+                + "\n    17 0\n      16 0\n      17 0 19 0\n";
+        assertEquals(systemOut().getHistory(), output);
+    }
 }
 
 // Tests to be implemented:

@@ -140,25 +140,42 @@ class InternalNode implements TreeNode {
         else if (node == right && path == 3) { //simple deletion
             this.setRight(right);
         }
-        else if (node != null) { //this was from an internal node, restructure
-            InternalNode internal = (InternalNode) node;
-            InternalNode centerNode = (InternalNode) center;
-            //if (path == 1 && this.getLeft() != node || path == 2 && this.getCenter() != node || path == 3 && this.getRight() != node) 
-            if (path == 1) {
-                if (center.getPair2() != null) { //borrow from sibling
-                    internal.setCenter(centerNode.getLeft());
-                    centerNode.setLeft(centerNode.getCenter());
-                    centerNode.setCenter(centerNode.getRight());
-                    centerNode.setRight(null);
-                    center = centerNode;
-                    this.setLeft(internal);
-                }
-            }
-            this.setPair1(this.getMinimum(0, true));    //Make sure to keep the
-            this.setPair2(this.getMinimum(0, false));   //KVPairs up to date
-        }
         else if (path == 1) { // left stuff
-            if (center.getPair2() != null) {
+            if (node != null) { //internal node restructure needed
+                if (left != node) {
+                    InternalNode internal = (InternalNode) node;
+                    InternalNode centerNode = (InternalNode) center;
+                    if (center.getPair2() != null) {
+                        internal.setCenter(centerNode.getLeft());
+                        centerNode.setLeft(centerNode.getCenter());
+                        centerNode.setCenter(centerNode.getRight());
+                        centerNode.setRight(null);
+                        center = centerNode;
+                        this.setLeft(internal);
+                    }
+                    else if (count == 3) {
+                        internal.setCenter(centerNode.getCenter());
+                        internal.setRight(centerNode.getRight());
+                        setLeft(internal);
+                        setCenter(right);
+                        setRight(null);
+                    }
+                    else {
+                        internal.setCenter(centerNode.getLeft());
+                        internal.setRight(centerNode.getCenter());
+                        return new InternalNode (node, null, null);
+                    }
+                }
+                else if (getCenter() != node) {
+                    
+                }
+                else {
+                    
+                }
+                this.setPair1(this.getMinimum(0, true));    //Make sure to keep the
+                this.setPair2(this.getMinimum(0, false));   //KVPairs up to date
+            }
+            else if (center.getPair2() != null) {
                 left.setPair1(center.getPair1());
                 center.swap();
                 center.setPair2(null);
@@ -376,12 +393,13 @@ class InternalNode implements TreeNode {
      * @return Minimum value in the tree */
     public KVPair getMinimum(int level, boolean centerCheck) {
         if (level == 0) {
-            if (centerCheck) {
+            if (centerCheck && center != null) {
                 return this.getCenter().getMinimum(1, false);
             }
-            else {
+            else if (right != null) {
                 return this.getRight().getMinimum(1, false);
             }
+            return null;
         }
         else {
             return this.getLeft().getMinimum(++level, false);
@@ -422,33 +440,6 @@ class InternalNode implements TreeNode {
             return this.getCenter().search(pair);
         }
     }
-
-    /** @param pair pair to find
-     * @return TreeNode the node containing the pair */
-//    public TreeNode searchNode(KVPair pair) {
-//        if (pair1 == null || pair == null) {
-//            return null;
-//        }
-//
-//        int pair1Comparison = pair.compareTo(pair1);
-//        int pair2Comparison = 0;
-//        if (pair2 != null) {
-//            pair2Comparison = pair.compareTo(pair2);
-//        }
-//
-//        if (pair1Comparison >= 0 && pair2 == null) { // greater start value than
-//            return this.getCenter().searchNode(pair);
-//        }
-//        else if (pair1Comparison < 0) { // go left
-//            return this.getLeft().searchNode(pair);
-//        }
-//        else if (pair2Comparison >= 0) { // go right
-//            return this.getRight().searchNode(pair);
-//        }
-//        else { // go center
-//            return this.getCenter().searchNode(pair);
-//        }
-//    }
 
     /** @param location Handle location
      * @return TreeNode */
