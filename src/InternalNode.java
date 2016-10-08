@@ -163,15 +163,10 @@ class InternalNode implements TreeNode {
                     else {
                         internal.setCenter(centerNode.getLeft());
                         internal.setRight(centerNode.getCenter());
-                        return new InternalNode (node, null, null);
+                        return new InternalNode (internal, null, null);
                     }
                 }
-                else if (getCenter() != node) {
-                    
-                }
-                else {
-                    
-                }
+
                 this.setPair1(this.getMinimum(0, true));    //Make sure to keep the
                 this.setPair2(this.getMinimum(0, false));   //KVPairs up to date
             }
@@ -197,36 +192,85 @@ class InternalNode implements TreeNode {
             }
         }
         else if (path == 2) { // center stuff
+            if (node != null) {
+                InternalNode internal = (InternalNode) node;
+                InternalNode leftNode = (InternalNode) left;
+                InternalNode rightNode = (InternalNode) right;
                 if (left.getPair2() != null) {
-                    center.setPair1(left.getPair2());
-                    left.setPair2(null);
-                    this.setPair1(center.getPair1());
+                    internal.setCenter(internal.getLeft());
+                    internal.setLeft(leftNode.getLeft());
+                    leftNode.setRight(null);
+                    left = leftNode;
+                    this.setCenter(internal);
                 }
                 else if (count == 3) {
                     if (right.getPair2() != null) {
-                        center.setPair1(right.getPair1());
-                        right.setPair1(null);
-                        right.swap();
-                        this.setPair2(right.getPair1());
-                        this.setPair1(center.getPair1());
+                        internal.setCenter(rightNode.getLeft());
+                        rightNode.setLeft(rightNode.getCenter());
+                        rightNode.setCenter(rightNode.getRight());
+                        right = rightNode;
+                        this.setCenter(internal);
                     }
                     else {
-                        LeafNode leaf = (LeafNode) left;
-                        left = leaf.lazySetNext(left, right);
-                        this.setCenter(right);
+                        internal.setRight(internal.getLeft());
+                        internal.setCenter(leftNode.getCenter());
+                        internal.setLeft(leftNode.getRight());
+                        this.setLeft(internal);
+                        this.setCenter(this.getRight());
                         this.setRight(null);
                     }
                 }
                 else {
-                    LeafNode leaf = (LeafNode) left;
-                    LeafNode centerLeaf = (LeafNode) center;
-                    left = leaf.lazySetNext(left, centerLeaf.getNext());
-                    return new InternalNode(left, null, null);
+                    internal.setRight(internal.getLeft());
+                    internal.setCenter(leftNode.getCenter());
+                    internal.setLeft(leftNode.getLeft());
+                    return new InternalNode (internal, null, null);
+                }        
+            }
+            else if (left.getPair2() != null) {
+                center.setPair1(left.getPair2());
+                left.setPair2(null);
+                this.setPair1(center.getPair1());
+            }
+            else if (count == 3) {
+                if (right.getPair2() != null) {
+                    center.setPair1(right.getPair1());
+                    right.setPair1(null);
+                    right.swap();
+                    this.setPair2(right.getPair1());
+                    this.setPair1(center.getPair1());
                 }
-                
+                else {
+                    LeafNode leaf = (LeafNode) left;
+                    left = leaf.lazySetNext(left, right);
+                    this.setCenter(right);
+                    this.setRight(null);
+                }
+            }
+            else {
+                LeafNode leaf = (LeafNode) left;
+                LeafNode centerLeaf = (LeafNode) center;
+                left = leaf.lazySetNext(left, centerLeaf.getNext());
+                return new InternalNode(left, null, null);
+            }        
         }
         else {  // right stuff
-            if (center.getPair2() != null) {
+            if (node != null) {
+                InternalNode internal = (InternalNode) node;
+                InternalNode centerNode = (InternalNode) center;
+                if (center.getPair2() != null) {
+                    internal.setCenter(internal.getLeft());
+                    internal.setLeft(centerNode.getRight());
+                    centerNode.setRight(null);
+                    center = centerNode;
+                    this.setRight(internal);
+                }
+                else {
+                    centerNode.setRight(internal.getLeft());
+                    this.setRight(null);
+                }        
+            }
+            else if (center.getPair2() != null) {
                 right.setPair1(center.getPair2());
                 center.setPair2(null);
                 this.setPair2(right.getPair1());
@@ -238,7 +282,7 @@ class InternalNode implements TreeNode {
                 this.setRight(null);
             }
         }
-        return this;
+        return this;    // Should reach here only if restructure unnecessary
     }
 
     /** Delete method for internal nodes

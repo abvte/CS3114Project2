@@ -134,18 +134,21 @@ class LeafNode implements TreeNode {
         int pair2Comparison = pair.compareTo(pair2);
 
         if (pair1Comparison < 0 && pair2Comparison < 0) { // Split to the left
-            TreeNode splitNode = new LeafNode(pair, null, this);
+            LeafNode splitNode = new LeafNode(pair, null, this);
+            splitNode.setNext(this);
             return new InternalNode(splitNode, this, null);
         }
         else if (pair1Comparison >= 0 && pair2Comparison < 0) {
             // Moves the current pair 1 to the new node
-            TreeNode splitNode = new LeafNode(this.pair1, null, this);
+            LeafNode splitNode = new LeafNode(this.pair1, null, this);
+            splitNode.setNext(this);
             this.setPair1(pair);
             return new InternalNode(splitNode, this, null);
         }
         else {
             // Moves the current pair 1 to the new node
-            TreeNode splitNode = new LeafNode(this.pair1, null, this);
+            LeafNode splitNode = new LeafNode(this.pair1, null, this);
+            splitNode.setNext(this);
             this.setPair1(pair);
             this.swap();
             return new InternalNode(splitNode, this, null);
@@ -201,27 +204,6 @@ class LeafNode implements TreeNode {
             return null;
         }
     }
-
-    /**
-     * @param pair
-     *            pair to find
-     * @return TreeNode the node containing the pair
-     */
-//    public TreeNode searchNode(KVPair pair) {
-//        if (this.getPair1() == null || pair == null) {
-//            return null;
-//        }
-//
-//        if (pair.compareTo(this.pair1) == 0) {
-//            return this;
-//        }
-//        else if (this.pair2 != null && pair.compareTo(this.pair2) == 0) {
-//            return this;
-//        }
-//        else {
-//            return null;
-//        }
-//    }
     
     /**
      * @param location
