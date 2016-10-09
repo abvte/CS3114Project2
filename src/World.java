@@ -247,8 +247,11 @@ public class World {
         else if (hashDelete == 2) { //Remove from song hash 
             this.remove(song, false);
         }
-        else { //Remove from artist hash 
+        else if (hashDelete == 1) { //Remove from artist hash 
             this.remove(artist, true);
+        }
+        else {
+            return; //Does not need to be removed 
         }
 
     }
