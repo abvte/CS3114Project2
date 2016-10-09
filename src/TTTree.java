@@ -84,10 +84,10 @@ public class TTTree {
      *            Artist name
      * @param insert
      *            Boolean to check if it's insert or delete
-     * @return 0 if it doesn't need to be removed from hash tables. 1 if it
-     *         needs to be deleted from artist hash table. 2 if it needs to be
-     *         deleted from song hash table. 3 if it needs to be deleted from
-     *         both hash tables.
+     * @return 0 if it doesn't need to be removed from hash tables.
+     *         1 if it needs to be deleted from artist hash table.
+     *         2 if it needs to be deleted from song hash table.
+     *         3 if it needs to be deleted from both hash tables.
      */
     public int processHandles(Handle first, Handle second, String song,
             String artist, boolean insert) {
@@ -141,7 +141,7 @@ public class TTTree {
                 removeHash = 3; // Remove from both hash tables
             }
             else if (artistHandle != null && songHandle == null) {
-                removeHash = 2; // Remove from song hash table
+                removeHash = 2; // Remove from song hash table 
             }
             else if (artistHandle == null && songHandle != null){
                 removeHash = 1; // Remove from artist hash table
@@ -191,66 +191,6 @@ public class TTTree {
                 break;
             }
             treeList = (LeafNode) treeList.getNext();
-        }
-    }
-
-    /**
-     * @param location
-     *            Artist/song to be removed
-     * @param artist
-     *            Boolean to determine if it is artist or not.
-     * @param converter
-     *            Byte array
-     * @return Pair to be deleted
-     * 
-     */
-    public KVPair removeTree(Handle location, boolean artist,
-            MemoryManager converter) {
-        TreeNode temp = root.handleSearch(location);
-        TreeNode artistHandle, songHandle;
-        LeafNode leaf = (LeafNode) temp;
-        KVPair firstDeleted = null;
-        KVPair secondDeleted = null;
-        String firstEntry, secondEntry;
-        if (leaf.getPair2() != null && leaf.getPair2().compareTo(location) == 0) {
-            firstDeleted = leaf.getPair2();
-            secondDeleted = new KVPair(leaf.getPair2().getValue(),
-                    leaf.getPair2().getKey());
-        }
-        if (leaf.getPair1().compareTo(location) == 0) {
-            firstDeleted = leaf.getPair1();
-            secondDeleted = new KVPair(leaf.getPair1().getValue(),
-                    leaf.getPair1().getKey());
-        }
-        firstEntry = converter.handle2String(firstDeleted.getKey(),
-                converter.getPool());
-        secondEntry = converter.handle2String(firstDeleted.getValue(),
-                converter.getPool());
-        this.delete(firstDeleted);
-        System.out.println("The KVPair (|" + firstEntry + "|,|" + secondEntry
-                + "|) is deleted from the tree.");
-        this.delete(secondDeleted);
-        System.out.println("The KVPair (|" + secondEntry + "|,|" + firstEntry
-                + "|) is deleted from the tree.");
-        if (artist) {
-            artistHandle = root.handleSearch(firstDeleted.getKey());
-            songHandle = root.handleSearch(firstDeleted.getValue());
-        }
-        else {
-            songHandle = root.handleSearch(firstDeleted.getKey());
-            artistHandle = root.handleSearch(firstDeleted.getValue());
-        }
-        if (artistHandle == null && songHandle == null) {
-            return firstDeleted;
-        }
-        else if (artistHandle != null && songHandle == null) {
-            return new KVPair(firstDeleted.getValue(), null);
-        }
-        else if (artistHandle == null && songHandle != null) {
-            return new KVPair(firstDeleted.getKey(), null);
-        }
-        else {
-            return null;
         }
     }
 
