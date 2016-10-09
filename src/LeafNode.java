@@ -134,24 +134,28 @@ class LeafNode implements TreeNode {
         int pair2Comparison = pair.compareTo(pair2);
 
         if (pair1Comparison < 0 && pair2Comparison < 0) { // Split to the left
-            LeafNode splitNode = new LeafNode(pair, null, this);
-            splitNode.setNext(this);
-            return new InternalNode(splitNode, this, null);
+            LeafNode splitNode = new LeafNode(this.pair1, this.pair2,
+                    this.getNext());
+            this.setPair1(pair);
+            this.setPair2(null);
+            this.setNext(splitNode);
+            return new InternalNode(this, splitNode, null);
         }
         else if (pair1Comparison >= 0 && pair2Comparison < 0) {
             // Moves the current pair 1 to the new node
-            LeafNode splitNode = new LeafNode(this.pair1, null, this);
-            splitNode.setNext(this);
-            this.setPair1(pair);
-            return new InternalNode(splitNode, this, null);
+            LeafNode splitNode = new LeafNode(pair, pair2, this.getNext());
+            this.setNext(this);
+            this.setPair1(pair1);
+            this.setPair2(null);
+            return new InternalNode(this, splitNode, null);
         }
         else {
             // Moves the current pair 1 to the new node
-            LeafNode splitNode = new LeafNode(this.pair1, null, this);
-            splitNode.setNext(this);
-            this.setPair1(pair);
-            this.swap();
-            return new InternalNode(splitNode, this, null);
+            LeafNode splitNode = new LeafNode(pair2, pair, this.getNext());
+            this.setPair1(pair1);
+            this.setPair2(null);
+            this.setNext(splitNode);
+            return new InternalNode(this, splitNode, null);
         }
     }
 

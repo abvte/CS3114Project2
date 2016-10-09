@@ -174,8 +174,8 @@ class InternalNode implements TreeNode {
                         this.setLeft(internal);
                     }
                     else if (count == 3) {
-                        internal.setCenter(centerNode.getCenter());
-                        internal.setRight(centerNode.getRight());
+                        internal.setCenter(centerNode.getLeft());
+                        internal.setRight(centerNode.getCenter());
                         setLeft(internal);
                         setCenter(right);
                         setRight(null);
@@ -235,7 +235,7 @@ class InternalNode implements TreeNode {
                     else {
                         internal.setRight(internal.getLeft());
                         internal.setCenter(leftNode.getCenter());
-                        internal.setLeft(leftNode.getRight());
+                        internal.setLeft(leftNode.getLeft());
                         this.setLeft(internal);
                         this.setCenter(this.getRight());
                         this.setRight(null);

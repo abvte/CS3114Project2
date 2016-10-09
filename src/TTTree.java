@@ -143,10 +143,10 @@ public class TTTree {
             else if (artistHandle != null && songHandle == null) {
                 removeHash = 2; // Remove from song hash table 
             }
-            else {
+            else if (artistHandle == null && songHandle != null){
                 removeHash = 1; // Remove from artist hash table
             }
-            return removeHash;
+            return removeHash;  //Else there are still references
         }
 
     }
