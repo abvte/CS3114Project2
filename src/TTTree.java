@@ -96,8 +96,9 @@ public class TTTree {
         int removeHash = 0;
         TreeNode artistHandle;
         TreeNode songHandle;
+        KVPair searchResult = this.search(firstPair);
         if (insert) {
-            if (this.search(firstPair) != null) {
+            if (searchResult != null) {
                 System.out.println("The KVPair (|" + artist + "|,|" + song
                         + "|),(" + first.toString() + "," + second.toString()
                         + ") duplicates a record already in the tree.");
@@ -118,6 +119,16 @@ public class TTTree {
             return removeHash;
         }
         else {
+            if (searchResult == null) {
+                System.out.println("The KVPair (|" + artist + "|,|"
+                        + song
+                        + "|) was not found in the database.");
+                System.out.println("The KVPair (|" + song + "|,|"
+                        + artist
+                        + "|) was not found in the database.");
+                return 0;
+            }
+            
             this.delete(firstPair);
             System.out.println("The KVPair (|" + artist + "|,|" + song
                     + "|) is deleted from the tree.");
