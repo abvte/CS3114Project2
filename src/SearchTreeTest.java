@@ -5,7 +5,7 @@ import java.util.Scanner;
 import student.TestCase;
 
 /**
- * @author Jinwoo Yom
+ * @author Kevin Zhang 
  * @author Adam Bishop
  * @version 1.0
  */
@@ -427,6 +427,9 @@ public class SearchTreeTest extends TestCase {
                 "Printing 2-3 tree:\n6 0 9 0\n  1 0\n  6 0\n  9 0\n");
     }
     
+    /**
+     * 
+     */
     public void testTreeDeleteRestructure() {
         TTTree tree = new TTTree();
         byte[] pool = new byte[1024];
@@ -465,6 +468,9 @@ public class SearchTreeTest extends TestCase {
         assertEquals(systemOut().getHistory(), output);
     }
     
+    /**
+     * 
+     */
     public void testTreeCenterDeleteRestructure() {
         TTTree tree = new TTTree();
         byte[] pool = new byte[1024];
@@ -503,6 +509,9 @@ public class SearchTreeTest extends TestCase {
         assertEquals(systemOut().getHistory(), output);
     }
     
+    /**
+     * 
+     */
     public void testTreeRightDeleteRestructure() {
         TTTree tree = new TTTree();
         byte[] pool = new byte[1024];
@@ -543,6 +552,9 @@ public class SearchTreeTest extends TestCase {
         assertEquals(systemOut().getHistory(), output);
     }
     
+    /**
+     * 
+     */
     public void testTreeFullRemoval() {
         TTTree tree = new TTTree();
         byte[] pool = new byte[1024];

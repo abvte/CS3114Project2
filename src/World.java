@@ -219,6 +219,12 @@ public class World {
         searchTree.processHandles(first, second, song, artist);
     }
     
+    /**
+     * @param artist
+     *              Artist to be deleted
+     * @param song
+     *              Song to be deleted 
+     */
     public void deleteTree(String artist, String song) {
         Handle first = artists.get(artist, memManager.getPool()); // Artist
         Handle second = songs.get(song, memManager.getPool()); // Song

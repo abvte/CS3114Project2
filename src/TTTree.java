@@ -46,6 +46,11 @@ public class TTTree {
         return root.search(pair);
     }
 
+    /**
+     * @param toDelete
+     *                Pair to be deleted 
+     * @return root
+     */
     public TreeNode delete(KVPair toDelete) {
         TreeNode newRoot = root.delete(toDelete);
         if (newRoot instanceof InternalNode && newRoot.getPair1() == null) {
@@ -71,10 +76,6 @@ public class TTTree {
      */
     public void processHandles(Handle first, Handle second, String song,
             String artist) {
-
-//        if (first.getStart() == 7236) { 
-//            System.out.println(1);
-//        }
         KVPair firstPair = new KVPair(first, second);
         KVPair secondPair = new KVPair(second, first);
         if (this.search(firstPair) != null) {

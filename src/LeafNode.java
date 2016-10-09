@@ -154,7 +154,7 @@ class LeafNode implements TreeNode {
             return new InternalNode(splitNode, this, null);
         }
     }
-    
+
     /**
      * Delete method for leaf node
      * 
@@ -173,11 +173,10 @@ class LeafNode implements TreeNode {
             this.setPair2(null);
         }
         else {
-	        int pair2Comparison = pair.compareTo(pair2);
-	
-	        if (pair2Comparison == 0) {
-	            this.setPair2(null);
-	        }
+            int pair2Comparison = pair.compareTo(pair2);
+            if (pair2Comparison == 0) {
+                this.setPair2(null);
+            }
         }
         return this;
     }
@@ -204,7 +203,7 @@ class LeafNode implements TreeNode {
             return null;
         }
     }
-    
+
     /**
      * @param location
      *            Handle location
@@ -224,16 +223,19 @@ class LeafNode implements TreeNode {
             return null;
         }
     }
-    
+
     /**
      * Sets next for a leaf node by casting first
-     * @param node to cast
-     * @param next to set to next
+     * 
+     * @param node
+     *            to cast
+     * @param nextNode
+     *            to set to next
      * @return new node
      */
-    public TreeNode lazySetNext(TreeNode node, TreeNode next) {
-    	LeafNode interimNode = (LeafNode) node;
-    	interimNode.setNext(next);
-    	return interimNode;
+    public TreeNode lazySetNext(TreeNode node, TreeNode nextNode) {
+        LeafNode interimNode = (LeafNode) node;
+        interimNode.setNext(nextNode);
+        return interimNode;
     }
 }

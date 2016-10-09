@@ -94,6 +94,8 @@ public class MemoryManager {
      *            The song/artist to remove
      * @param artist
      *            Indicates if the record belongs in the artist table or not
+     * @param handle
+     *            Handle position of the song/artist to be removed
      * @return handle to the removed memory block
      */
     public Handle remove(String record, boolean artist, Handle handle) {

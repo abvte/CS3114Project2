@@ -35,6 +35,9 @@
 
 public class SearchTree {
     
+    /**
+     * World class that holds all data structures 
+     */
     public static World world;
     /**
      * @param args

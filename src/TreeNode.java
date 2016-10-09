@@ -81,13 +81,18 @@ interface TreeNode {
      */
     TreeNode handleSearch(Handle location);
     
-    /**
-     * @param pair
-     *            pair to find
-     * @return TreeNode the node containing the pair
-     */
-    //TreeNode searchNode(KVPair pair);
+//    /**
+//     * @param pair
+//     *            pair to find
+//     * @return TreeNode the node containing the pair
+//     */
+//    TreeNode searchNode(KVPair pair);
     
+    /**
+     * @param toDelete
+     *                 Pair to be deleted 
+     * @return root
+     */
     TreeNode delete(KVPair toDelete);
     //TreeNode searchNode(KVPair pair);*/
 

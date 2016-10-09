@@ -1,7 +1,10 @@
-/** Internal node subclass
+/**
+ * Internal node subclass
+ * 
  * @author Kevin Zhang
  * @author Adam Bishop
- * @version 1 */
+ * @version 1
+ */
 class InternalNode implements TreeNode {
     private KVPair pair1;
     private KVPair pair2;
@@ -10,10 +13,16 @@ class InternalNode implements TreeNode {
     private TreeNode right;
     private int count;
 
-    /** Constructor for the internal node
-     * @param leftNode Pointer to the left node
-     * @param centerNode Pointer to the center node
-     * @param rightNode Pointer to the right node */
+    /**
+     * Constructor for the internal node
+     * 
+     * @param leftNode
+     *            Pointer to the left node
+     * @param centerNode
+     *            Pointer to the center node
+     * @param rightNode
+     *            Pointer to the right node
+     */
     public InternalNode(TreeNode leftNode, TreeNode centerNode,
             TreeNode rightNode) {
         pair1 = null;
@@ -34,9 +43,13 @@ class InternalNode implements TreeNode {
         }
     }
 
-    /** Insert method for internal nodes
-     * @param pair Pair to be inserted
-     * @return root node */
+    /**
+     * Insert method for internal nodes
+     * 
+     * @param pair
+     *            Pair to be inserted
+     * @return root node
+     */
     public TreeNode insert(KVPair pair) {
         int pair1Comparison = pair.compareTo(pair1);
         int pair2Comparison = 0;
@@ -130,18 +143,25 @@ class InternalNode implements TreeNode {
         return this;
     }
 
+    /**
+     * @param node
+     *            Node to be deleted 
+     * @param path
+     *            Path taken 
+     * @return    New internal node 
+     */
     private TreeNode deleteHelper(TreeNode node, int path) {
-        if (node == left && path == 1) {
-            // do nothing
-        }
-        else if (node == center && path == 2) { //simple deletion
+        // if (node == left && path == 1) {
+        // // do nothing
+        // }
+        if (node == center && path == 2) { // simple deletion
             this.setCenter(node);
         }
-        else if (node == right && path == 3) { //simple deletion
+        else if (node == right && path == 3) { // simple deletion
             this.setRight(right);
         }
         else if (path == 1) { // left stuff
-            if (node != null) { //internal node restructure needed
+            if (node != null) { // internal node restructure needed
                 if (left != node) {
                     InternalNode internal = (InternalNode) node;
                     InternalNode centerNode = (InternalNode) center;
@@ -163,12 +183,13 @@ class InternalNode implements TreeNode {
                     else {
                         internal.setCenter(centerNode.getLeft());
                         internal.setRight(centerNode.getCenter());
-                        return new InternalNode (internal, null, null);
+                        return new InternalNode(internal, null, null);
                     }
                 }
 
-                this.setPair1(this.getMinimum(0, true));    //Make sure to keep the
-                this.setPair2(this.getMinimum(0, false));   //KVPairs up to date
+                this.setPair1(this.getMinimum(0, true)); // Make sure to keep
+                                                         // the
+                this.setPair2(this.getMinimum(0, false)); // KVPairs up to date
             }
             else if (center.getPair2() != null) {
                 left.setPair1(center.getPair1());
@@ -184,7 +205,7 @@ class InternalNode implements TreeNode {
                 left = leaf.lazySetNext(left, center);
             }
             else {
-                LeafNode leaf = (LeafNode) left;    // Conserve next pointers
+                LeafNode leaf = (LeafNode) left; // Conserve next pointers
                 LeafNode centerLeaf = (LeafNode) center;
                 left = leaf.lazySetNext(left, centerLeaf.getNext());
                 left.setPair1(center.getPair1());
@@ -224,8 +245,8 @@ class InternalNode implements TreeNode {
                     internal.setRight(internal.getLeft());
                     internal.setCenter(leftNode.getCenter());
                     internal.setLeft(leftNode.getLeft());
-                    return new InternalNode (internal, null, null);
-                }        
+                    return new InternalNode(internal, null, null);
+                }
             }
             else if (left.getPair2() != null) {
                 center.setPair1(left.getPair2());
@@ -252,9 +273,9 @@ class InternalNode implements TreeNode {
                 LeafNode centerLeaf = (LeafNode) center;
                 left = leaf.lazySetNext(left, centerLeaf.getNext());
                 return new InternalNode(left, null, null);
-            }        
+            }
         }
-        else {  // right stuff
+        else { // right stuff
             if (node != null) {
                 InternalNode internal = (InternalNode) node;
                 InternalNode centerNode = (InternalNode) center;
@@ -268,7 +289,7 @@ class InternalNode implements TreeNode {
                 else {
                     centerNode.setRight(internal.getLeft());
                     this.setRight(null);
-                }        
+                }
             }
             else if (center.getPair2() != null) {
                 right.setPair1(center.getPair2());
@@ -282,12 +303,16 @@ class InternalNode implements TreeNode {
                 this.setRight(null);
             }
         }
-        return this;    // Should reach here only if restructure unnecessary
+        return this; // Should reach here only if restructure unnecessary
     }
 
-    /** Delete method for internal nodes
-     * @param pair Pair to be deleted
-     * @return root node */
+    /**
+     * Delete method for internal nodes
+     * 
+     * @param pair
+     *            Pair to be deleted
+     * @return root node
+     */
     public TreeNode delete(KVPair pair) {
         int pair1Comparison = pair.compareTo(pair1);
         int pair2Comparison = 0;
@@ -317,24 +342,28 @@ class InternalNode implements TreeNode {
         }
     }
 
-    /** Helps link the nodes
-     * @param node Node to connect to
-     * @param centerCheck Indicates whether to change center path or right
-     *            path */
+    /**
+     * Helps link the nodes
+     * 
+     * @param node
+     *            Node to connect to
+     * @param centerCheck
+     *            Indicates whether to change center path or right path
+     */
     public void splitHelper(InternalNode node, boolean centerCheck) {
-        LeafNode left;
-        LeafNode center;
+        LeafNode leftNode;
+        LeafNode centerNode;
         if (!(this.getLeft() instanceof LeafNode)) {
             return;
         }
         else {
-            left = (LeafNode) this.getLeft();
-            center = (LeafNode) this.getCenter();
+            leftNode = (LeafNode) this.getLeft();
+            centerNode = (LeafNode) this.getCenter();
             if (centerCheck) { // center
-                left.setNext(node.getLeft());
+                leftNode.setNext(node.getLeft());
             }
             else if (!centerCheck) { // right
-                center.setNext(node.getLeft());
+                centerNode.setNext(node.getLeft());
             }
             else {
                 return;
@@ -342,8 +371,12 @@ class InternalNode implements TreeNode {
         }
     }
 
-    /** Setter for left node
-     * @param leftNode Pointer to the left node to set */
+    /**
+     * Setter for left node
+     * 
+     * @param leftNode
+     *            Pointer to the left node to set
+     */
     public void setLeft(TreeNode leftNode) {
         if (left != null && leftNode == null) {
             count--;
@@ -354,8 +387,12 @@ class InternalNode implements TreeNode {
         left = leftNode;
     }
 
-    /** Setter for right node
-     * @param rightNode Pointer to the right node to set */
+    /**
+     * Setter for right node
+     * 
+     * @param rightNode
+     *            Pointer to the right node to set
+     */
     public void setRight(TreeNode rightNode) {
         if (right != null && rightNode == null) {
             count--;
@@ -372,8 +409,12 @@ class InternalNode implements TreeNode {
         }
     }
 
-    /** Setter for center node
-     * @param centerNode Pointer to the center node to set */
+    /**
+     * Setter for center node
+     * 
+     * @param centerNode
+     *            Pointer to the center node to set
+     */
     public void setCenter(TreeNode centerNode) {
         if (center != null && centerNode == null) {
             count--;
@@ -390,51 +431,78 @@ class InternalNode implements TreeNode {
         }
     }
 
-    /** Getter for left node
-     * @return Pointer to the left node */
+    /**
+     * Getter for left node
+     * 
+     * @return Pointer to the left node
+     */
     public TreeNode getLeft() {
         return left;
     }
 
-    /** Getter for right node
-     * @return Pointer to the right node */
+    /**
+     * Getter for right node
+     * 
+     * @return Pointer to the right node
+     */
     public TreeNode getRight() {
         return right;
     }
 
-    /** Getter for center node
-     * @return Pointer to the center node */
+    /**
+     * Getter for center node
+     * 
+     * @return Pointer to the center node
+     */
     public TreeNode getCenter() {
         return center;
     }
 
-    /** Getter for pair 1
-     * @return One of the key-value pair */
+    /**
+     * Getter for pair 1
+     * 
+     * @return One of the key-value pair
+     */
     public KVPair getPair1() {
         return pair1;
     }
 
-    /** Setter for pair 1
-     * @param pair Pair to set one of the values */
+    /**
+     * Setter for pair 1
+     * 
+     * @param pair
+     *            Pair to set one of the values
+     */
     public void setPair1(KVPair pair) {
         pair1 = pair;
     }
 
-    /** Getter for pair 2
-     * @return One of the key-value pair */
+    /**
+     * Getter for pair 2
+     * 
+     * @return One of the key-value pair
+     */
     public KVPair getPair2() {
         return pair2;
     }
 
-    /** Setter for pair 2
-     * @param pair Pair to set one of the values */
+    /**
+     * Setter for pair 2
+     * 
+     * @param pair
+     *            Pair to set one of the values
+     */
     public void setPair2(KVPair pair) {
         pair2 = pair;
     }
 
-    /** @param level Height of the tree
-     * @param centerCheck Boolean to check if it's the center child
-     * @return Minimum value in the tree */
+    /**
+     * @param level
+     *            Height of the tree
+     * @param centerCheck
+     *            Boolean to check if it's the center child
+     * @return Minimum value in the tree
+     */
     public KVPair getMinimum(int level, boolean centerCheck) {
         if (level == 0) {
             if (centerCheck && center != null) {
@@ -457,9 +525,13 @@ class InternalNode implements TreeNode {
         pair2 = temp;
     }
 
-    /** Searches recursively through tree
-     * @param pair Search key
-     * @return Null if not found, an object otherwise */
+    /**
+     * Searches recursively through tree
+     * 
+     * @param pair
+     *            Search key
+     * @return Null if not found, an object otherwise
+     */
     public KVPair search(KVPair pair) {
         if (pair1 == null || pair == null) {
             return null;
@@ -471,7 +543,7 @@ class InternalNode implements TreeNode {
             pair2Comparison = pair.compareTo(pair2);
         }
 
-        if (pair1Comparison >= 0 && pair2 == null) { //center
+        if (pair1Comparison >= 0 && pair2 == null) { // center
             return this.getCenter().search(pair);
         }
         else if (pair1Comparison < 0) { // go left
@@ -485,8 +557,11 @@ class InternalNode implements TreeNode {
         }
     }
 
-    /** @param location Handle location
-     * @return TreeNode */
+    /**
+     * @param location
+     *            Handle location
+     * @return TreeNode
+     */
     public TreeNode handleSearch(Handle location) {
         if (this.getPair1() == null) {
             return null;
