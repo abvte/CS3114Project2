@@ -145,10 +145,10 @@ class InternalNode implements TreeNode {
 
     /**
      * @param node
-     *            Node to be deleted 
+     *            Node to be deleted
      * @param path
-     *            Path taken 
-     * @return    New internal node 
+     *            Path taken
+     * @return New internal node
      */
     private TreeNode deleteHelper(TreeNode node, int path) {
         // if (node == left && path == 1) {
@@ -587,9 +587,17 @@ class InternalNode implements TreeNode {
             // go left
             return this.getLeft().handleSearch(location);
         }
-        else if (pair2Comparison > 0 && pair2 != null) {
-            // go right
-            return this.getRight().handleSearch(location);
+        else if (pair2Comparison >= 0 && pair2 != null) {
+            if ((this.getCenter().getPair1().compareTo(location) == 0
+                    && this.getCenter().getPair1() != null)
+                    || (this.getCenter().getPair2() != null && this.getCenter()
+                            .getPair2().compareTo(location) == 0)) {
+                return this.getCenter().handleSearch(location);
+            }
+            else {
+                // go right
+                return this.getRight().handleSearch(location);
+            }
         }
         else {
             if ((this.getLeft().getPair1().compareTo(location) == 0
