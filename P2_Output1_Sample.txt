@@ -34,6 +34,8 @@ Memory pool expanded to be 96 bytes.
 |Mississippi Boweavil Blues| is added to the song database.
 The KVPair (|Charley Patton|,|Mississippi Boweavil Blues|),(39,55) is added to the tree.
 The KVPair (|Mississippi Boweavil Blues|,|Charley Patton|),(55,39) is added to the tree.
+The KVPair (|Bukka White|,|Mississippi Boweavil Blues|) was not found in the database.
+The KVPair (|Mississippi Boweavil Blues|,|Bukka White|) was not found in the database.
 The KVPair (|Charley Patton|,|Mississippi Boweavil Blues|) is deleted from the tree.
 The KVPair (|Mississippi Boweavil Blues|,|Charley Patton|) is deleted from the tree.
 |Charley Patton| is deleted from the artist database.

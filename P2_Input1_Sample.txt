@@ -15,6 +15,7 @@ insert Bukka White<SEP>Bukka White's first song
 print blocks
 print tree
 insert Charley Patton<SEP>Mississippi Boweavil Blues
+delete Bukka White<SEP>Mississippi Boweavil Blues
 remove artist Charley Patton
 insert Sleepy John Estes<SEP>Street Car Blues
 insert Bukka White<SEP>Bukka White's second song
