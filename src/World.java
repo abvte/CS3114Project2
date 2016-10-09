@@ -142,6 +142,61 @@ public class World {
     }
 
     /**
+     * Removes a record from all entities
+     * 
+     * @param record
+     *            The song/artist to remove
+     * @param artist
+     *            Indicates if the record belongs in the artist table or not
+     * @return handle to the removed memory block
+     */
+    public void removeFromTree(String record, boolean artist) {
+        Handle result;
+        String artistName;
+        String songName;
+        if (artist) {
+            if (artists.get(record, memManager.getPool()) == null) {
+                System.out.println("|" + record
+                        + "| does not exist in the artist database.");
+                return;
+            }
+            else { // Else if the record exists, remove the handle
+                result = (Handle) artists.get(record, memManager.getPool());
+                KVPair artistRemove = searchTree.removeTree(result, true,
+                        memManager);
+                artistName = memManager.handle2String(artistRemove.getKey(),
+                        memManager.getPool());
+                while ((artistRemove == null || artistName != record) && artistRemove.getValue() == null) {
+                    if (artistRemove != null) {
+                        songName = memManager.handle2String(
+                                artistRemove.getKey(), memManager.getPool());
+                        this.remove(songName, false);
+                    }
+                    artistRemove = searchTree.removeTree(result, true,
+                            memManager);
+                    artistName = memManager.handle2String(artistRemove.getKey(),
+                            memManager.getPool());
+                }
+                if (artistName.equals(record)) {
+                    if (artistRemove.getValue() == null) {
+                        this.remove(record, true);
+                    }
+                    else {
+                        this.remove(record, true);
+                        songName = memManager.handle2String(
+                                artistRemove.getValue(), memManager.getPool());
+                        this.remove(songName, false);
+                    }
+                }
+            }
+
+        }
+        else {
+            // do song things
+        }
+    }
+
+    /**
      * Prints all artists, songs, or free blocks
      * 
      * @param artist
@@ -218,40 +273,41 @@ public class World {
         }
         searchTree.processHandles(first, second, song, artist, true);
     }
-    
+
     /**
      * @param artist
-     *              Artist to be deleted
+     *            Artist to be deleted
      * @param song
-     *              Song to be deleted 
+     *            Song to be deleted
      */
     public void deleteTree(String artist, String song) {
         Handle first = artists.get(artist, memManager.getPool()); // Artist
         Handle second = songs.get(song, memManager.getPool()); // Song
         int hashDelete = 0;
         if (first == null) {
-            System.out.println("|" + artist
-                    + "| does not exist in the artist database.");
+            System.out.println(
+                    "|" + artist + "| does not exist in the artist database.");
             return;
         }
         else if (second == null) {
-            System.out.println("|" + song
-                    + "| does not exist in the song database.");
+            System.out.println(
+                    "|" + song + "| does not exist in the song database.");
             return;
-        }      
-        hashDelete = searchTree.processHandles(first, second, song, artist, false);
-        if (hashDelete == 3) { //Remove from both hash tables 
+        }
+        hashDelete = searchTree.processHandles(first, second, song, artist,
+                false);
+        if (hashDelete == 3) { // Remove from both hash tables
             this.remove(artist, true);
             this.remove(song, false);
         }
-        else if (hashDelete == 2) { //Remove from song hash 
+        else if (hashDelete == 2) { // Remove from song hash
             this.remove(song, false);
         }
-        else if (hashDelete == 1) { //Remove from artist hash 
+        else if (hashDelete == 1) { // Remove from artist hash
             this.remove(artist, true);
         }
         else {
-            return; //Does not need to be removed 
+            return; // Does not need to be removed
         }
 
     }

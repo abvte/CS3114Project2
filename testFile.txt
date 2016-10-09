@@ -1,43 +1,15 @@
-print blocks
-print song
-print artist
-print tree
-remove artist Blind Lemon Jefferson
-list artist Blind Lemon Jefferson
-insert Blind Lemon Jefferson<SEP>Long Lonesome Blues
-insert Blind Lemon Jefferson<SEP>Long Lonesome Blues
-delete Bukka White<SEP>Bukka White's first song
-delete Blind Lemon Jefferson<SEP>Bukka White's first song
-print song
-delete Blind Lemon Jefferson<SEP>Long Lonesome Blues
-print artist
-insert Bukka White<SEP>Bukka White's first song
-print blocks
-print tree
-insert Charley Patton<SEP>Mississippi Boweavil Blues
-remove artist Charley Patton
-insert Sleepy John Estes<SEP>Street Car Blues
-insert Bukka White<SEP>Bukka White's second song
-print blocks
-insert Another Bukka White<SEP>Bukka White's first song
-insert Bukka White<SEP>Bukka White's third song
-insert Another Bukka White<SEP>Bukka White's second song
-insert Bukka White<SEP>Bukka White's fourth song
-insert Another Bukka White<SEP>Bukka White's third song
-insert Johnny Winter<SEP>Bukka White's first song
-list artist Another Bukka White
-print tree
-delete Sleepy John Estes<SEP>Street Car Blues
-list song Bukka White's first song
-list artist Bukka White
-remove artist Bukka White
-print artist
-print song
-remove song Bukka White's first song
-print artist
-print song
-insert Johnny Winter<SEP>Johnny Winter's first song
-delete Another Bukka White<SEP>Bukka White's second song
-print blocks
-print artist
-print song
+insert Passion Pit<SEP>Take a Walk
+insert Passion Pit<SEP>I'll Be Alright
+insert Passion Pit<SEP>Carried Away
+insert Passion Pit<SEP>Constant Conversations
+insert Passion Pit<SEP>Mirrored Sea
+insert Passion Pit<SEP>Cry Like a Ghost
+insert Passion Pit<SEP>On My Way
+insert Passion Pit<SEP>Hideaway
+insert Passion Pit<SEP>Two Veils to Hide My Face
+insert Passion Pit<SEP>Love is Greed
+insert Passion Pit<SEP>It's Not My Fault, I'm Happy
+insert Passion Pit<SEP>Where We Belong
+insert Passion Pit<SEP>I'll Be Alright
+insert Passion Pit<SEP>Take a Walk
+remove artist Passion Pit
