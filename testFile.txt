@@ -1,7 +1,43 @@
-insert Eagles<SEP>Hotel California
-insert Michael Jackson<SEP>Thriller
-remove artist Justin Timberlake
-remove song SexyBack
+print blocks
+print song
+print artist
+print tree
+remove artist Blind Lemon Jefferson
+list artist Blind Lemon Jefferson
+insert Blind Lemon Jefferson<SEP>Long Lonesome Blues
+insert Blind Lemon Jefferson<SEP>Long Lonesome Blues
+delete Bukka White<SEP>Bukka White's first song
+delete Blind Lemon Jefferson<SEP>Bukka White's first song
+print song
+delete Blind Lemon Jefferson<SEP>Long Lonesome Blues
+print artist
+insert Bukka White<SEP>Bukka White's first song
+print blocks
+print tree
+insert Charley Patton<SEP>Mississippi Boweavil Blues
+remove artist Charley Patton
+insert Sleepy John Estes<SEP>Street Car Blues
+insert Bukka White<SEP>Bukka White's second song
+print blocks
+insert Another Bukka White<SEP>Bukka White's first song
+insert Bukka White<SEP>Bukka White's third song
+insert Another Bukka White<SEP>Bukka White's second song
+insert Bukka White<SEP>Bukka White's fourth song
+insert Another Bukka White<SEP>Bukka White's third song
+insert Johnny Winter<SEP>Bukka White's first song
+list artist Another Bukka White
+print tree
+delete Sleepy John Estes<SEP>Street Car Blues
+list song Bukka White's first song
+list artist Bukka White
+remove artist Bukka White
 print artist
 print song
+remove song Bukka White's first song
+print artist
+print song
+insert Johnny Winter<SEP>Johnny Winter's first song
+delete Another Bukka White<SEP>Bukka White's second song
 print blocks
+print artist
+print song

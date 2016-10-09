@@ -43,12 +43,17 @@ public class TTTree {
      * @return Null if the pair is not found, an object otherwise
      */
     public KVPair search(KVPair pair) {
-        return root.search(pair);
+        if (root == null) {
+            return null;
+        }
+        else {
+            return root.search(pair);
+        }
     }
 
     /**
      * @param toDelete
-     *                Pair to be deleted 
+     *            Pair to be deleted
      * @return root
      */
     public TreeNode delete(KVPair toDelete) {
@@ -58,6 +63,10 @@ public class TTTree {
         }
         else {
             root = newRoot;
+        }
+        if (root == null) {
+            // Creates a new empty leaf node when the tree is empty
+            root = new LeafNode(null, null, null);
         }
         return root;
     }
@@ -73,28 +82,60 @@ public class TTTree {
      *            Song name
      * @param artist
      *            Artist name
+     * @param insert
+     *            Boolean to check if it's insert or delete
+     * @return 0 if it doesn't need to be removed from hash tables.
+     *         1 if it needs to be deleted from artist hash table.
+     *         2 if it needs to be deleted from song hash table.
+     *         3 if it needs to be deleted from both hash tables.
      */
-    public void processHandles(Handle first, Handle second, String song,
-            String artist) {
+    public int processHandles(Handle first, Handle second, String song,
+            String artist, boolean insert) {
         KVPair firstPair = new KVPair(first, second);
         KVPair secondPair = new KVPair(second, first);
-        if (this.search(firstPair) != null) {
-            System.out.println("The KVPair (|" + artist + "|,|" + song + "|),("
-                    + first.toString() + "," + second.toString()
-                    + ") duplicates a record already in the tree.");
-            System.out.println("The KVPair (|" + song + "|,|" + artist + "|),("
-                    + second.toString() + "," + first.toString()
-                    + ") duplicates a record already in the tree.");
+        int removeHash = 0;
+        TreeNode artistHandle;
+        TreeNode songHandle;
+        if (insert) {
+            if (this.search(firstPair) != null) {
+                System.out.println("The KVPair (|" + artist + "|,|" + song
+                        + "|),(" + first.toString() + "," + second.toString()
+                        + ") duplicates a record already in the tree.");
+                System.out.println("The KVPair (|" + song + "|,|" + artist
+                        + "|),(" + second.toString() + "," + first.toString()
+                        + ") duplicates a record already in the tree.");
+            }
+            else {
+                this.insert(firstPair);
+                System.out.println("The KVPair (|" + artist + "|,|" + song
+                        + "|),(" + first.toString() + "," + second.toString()
+                        + ") is added to the tree.");
+                this.insert(secondPair);
+                System.out.println("The KVPair (|" + song + "|,|" + artist
+                        + "|),(" + second.toString() + "," + first.toString()
+                        + ") is added to the tree.");
+            }
+            return removeHash;
         }
         else {
-            this.insert(firstPair);
-            System.out.println("The KVPair (|" + artist + "|,|" + song + "|),("
-                    + first.toString() + "," + second.toString()
-                    + ") is added to the tree.");
-            this.insert(secondPair);
-            System.out.println("The KVPair (|" + song + "|,|" + artist + "|),("
-                    + second.toString() + "," + first.toString()
-                    + ") is added to the tree.");
+            this.delete(firstPair);
+            System.out.println("The KVPair (|" + artist + "|,|" + song
+                    + "|) is deleted from the tree.");
+            this.delete(secondPair);
+            System.out.println("The KVPair (|" + song + "|,|" + artist
+                    + "|) is deleted from the tree.");
+            artistHandle = root.handleSearch(first);
+            songHandle = root.handleSearch(second);
+            if (artistHandle == null && songHandle == null) {
+                removeHash = 3; // Remove from both hash tables
+            }
+            else if (artistHandle != null && songHandle == null) {
+                removeHash = 2; // Remove from song hash table 
+            }
+            else {
+                removeHash = 1; // Remove from artist hash table
+            }
+            return removeHash;
         }
 
     }
@@ -110,7 +151,7 @@ public class TTTree {
     /**
      * List method for TTTree
      * 
-     * @param location 
+     * @param location
      *            Handle location
      * @param pool
      *            MemoryManager object
@@ -173,5 +214,5 @@ public class TTTree {
         }
 
     }
-        
+
 }

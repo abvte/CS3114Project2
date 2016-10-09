@@ -122,7 +122,7 @@ public class World {
                 result = (Handle) artists.get(record, memManager.getPool());
                 artists.remove(record, memManager.getPool());
                 System.out.println("|" + record
-                        + "| is removed from the artist database.");
+                        + "| is deleted from the artist database.");
             }
         }
         else {
@@ -135,7 +135,7 @@ public class World {
                 result = (Handle) songs.get(record, memManager.getPool());
                 songs.remove(record, memManager.getPool());
                 System.out.println(
-                        "|" + record + "| is removed from the song database.");
+                        "|" + record + "| is deleted from the song database.");
             }
         }
         return memManager.remove(record, artist, result);
@@ -216,7 +216,7 @@ public class World {
             second = SearchTree.world.songs.get(song,
                     SearchTree.world.memManager.getPool());
         }
-        searchTree.processHandles(first, second, song, artist);
+        searchTree.processHandles(first, second, song, artist, true);
     }
     
     /**
@@ -228,7 +228,7 @@ public class World {
     public void deleteTree(String artist, String song) {
         Handle first = artists.get(artist, memManager.getPool()); // Artist
         Handle second = songs.get(song, memManager.getPool()); // Song
-        
+        int hashDelete = 0;
         if (first == null) {
             System.out.println("|" + artist
                     + "| does not exist in the artist database.");
@@ -238,12 +238,19 @@ public class World {
             System.out.println("|" + song
                     + "| does not exist in the song database.");
             return;
+        }      
+        hashDelete = searchTree.processHandles(first, second, song, artist, false);
+        if (hashDelete == 3) { //Remove from both hash tables 
+            this.remove(artist, true);
+            this.remove(song, false);
         }
-        
-        KVPair artistSong = new KVPair(first, second);
-        KVPair songArtist = new KVPair(second, first);
-        searchTree.delete(artistSong);
-        searchTree.delete(songArtist);
+        else if (hashDelete == 2) { //Remove from song hash 
+            this.remove(song, false);
+        }
+        else { //Remove from artist hash 
+            this.remove(artist, true);
+        }
+
     }
 
     /**
