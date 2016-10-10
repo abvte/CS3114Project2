@@ -719,6 +719,28 @@ public class SearchTreeTest extends TestCase {
         }
         assertEquals(content + "\n", systemOut().getHistory());
     }
+    
+    /**
+     * Unit test to check if it lists and removes properly
+     */
+    public void testSampleInput() {
+        String[] args = new String[3];
+        args[0] = "10";
+        args[1] = "32";
+        args[2] = "P2_Input1_Sample.txt";
+        SearchTree.main(args);
+        String content = null;
+        File output = new File("P2_Output1_Sample.txt");
+        try {
+            Scanner scan = new Scanner(output);
+            content = scan.useDelimiter("\\Z").next();
+            scan.close();
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        assertEquals(content + "\n", systemOut().getHistory());
+    }
 
 }
 
