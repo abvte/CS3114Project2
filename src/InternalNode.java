@@ -219,7 +219,7 @@ class InternalNode implements TreeNode {
                 InternalNode rightNode = (InternalNode) right;
                 if (left.getPair2() != null) {
                     internal.setCenter(internal.getLeft());
-                    internal.setLeft(leftNode.getLeft());
+                    internal.setLeft(leftNode.getRight());
                     leftNode.setRight(null);
                     left = leftNode;
                     this.setCenter(internal);
