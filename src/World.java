@@ -270,8 +270,8 @@ public class World {
                         memManager.getPool());
                 songName = memManager.handle2String(songRemove.getKey(),
                         memManager.getPool());
-                this.remove(artistName, true);
                 this.remove(songName, false);
+                this.remove(artistName, true);
                 return;
             }
         }
