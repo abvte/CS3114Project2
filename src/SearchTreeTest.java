@@ -553,7 +553,7 @@ public class SearchTreeTest extends TestCase {
     }
     
     /**
-     * 
+     * Removes the whole tree, including the root
      */
     public void testTreeFullRemoval() {
         TTTree tree = new TTTree();
@@ -615,86 +615,6 @@ public class SearchTreeTest extends TestCase {
                 new Handle(mem, mem, 0, pool)));        
         tree.print();
         String output = "Printing 2-3 tree:\n";
-        assertEquals(systemOut().getHistory(), output);
-    }
-    
-    /**
-     * 
-     */
-    public void testTreeCrazyRemoval() {
-        TTTree tree = new TTTree();
-        byte[] pool = new byte[1024];
-        byte[] mem = { 0, 2 };
-
-        tree.insert(new KVPair(new Handle(mem, mem, 1, pool),
-                new Handle(mem, mem, 0, pool)));
-        tree.insert(new KVPair(new Handle(mem, mem, 3, pool),
-                new Handle(mem, mem, 0, pool)));
-        tree.insert(new KVPair(new Handle(mem, mem, 5, pool),
-                new Handle(mem, mem, 0, pool)));
-        tree.insert(new KVPair(new Handle(mem, mem, 7, pool),
-                new Handle(mem, mem, 0, pool)));
-        tree.insert(new KVPair(new Handle(mem, mem, 9, pool),
-                new Handle(mem, mem, 0, pool)));
-        tree.insert(new KVPair(new Handle(mem, mem, 11, pool),
-                new Handle(mem, mem, 0, pool)));
-        tree.insert(new KVPair(new Handle(mem, mem, 13, pool),
-                new Handle(mem, mem, 0, pool)));
-        tree.insert(new KVPair(new Handle(mem, mem, 15, pool),
-                new Handle(mem, mem, 0, pool)));
-        tree.insert(new KVPair(new Handle(mem, mem, 17, pool),
-                new Handle(mem, mem, 0, pool)));
-        tree.insert(new KVPair(new Handle(mem, mem, 19, pool),
-                new Handle(mem, mem, 0, pool)));
-        tree.insert(new KVPair(new Handle(mem, mem, 21, pool),
-                new Handle(mem, mem, 0, pool)));
-        tree.insert(new KVPair(new Handle(mem, mem, 23, pool),
-                new Handle(mem, mem, 0, pool)));
-        tree.insert(new KVPair(new Handle(mem, mem, 25, pool),
-                new Handle(mem, mem, 0, pool)));
-        tree.insert(new KVPair(new Handle(mem, mem, 27, pool),
-                new Handle(mem, mem, 0, pool)));
-        tree.insert(new KVPair(new Handle(mem, mem, 29, pool),
-                new Handle(mem, mem, 0, pool)));
-        tree.insert(new KVPair(new Handle(mem, mem, 31, pool),
-                new Handle(mem, mem, 0, pool)));
-        tree.insert(new KVPair(new Handle(mem, mem, 33, pool),
-                new Handle(mem, mem, 0, pool)));
-        tree.insert(new KVPair(new Handle(mem, mem, 35, pool),
-                new Handle(mem, mem, 0, pool)));
-        tree.insert(new KVPair(new Handle(mem, mem, 37, pool),
-                new Handle(mem, mem, 0, pool)));
-        tree.insert(new KVPair(new Handle(mem, mem, 39, pool),
-                new Handle(mem, mem, 0, pool)));
-        tree.insert(new KVPair(new Handle(mem, mem, 41, pool),
-                new Handle(mem, mem, 0, pool)));
-        tree.insert(new KVPair(new Handle(mem, mem, 43, pool),
-                new Handle(mem, mem, 0, pool)));
-        tree.insert(new KVPair(new Handle(mem, mem, 45, pool),
-                new Handle(mem, mem, 0, pool)));
-        tree.insert(new KVPair(new Handle(mem, mem, 47, pool),
-                new Handle(mem, mem, 0, pool)));
-        tree.insert(new KVPair(new Handle(mem, mem, 49, pool),
-                new Handle(mem, mem, 0, pool)));
-        tree.delete(new KVPair(new Handle(mem, mem, 1, pool),
-                new Handle(mem, mem, 0, pool)));
-        tree.delete(new KVPair(new Handle(mem, mem, 9, pool),
-                new Handle(mem, mem, 0, pool)));
-        tree.delete(new KVPair(new Handle(mem, mem, 13, pool),
-                new Handle(mem, mem, 0, pool)));
-        tree.delete(new KVPair(new Handle(mem, mem, 15, pool),
-                new Handle(mem, mem, 0, pool))); 
-        tree.delete(new KVPair(new Handle(mem, mem, 17, pool),
-                new Handle(mem, mem, 0, pool)));
-        tree.print();
-        String output = "Printing 2-3 tree:\n33 0\n  25 0\n    7 0 19 0\n      "
-                + "5 0\n        3 0\n        5 0\n      11 0\n        7 0\n    "
-                + "    11 0\n      21 0 23 0\n        19 0\n        21 0\n     "
-                + "   23 0\n    29 0\n      27 0\n        25 0\n        27 0\n "
-                + "     31 0\n        29 0\n        31 0\n  41 0\n    37 0\n   "
-                + "   35 0\n        33 0\n        35 0\n      39 0\n        "
-                + "37 0\n        39 0\n    45 0\n      43 0\n        41 0\n    "
-                + "    43 0\n      47 0\n        45 0\n        47 0 49 0\n";
         assertEquals(systemOut().getHistory(), output);
     }
 }
