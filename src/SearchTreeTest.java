@@ -5,7 +5,7 @@ import java.util.Scanner;
 import student.TestCase;
 
 /**
- * @author Kevin Zhang 
+ * @author Kevin Zhang
  * @author Adam Bishop
  * @version 1.0
  */
@@ -426,7 +426,7 @@ public class SearchTreeTest extends TestCase {
         assertEquals(systemOut().getHistory(),
                 "Printing 2-3 tree:\n6 0 9 0\n  1 0\n  6 0\n  9 0\n");
     }
-    
+
     /**
      * 
      */
@@ -467,7 +467,7 @@ public class SearchTreeTest extends TestCase {
                 + "\n    17 0\n      16 0\n      17 0 19 0\n";
         assertEquals(systemOut().getHistory(), output);
     }
-    
+
     /**
      * 
      */
@@ -508,7 +508,7 @@ public class SearchTreeTest extends TestCase {
                 + "\n    17 0\n      16 0\n      17 0 19 0\n";
         assertEquals(systemOut().getHistory(), output);
     }
-    
+
     /**
      * 
      */
@@ -551,7 +551,7 @@ public class SearchTreeTest extends TestCase {
                 + "\n    15 0 17 0\n      13 0\n      15 0\n      17 0\n";
         assertEquals(systemOut().getHistory(), output);
     }
-    
+
     /**
      * 
      */
@@ -594,7 +594,7 @@ public class SearchTreeTest extends TestCase {
         tree.delete(new KVPair(new Handle(mem, mem, 15, pool),
                 new Handle(mem, mem, 0, pool)));
         tree.delete(new KVPair(new Handle(mem, mem, 3, pool),
-                new Handle(mem, mem, 0, pool))); 
+                new Handle(mem, mem, 0, pool)));
         tree.delete(new KVPair(new Handle(mem, mem, 11, pool),
                 new Handle(mem, mem, 0, pool)));
         tree.delete(new KVPair(new Handle(mem, mem, 1, pool),
@@ -602,9 +602,9 @@ public class SearchTreeTest extends TestCase {
         tree.delete(new KVPair(new Handle(mem, mem, 19, pool),
                 new Handle(mem, mem, 0, pool)));
         tree.delete(new KVPair(new Handle(mem, mem, 21, pool),
-                new Handle(mem, mem, 0, pool))); 
+                new Handle(mem, mem, 0, pool)));
         tree.delete(new KVPair(new Handle(mem, mem, 23, pool),
-                new Handle(mem, mem, 0, pool))); 
+                new Handle(mem, mem, 0, pool)));
         tree.delete(new KVPair(new Handle(mem, mem, 5, pool),
                 new Handle(mem, mem, 0, pool)));
         tree.delete(new KVPair(new Handle(mem, mem, 9, pool),
@@ -612,12 +612,12 @@ public class SearchTreeTest extends TestCase {
         tree.delete(new KVPair(new Handle(mem, mem, 17, pool),
                 new Handle(mem, mem, 0, pool)));
         tree.delete(new KVPair(new Handle(mem, mem, 13, pool),
-                new Handle(mem, mem, 0, pool)));        
+                new Handle(mem, mem, 0, pool)));
         tree.print();
         String output = "Printing 2-3 tree:\n";
         assertEquals(systemOut().getHistory(), output);
     }
-    
+
     /**
      * 
      */
@@ -683,7 +683,7 @@ public class SearchTreeTest extends TestCase {
         tree.delete(new KVPair(new Handle(mem, mem, 13, pool),
                 new Handle(mem, mem, 0, pool)));
         tree.delete(new KVPair(new Handle(mem, mem, 15, pool),
-                new Handle(mem, mem, 0, pool))); 
+                new Handle(mem, mem, 0, pool)));
         tree.delete(new KVPair(new Handle(mem, mem, 17, pool),
                 new Handle(mem, mem, 0, pool)));
         tree.print();
@@ -697,6 +697,29 @@ public class SearchTreeTest extends TestCase {
                 + "    43 0\n      47 0\n        45 0\n        47 0 49 0\n";
         assertEquals(systemOut().getHistory(), output);
     }
+
+    /**
+     * Unit test to check if it lists and removes properly
+     */
+    public void testListAndRemove() {
+        String[] args = new String[3];
+        args[0] = "10";
+        args[1] = "32";
+        args[2] = "ListAndRemoveTest.txt";
+        SearchTree.main(args);
+        String content = null;
+        File output = new File("ListAndRemoveTestOut.txt");
+        try {
+            Scanner scan = new Scanner(output);
+            content = scan.useDelimiter("\\Z").next();
+            scan.close();
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        assertEquals(content + "\n", systemOut().getHistory());
+    }
+
 }
 
 // Tests to be implemented:
