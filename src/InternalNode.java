@@ -116,7 +116,7 @@ class InternalNode implements TreeNode {
                     InternalNode interimNode = new InternalNode(
                             internNode.getCenter(), this.getRight(), null);
                     this.setCenter(internNode.getLeft());
-                    splitHelper(interimNode, true);
+                    splitHelper(interimNode, false);
 
                     this.setRight(null);
                     return new InternalNode(this, interimNode, null);
@@ -151,10 +151,10 @@ class InternalNode implements TreeNode {
      * @return New internal node
      */
     private TreeNode deleteHelper(TreeNode node, int path) {
-        // if (node == left && path == 1) {
-        // // do nothing
-        // }
-        if (node == center && path == 2) { // simple deletion
+        if (node == left && path == 1) {
+            return this;
+        }
+        else if (node == center && path == 2) { // simple deletion
             this.setCenter(node);
         }
         else if (node == right && path == 3) { // simple deletion
@@ -229,6 +229,8 @@ class InternalNode implements TreeNode {
                         internal.setCenter(rightNode.getLeft());
                         rightNode.setLeft(rightNode.getCenter());
                         rightNode.setCenter(rightNode.getRight());
+                        rightNode.setRight(null);
+                        this.setPair2(rightNode.getPair1());
                         right = rightNode;
                         this.setCenter(internal);
                     }
@@ -300,6 +302,7 @@ class InternalNode implements TreeNode {
                 LeafNode leaf = (LeafNode) center;
                 LeafNode rightLeaf = (LeafNode) right;
                 center = leaf.lazySetNext(center, rightLeaf.getNext());
+
                 this.setRight(null);
             }
         }
@@ -314,6 +317,9 @@ class InternalNode implements TreeNode {
      * @return root node
      */
     public TreeNode delete(KVPair pair) {
+//        if (pair.getKey().getStart() == 39) {
+//            System.out.println(1);
+//        }
         int pair1Comparison = pair.compareTo(pair1);
         int pair2Comparison = 0;
         if (pair2 != null) {

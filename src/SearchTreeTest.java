@@ -739,7 +739,7 @@ public class SearchTreeTest extends TestCase {
         catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        assertEquals(content + "\n", systemOut().getHistory());
+        assertFuzzyEquals(content + "\n", systemOut().getHistory());
     }
 
 }

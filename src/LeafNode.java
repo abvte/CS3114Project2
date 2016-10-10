@@ -114,6 +114,7 @@ class LeafNode implements TreeNode {
      * @return root
      */
     public TreeNode insert(KVPair pair) {
+
         if (pair1 == null) {
             this.setPair1(pair);
             return this;
@@ -144,7 +145,7 @@ class LeafNode implements TreeNode {
         else if (pair1Comparison >= 0 && pair2Comparison < 0) {
             // Moves the current pair 1 to the new node
             LeafNode splitNode = new LeafNode(pair, pair2, this.getNext());
-            this.setNext(this);
+            this.setNext(splitNode);
             this.setPair1(pair1);
             this.setPair2(null);
             return new InternalNode(this, splitNode, null);
@@ -214,6 +215,7 @@ class LeafNode implements TreeNode {
      * @return TreeNode
      */
     public TreeNode handleSearch(Handle location) {
+        
         if (this.getPair1() == null) {
             return null;
         }
