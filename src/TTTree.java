@@ -162,11 +162,16 @@ public class TTTree {
     public KVPair removeTree(Handle location, boolean artist,
             MemoryManager converter) {
         TreeNode temp = root.handleSearch(location);
-        TreeNode artistHandle, songHandle;
+        if (temp == null) {
+            return null;
+        }
+        TreeNode artistHandle;
+        TreeNode songHandle;
         LeafNode leaf = (LeafNode) temp;
         KVPair firstDeleted = null;
         KVPair secondDeleted = null;
-        String firstEntry, secondEntry;
+        String firstEntry;
+        String secondEntry;
         if (leaf.getPair2() != null
                 && leaf.getPair2().compareTo(location) == 0) {
             firstDeleted = leaf.getPair2();
@@ -200,13 +205,23 @@ public class TTTree {
             return firstDeleted;
         }
         else if (artistHandle != null && songHandle == null) {
-            return new KVPair(firstDeleted.getValue(), null);
+            if (artist) {
+                return new KVPair(firstDeleted.getValue(), null);
+            }
+            else {
+                return new KVPair(firstDeleted.getKey(), null);
+            }
         }
         else if (artistHandle == null && songHandle != null) {
-            return new KVPair(firstDeleted.getKey(), null);
+            if (artist) {
+                return new KVPair(firstDeleted.getKey(), null);
+            }
+            else {
+                return new KVPair(firstDeleted.getValue(), null);
+            }        
         }
         else {
-            return null;
+            return new KVPair(null, null);
         }
     }
 

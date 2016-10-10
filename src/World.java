@@ -148,7 +148,6 @@ public class World {
      *            The song/artist to remove
      * @param artist
      *            Indicates if the record belongs in the artist table or not
-     * @return handle to the removed memory block
      */
     public void removeFromTree(String record, boolean artist) {
         Handle result;
@@ -164,35 +163,94 @@ public class World {
                 result = (Handle) artists.get(record, memManager.getPool());
                 KVPair artistRemove = searchTree.removeTree(result, true,
                         memManager);
-                artistName = memManager.handle2String(artistRemove.getKey(),
-                        memManager.getPool());
-                while ((artistRemove == null || artistName != record) && artistRemove.getValue() == null) {
-                    if (artistRemove != null) {
-                        songName = memManager.handle2String(
-                                artistRemove.getKey(), memManager.getPool());
+                while (artistRemove.getKey() == null) {
+                    artistRemove = searchTree.removeTree(result, true,
+                            memManager);
+                    if (artistRemove == null) {
+                        return;
+                    }
+                }
+                while (artistRemove.getValue() == null) {
+                    artistName = memManager.handle2String(artistRemove.getKey(),
+                            memManager.getPool());
+                    if (artistName != record) {
+                        // This means that song needs to be deleted but artist
+                        // still in tree
+                        songName = artistName;
                         this.remove(songName, false);
+                    }
+                    else {
+                        // This means that artist needs to be deleted but song
+                        // is still in the table
+                        this.remove(artistName, true);
                     }
                     artistRemove = searchTree.removeTree(result, true,
                             memManager);
+                    if (artistRemove == null) {
+                        return;
+                    }
+                }
+                if (artistRemove.getValue() != null) {
+                    // This means that both song and artist needs to be deleted
                     artistName = memManager.handle2String(artistRemove.getKey(),
                             memManager.getPool());
-                }
-                if (artistName.equals(record)) {
-                    if (artistRemove.getValue() == null) {
-                        this.remove(record, true);
-                    }
-                    else {
-                        this.remove(record, true);
-                        songName = memManager.handle2String(
-                                artistRemove.getValue(), memManager.getPool());
-                        this.remove(songName, false);
-                    }
+                    songName = memManager.handle2String(artistRemove.getValue(),
+                            memManager.getPool());
+                    this.remove(artistName, true);
+                    this.remove(songName, false);
+                    return;
                 }
             }
 
         }
         else {
-            // do song things
+            if (songs.get(record, memManager.getPool()) == null) {
+                System.out.println("|" + record
+                        + "| does not exist in the song database.");
+                return;
+            }
+            else { // Else if the record exists, remove the handle
+                result = (Handle) songs.get(record, memManager.getPool());
+                KVPair songRemove = searchTree.removeTree(result, false,
+                        memManager);
+                while (songRemove.getKey() == null) {
+                    songRemove = searchTree.removeTree(result, false,
+                            memManager);
+                    if (songRemove == null) {
+                        return;
+                    }
+                }
+                while (songRemove.getValue() == null) {
+                    songName = memManager.handle2String(songRemove.getKey(),
+                            memManager.getPool());
+                    if (songName != record) {
+                        // This means that artist needs to be deleted but song
+                        // still in tree
+                        artistName = songName;
+                        this.remove(artistName, true);
+                    }
+                    else {
+                        // This means that song needs to be deleted but artist
+                        // is still in the table
+                        this.remove(songName, false);
+                    }
+                    songRemove = searchTree.removeTree(result, false,
+                            memManager);
+                    if (songRemove == null) {
+                        return;
+                    }
+                }
+                if (songRemove.getValue() != null) {
+                    // This means that both song and artist needs to be deleted
+                    artistName = memManager.handle2String(songRemove.getValue(),
+                            memManager.getPool());
+                    songName = memManager.handle2String(songRemove.getKey(),
+                            memManager.getPool());
+                    this.remove(artistName, true);
+                    this.remove(songName, false);
+                    return;
+                }
+            }
         }
     }
 
