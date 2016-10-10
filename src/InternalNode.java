@@ -572,43 +572,19 @@ class InternalNode implements TreeNode {
             pair2Comparison = location.compareTo(pair2.getKey());
         }
 
-        if (pair1Comparison >= 0 && pair2 == null) { // greater start value than
-            if ((this.getLeft().getPair1().compareTo(location) == 0
-                    && this.getLeft().getPair1() != null)
-                    || (this.getLeft().getPair2() != null && this.getLeft()
-                            .getPair2().compareTo(location) == 0)) {
-                return this.getLeft().handleSearch(location);
-            }
-            else {
-                return this.getCenter().handleSearch(location);
-            }
-        }
-        else if (pair1Comparison < 0) {
-            // go left
+        if (pair1Comparison <= 0) { 
+            // Equal to pair 1
             return this.getLeft().handleSearch(location);
         }
-        else if (pair2Comparison >= 0 && pair2 != null) {
-            if ((this.getCenter().getPair1().compareTo(location) == 0
-                    && this.getCenter().getPair1() != null)
-                    || (this.getCenter().getPair2() != null && this.getCenter()
-                            .getPair2().compareTo(location) == 0)) {
-                return this.getCenter().handleSearch(location);
-            }
-            else {
-                // go right
-                return this.getRight().handleSearch(location);
-            }
+        else if (pair2Comparison == 0 && pair2 != null) {
+            // Go center since it's equal 
+            return this.getCenter().handleSearch(location);
+        }
+        else if (pair2Comparison > 0 && pair2 != null) {
+            return this.getRight().handleSearch(location);
         }
         else {
-            if ((this.getLeft().getPair1().compareTo(location) == 0
-                    && this.getLeft().getPair1() != null)
-                    || (this.getLeft().getPair2() != null && this.getLeft()
-                            .getPair2().compareTo(location) == 0)) {
-                return this.getLeft().handleSearch(location);
-            }
-            else {
-                return this.getCenter().handleSearch(location);
-            }
+            return this.getCenter().handleSearch(location);
         }
     }
 

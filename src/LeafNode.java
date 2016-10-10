@@ -217,15 +217,21 @@ class LeafNode implements TreeNode {
         if (this.getPair1() == null) {
             return null;
         }
-        if (pair1.compareTo(location) == 0) {
-            return this;
+        TreeNode temp = this;
+        LeafNode leafTemp = (LeafNode) temp;
+        while (leafTemp != null) {
+            if (leafTemp.getPair1().compareTo(location) == 0) {
+                return leafTemp;
+            }
+            else if (leafTemp.getPair2() != null
+                    && leafTemp.getPair2().compareTo(location) == 0) {
+                return leafTemp;
+            }
+            else {
+                leafTemp = (LeafNode) leafTemp.getNext();
+            }
         }
-        else if (pair2 != null && pair2.compareTo(location) == 0) {
-            return this;
-        }
-        else {
-            return null;
-        }
+        return null;
     }
 
     /**
