@@ -331,9 +331,6 @@ public class World {
     public void insertToTree(String artist, String song) {
         Handle first = artists.get(artist, memManager.getPool()); // Artist
         Handle second = songs.get(song, memManager.getPool()); // Song
-<<<<<<< HEAD
-=======
-
         if (first != null && second == null) {  //artist was found
             first = SearchTree.world.artists.get(artist,
                     SearchTree.world.memManager.getPool());
@@ -349,7 +346,6 @@ public class World {
                     SearchTree.world.memManager.getPool());
         }
         // give handles to tree for insertion
->>>>>>> origin/master
         searchTree.processHandles(first, second, song, artist, true);
     }
 
