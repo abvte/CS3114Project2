@@ -44,7 +44,7 @@ class InternalNode implements TreeNode {
     }
 
     /**
-     * Insert method for internal nodes
+     * Insert method for internal nodes. Recursively iterates through children
      * 
      * @param pair
      *            Pair to be inserted
@@ -56,79 +56,54 @@ class InternalNode implements TreeNode {
         if (pair2 != null) {
             pair2Comparison = pair.compareTo(pair2);
         }
-        if (pair1Comparison > 0 && pair2 == null) { // greater start value than
+        if (pair1Comparison > 0 && pair2 == null) { // Go center
             TreeNode tempNode = this.getCenter().insert(pair);
             if (tempNode != this.getCenter()) { // We know it has split
                 InternalNode internNode = (InternalNode) tempNode;
-
                 this.setCenter(internNode.getLeft());
                 this.setRight(internNode.getCenter());
-                if (this.getLeft() instanceof LeafNode) {
+                if (this.getLeft() instanceof LeafNode) { //Update pointers
                     LeafNode temp = (LeafNode) this.getLeft();
                     temp.setNext(this.getCenter());
                     this.left = temp;
                 }
-
             }
         }
-        else if (pair1Comparison <= 0) {
-            // go left
+        else if (pair1Comparison <= 0) { // go left
             TreeNode tempNode = this.getLeft().insert(pair);
             if (tempNode != this.getLeft()) {
                 InternalNode internNode = (InternalNode) tempNode;
                 if (count == 3) { // We need to split this internal node
                     InternalNode interimNode = new InternalNode(
                             this.getCenter(), this.getRight(), null);
-                    this.setLeft(internNode.getLeft());
+                    this.setLeft(internNode.getLeft()); //Restructure
                     this.setCenter(internNode.getCenter());
-
                     this.setRight(null);
                     return new InternalNode(this, interimNode, null);
                 }
-                else {
+                else { //Else consolidate into one node
                     this.setRight(this.getCenter());
                     this.setCenter(internNode.getCenter());
                     this.setLeft(internNode.getLeft());
                 }
             }
         }
-        else if (pair2Comparison == 0) {
-            // go center
+        else if (pair2Comparison == 0 || 
+                (pair1Comparison > 0 && pair2Comparison <= 0)) { // go center
             TreeNode tempNode = this.getCenter().insert(pair);
             if (tempNode != this.getCenter()) {
                 InternalNode internNode = (InternalNode) tempNode;
                 InternalNode interimNode = new InternalNode(
                         internNode.getCenter(), this.getRight(), null);
                 this.setCenter(internNode.getLeft());
-                splitHelper(interimNode, true);
-
+                splitHelper(interimNode, false);
                 this.setRight(null);
+                // Return a new consolidated InternalNode to tell parent node
+                // it has restructured.
                 return new InternalNode(this, interimNode, null);
             }
-
         }
-        else if (pair1Comparison > 0 && pair2Comparison <= 0) {
-            // go center
-            TreeNode tempNode = this.getCenter().insert(pair);
-            if (tempNode != this.getCenter()) {
-                InternalNode internNode = (InternalNode) tempNode;
-                if (count == 3) { // We need to split this internal node
-                    InternalNode interimNode = new InternalNode(
-                            internNode.getCenter(), this.getRight(), null);
-                    this.setCenter(internNode.getLeft());
-                    splitHelper(interimNode, false);
-
-                    this.setRight(null);
-                    return new InternalNode(this, interimNode, null);
-                }
-                else {
-                    this.setCenter(internNode.getLeft());
-                    this.setRight(internNode.getCenter());
-                }
-            }
-        }
-        else {
-            // go right
+        else {  // go right
             TreeNode tempNode = this.getRight().insert(pair);
             if (tempNode != this.getRight()) {
                 InternalNode internNode = (InternalNode) tempNode;

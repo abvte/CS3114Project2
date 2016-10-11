@@ -69,26 +69,6 @@ public class KVPair implements Comparable<KVPair> {
     }
 
     /**
-     * Setter for key handle
-     * 
-     * @param keyValue
-     *            Key handle to set
-     */
-    public void setKey(Handle keyValue) {
-        key = keyValue;
-    }
-
-    /**
-     * Setting for value handle
-     * 
-     * @param valueHandle
-     *            Value handle to set
-     */
-    public void setValue(Handle valueHandle) {
-        value = valueHandle;
-    }
-
-    /**
      * Overload the standard toString method
      * 
      * @return the printable string
