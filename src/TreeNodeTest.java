@@ -1,15 +1,14 @@
 import student.TestCase;
 
 /**
- * Unit tests to test functionality of
- * the node classes.
+ * Unit tests to test functionality of the node classes.
  * 
  * @author Kevin Zhang
  * @author Adam Bishop
  * @version 1.0
  */
 @SuppressWarnings({ "rawtypes", "unchecked" })
-public class TreeNodeTest extends TestCase {    
+public class TreeNodeTest extends TestCase {
     /**
      * Unit test to check inserts with leaves
      */
@@ -65,6 +64,7 @@ public class TreeNodeTest extends TestCase {
         }
         assertEquals(true, correctReturn);
     }
+
     /**
      * This unit test checks to see if a certain node exists in the leaves of
      * the tree
@@ -123,7 +123,61 @@ public class TreeNodeTest extends TestCase {
         assertEquals(p4, leaf2.search(p4));
         assertNull(leaf4.search(p5));
     }
-    
+
+    /**
+     * This unit test checks the operation of the internal node when it tries to
+     * call handle search when it's null
+     */
+    public void testEmptyInternalHandleSearch() {
+        InternalNode intern1 = new InternalNode(null, null, null);
+        assertNull(intern1.handleSearch(null));
+        assertNull(intern1.search(null));
+    }
+
+    /**
+     * This unit test checks the split helper operations within the internal
+     * nodes for center nodes
+     */
+    public void testCenterSplitHelper() {
+        MemoryManager memManager = new MemoryManager(300);
+        Hashtable myHtb = new Hashtable(30, "Artist", memManager);
+        Handle zero = (Handle) myHtb.add("Maroon0",
+                new Handle("Maroon0".getBytes(), new byte[] { 0, 7 }, 0,
+                        memManager.getPool()));
+        Handle one = (Handle) myHtb.add("Maroon1",
+                new Handle("Maroon1".getBytes(), new byte[] { 0, 7 }, 9,
+                        memManager.getPool()));
+        KVPair pair1 = new KVPair(zero, one);
+        LeafNode leaf1 = new LeafNode(pair1, pair1, null);
+        InternalNode intern1 = new InternalNode(leaf1, leaf1, leaf1);
+        intern1.splitHelper(intern1, true);
+        assertEquals(leaf1.getNext(), intern1.getLeft());
+    }
+
+    /**
+     * This unit test checks to see if it properly deleted the right branch of
+     * an internal node
+     */
+    public void testInternalRightDelete() {
+        MemoryManager memManager = new MemoryManager(300);
+        Hashtable myHtb = new Hashtable(30, "Artist", memManager);
+        Handle zero = (Handle) myHtb.add("Maroon0",
+                new Handle("Maroon0".getBytes(), new byte[] { 0, 7 }, 0,
+                        memManager.getPool()));
+        Handle one = (Handle) myHtb.add("Maroon1",
+                new Handle("Maroon1".getBytes(), new byte[] { 0, 7 }, 9,
+                        memManager.getPool()));
+        KVPair pair1 = new KVPair(zero, one);
+        KVPair pair2 = new KVPair(one, zero);
+        LeafNode leaf1 = new LeafNode(pair1, pair1, null);
+        LeafNode leaf2 = new LeafNode(pair2, null, null);
+        InternalNode intern1 = new InternalNode(leaf1, leaf1, leaf2);
+        intern1.setPair1(pair1);
+        intern1.setPair1(pair1);
+        intern1.delete(pair2);
+        assertNull(intern1.getCenter().getPair2());
+    }
+
     /**
      * tests tree delete without restructuring
      */
@@ -219,7 +273,7 @@ public class TreeNodeTest extends TestCase {
     }
 
     /**
-     * Unit test that checks deletion of center node 
+     * Unit test that checks deletion of center node
      */
     public void testTreeCenterDeleteRestructure() {
         TTTree tree = new TTTree();
@@ -303,8 +357,7 @@ public class TreeNodeTest extends TestCase {
     }
 
     /**
-     * Unit test that checks to see if it deletes
-     * the entire tree properly 
+     * Unit test that checks to see if it deletes the entire tree properly
      */
     public void testTreeFullRemoval() {
         TTTree tree = new TTTree();

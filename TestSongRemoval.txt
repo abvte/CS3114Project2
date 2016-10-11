@@ -10,3 +10,5 @@ insert Artist 1<SEP>Song 3
 remove song Song 3
 print tree
 delete Artist 2<SEP>Song 2
+remove song Song 2
+remove song Song 1

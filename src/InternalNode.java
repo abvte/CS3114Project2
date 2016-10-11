@@ -62,7 +62,7 @@ class InternalNode implements TreeNode {
                 InternalNode internNode = (InternalNode) tempNode;
                 this.setCenter(internNode.getLeft());
                 this.setRight(internNode.getCenter());
-                if (this.getLeft() instanceof LeafNode) { //Update pointers
+                if (this.getLeft() instanceof LeafNode) { // Update pointers
                     LeafNode temp = (LeafNode) this.getLeft();
                     temp.setNext(this.getCenter());
                     this.left = temp;
@@ -76,20 +76,20 @@ class InternalNode implements TreeNode {
                 if (count == 3) { // We need to split this internal node
                     InternalNode interimNode = new InternalNode(
                             this.getCenter(), this.getRight(), null);
-                    this.setLeft(internNode.getLeft()); //Restructure
+                    this.setLeft(internNode.getLeft()); // Restructure
                     this.setCenter(internNode.getCenter());
                     this.setRight(null);
                     return new InternalNode(this, interimNode, null);
                 }
-                else { //Else consolidate into one node
+                else { // Else consolidate into one node
                     this.setRight(this.getCenter());
                     this.setCenter(internNode.getCenter());
                     this.setLeft(internNode.getLeft());
                 }
             }
         }
-        else if (pair2Comparison == 0 || 
-                (pair1Comparison > 0 && pair2Comparison <= 0)) { // go center
+        else if (pair2Comparison == 0
+                || (pair1Comparison > 0 && pair2Comparison <= 0)) { // go center
             TreeNode tempNode = this.getCenter().insert(pair);
             if (tempNode != this.getCenter()) {
                 InternalNode internNode = (InternalNode) tempNode;
@@ -103,7 +103,7 @@ class InternalNode implements TreeNode {
                 return new InternalNode(this, interimNode, null);
             }
         }
-        else {  // go right
+        else { // go right
             TreeNode tempNode = this.getRight().insert(pair);
             if (tempNode != this.getRight()) {
                 InternalNode internNode = (InternalNode) tempNode;
@@ -130,10 +130,10 @@ class InternalNode implements TreeNode {
             return this;
         }
         else if (node == center && path == 2) { // simple deletion
-            this.setCenter(node);   //Update node
+            this.setCenter(node); // Update node
         }
         else if (node == right && path == 3) { // simple deletion
-            this.setRight(right);   //Update node
+            this.setRight(right); // Update node
         }
         else if (path == 1) { // left stuff
             if (node != null) { // internal node restructure needed
@@ -336,11 +336,8 @@ class InternalNode implements TreeNode {
             if (centerCheck) { // center
                 leftNode.setNext(node.getLeft());
             }
-            else if (!centerCheck) { // right
+            else { // right
                 centerNode.setNext(node.getLeft());
-            }
-            else {
-                return;
             }
         }
     }
@@ -533,6 +530,7 @@ class InternalNode implements TreeNode {
 
     /**
      * Returns leftmost node containing the wanted handle
+     * 
      * @param location
      *            Handle location
      * @return TreeNode
@@ -547,12 +545,12 @@ class InternalNode implements TreeNode {
             pair2Comparison = location.compareTo(pair2.getKey());
         }
 
-        if (pair1Comparison <= 0) { 
+        if (pair1Comparison <= 0) {
             // Equal to pair 1
             return this.getLeft().handleSearch(location);
         }
         else if (pair2Comparison == 0 && pair2 != null) {
-            // Go center since it's equal 
+            // Go center since it's equal
             return this.getCenter().handleSearch(location);
         }
         else if (pair2Comparison > 0 && pair2 != null) {
