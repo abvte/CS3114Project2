@@ -39,7 +39,6 @@ public class DoublyLinkedTest extends TestCase {
         assertEquals(null, newlist.getData());
     }
 
-    // Doubly Linked List
     /**
      * Tests removing the head
      */

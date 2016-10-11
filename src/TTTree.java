@@ -1,7 +1,6 @@
 /**
- * Main class to hold nodes for the 2-3 Tree.
- * Major functions of this ADT are implemented
- * via the nodes rather than the tree.
+ * Main class to hold nodes for the 2-3 Tree. Major functions of this ADT are
+ * implemented via the nodes rather than the tree.
  * 
  * @author Adam Bishop
  * @author Kevin Zhang
@@ -14,7 +13,7 @@ public class TTTree {
     /**
      * Constructor
      */
-    TTTree() {  // Create a filler node for the root
+    TTTree() { // Create a filler node for the root
         root = new LeafNode(null, null, null);
     }
 
@@ -36,7 +35,7 @@ public class TTTree {
      * @return Null if the pair is not found, an object otherwise
      */
     public KVPair search(KVPair pair) {
-        if (root.getPair1() == null) { //If tree is empty
+        if (root.getPair1() == null) { // If tree is empty
             return null;
         }
         else {
@@ -46,6 +45,7 @@ public class TTTree {
 
     /**
      * Calls the root node's delete function to recursively delete a KVPair
+     * 
      * @param toDelete
      *            Pair to be deleted
      * @return root
@@ -56,10 +56,10 @@ public class TTTree {
         if (newRoot instanceof InternalNode && newRoot.getPair1() == null) {
             root = ((InternalNode) newRoot).getLeft();
         }
-        else {  //Else it is a LeafNode
+        else { // Else it is a LeafNode
             root = newRoot;
         }
-        if (root == null) { //If tree is completely empty
+        if (root == null) { // If tree is completely empty
             // Creates a new empty leaf node when the tree is empty
             root = new LeafNode(null, null, null);
         }
@@ -86,14 +86,17 @@ public class TTTree {
      */
     public int processHandles(Handle first, Handle second, String song,
             String artist, boolean insert) {
+        // Creates pairs to be inserted
         KVPair firstPair = new KVPair(first, second);
         KVPair secondPair = new KVPair(second, first);
         int removeHash = 0;
         TreeNode artistHandle;
         TreeNode songHandle;
+        // Checks to see if it already exists in the tree
         KVPair searchResult = this.search(firstPair);
         if (insert) {
             if (searchResult != null) {
+                // When the pair already exists in the tree
                 System.out.println("The KVPair (|" + artist + "|,|" + song
                         + "|),(" + first.toString() + "," + second.toString()
                         + ") duplicates a record already in the tree.");
@@ -101,7 +104,7 @@ public class TTTree {
                         + "|),(" + second.toString() + "," + first.toString()
                         + ") duplicates a record already in the tree.");
             }
-            else {
+            else { // Insert into tree
                 this.insert(firstPair);
                 System.out.println("The KVPair (|" + artist + "|,|" + song
                         + "|),(" + first.toString() + "," + second.toString()
@@ -113,7 +116,7 @@ public class TTTree {
             }
             return removeHash;
         }
-        else {
+        else { // Delete operation
             if (searchResult == null) {
                 System.out.println("The KVPair (|" + artist + "|,|" + song
                         + "|) was not found in the database.");
@@ -155,8 +158,8 @@ public class TTTree {
      */
     public KVPair removeTree(Handle location, boolean artist,
             MemoryManager converter) {
-        TreeNode temp = root.handleSearch(location); //grab first handle
-        if (temp == null) { //Make sure it is even in the tree
+        TreeNode temp = root.handleSearch(location); // grab first handle
+        if (temp == null) { // Make sure it is even in the tree
             return null;
         }
         TreeNode artistHandle;
@@ -166,17 +169,22 @@ public class TTTree {
         KVPair secondDeleted = null;
         String firstEntry;
         String secondEntry;
+        // If the entry is in the second pair of the node returned
         if (leaf.getPair2() != null
                 && leaf.getPair2().compareTo(location) == 0) {
             firstDeleted = leaf.getPair2();
             secondDeleted = new KVPair(leaf.getPair2().getValue(),
                     leaf.getPair2().getKey());
         }
+        // If the entry is in the first pair of the node returned.
+        // With the way that the statements are arranged, it
+        // would delete the first pair before the second pair.
         if (leaf.getPair1().compareTo(location) == 0) {
             firstDeleted = leaf.getPair1();
             secondDeleted = new KVPair(leaf.getPair1().getValue(),
                     leaf.getPair1().getKey());
         }
+        // Converts the 2 handles into strings
         firstEntry = converter.handle2String(firstDeleted.getKey(),
                 converter.getPool());
         secondEntry = converter.handle2String(firstDeleted.getValue(),
@@ -187,18 +195,24 @@ public class TTTree {
         this.delete(secondDeleted);
         System.out.println("The KVPair (|" + secondEntry + "|,|" + firstEntry
                 + "|) is deleted from the tree.");
-        if (artist) {
+        if (artist) { // Searches for remaining entries in the tree
+            // 1st pair is artist
             artistHandle = root.handleSearch(firstDeleted.getKey());
+            // 2nd pair is song
             songHandle = root.handleSearch(firstDeleted.getValue());
         }
         else {
+            // 1st pair is song
             songHandle = root.handleSearch(firstDeleted.getKey());
+            // 2nd pair is artist
             artistHandle = root.handleSearch(firstDeleted.getValue());
         }
         if (artistHandle == null && songHandle == null) {
+            // Means that both entries need to be deleted from hash tables
             return firstDeleted;
         }
         else if (artistHandle != null && songHandle == null) {
+            // Means that artist still exists but song does not
             if (artist) {
                 return new KVPair(firstDeleted.getValue(), null);
             }
@@ -207,14 +221,16 @@ public class TTTree {
             }
         }
         else if (artistHandle == null && songHandle != null) {
+            // Means that song still exists but artist does not
             if (artist) {
                 return new KVPair(firstDeleted.getKey(), null);
             }
             else {
                 return new KVPair(firstDeleted.getValue(), null);
-            }        
+            }
         }
         else {
+            // Means that both artist and song still exists in tree
             return new KVPair(null, null);
         }
     }
@@ -237,26 +253,26 @@ public class TTTree {
      */
     public void list(Handle location, MemoryManager pool) {
         String poolItem;
-        TreeNode temp = root.handleSearch(location); //Find left-most node
-        LeafNode treeList = (LeafNode) temp;         //to start listing from
-        while (treeList != null) {  //While there are nodes to print
+        TreeNode temp = root.handleSearch(location); // Find left-most node
+        LeafNode treeList = (LeafNode) temp; // to start listing from
+        while (treeList != null) { // While there are nodes to print
             boolean complete = true;
             if (treeList.getPair1().getKey().getStart() == location
-                    .getStart()) {  // Make sure the node represents the handle
+                    .getStart()) { // Make sure the node represents the handle
                 poolItem = pool.handle2String(treeList.getPair1().getValue(),
                         pool.getPool());
                 System.out.println("|" + poolItem + "| ");
                 complete = false;
             }
             if (treeList.getPair2() != null && treeList.getPair2().getKey()
-                    .getStart() == location.getStart()) { //Check pair2 also
+                    .getStart() == location.getStart()) { // Check pair2 also
                 poolItem = pool.handle2String(treeList.getPair2().getValue(),
                         pool.getPool());
                 System.out.println("|" + poolItem + "| ");
                 complete = false;
             }
-            if (complete) { //This should be true if both nodes above didn't
-                break;      //contain what we were looking for
+            if (complete) { // This should be true if both nodes above didn't
+                break; // contain what we were looking for
             }
             treeList = (LeafNode) treeList.getNext();
         }
@@ -271,7 +287,7 @@ public class TTTree {
      *            Spacing to print tree
      */
     private void preorder(TreeNode node, String indent) {
-        if (node == null || root.getPair1() == null) { //root can be null here
+        if (node == null || root.getPair1() == null) { // root can be null here
             return;
         }
         if (node.getPair2() != null) { // Full node
@@ -283,9 +299,9 @@ public class TTTree {
         }
 
         if (node instanceof LeafNode) { // We've already listed the value,
-            return;                     // return.
+            return; // return.
         }
-        else {  //Else it is an InternalNode, go to its children
+        else { // Else it is an InternalNode, go to its children
             InternalNode temp = (InternalNode) node;
             this.preorder(temp.getLeft(), "  " + indent);
             this.preorder(temp.getCenter(), "  " + indent);

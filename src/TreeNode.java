@@ -63,7 +63,6 @@ interface TreeNode {
      * @return Minimum value in the tree
      */
     KVPair getMinimum(int level, boolean center);
-    // remove
 
     /**
      * Searches recursively through tree
@@ -79,14 +78,7 @@ interface TreeNode {
      *            Handle location
      * @return TreeNode
      */
-    TreeNode handleSearch(Handle location);
-    
-//    /**
-//     * @param pair
-//     *            pair to find
-//     * @return TreeNode the node containing the pair
-//     */
-//    TreeNode searchNode(KVPair pair);
+    TreeNode handleSearch(Handle location);    
     
     /**
      * @param toDelete
@@ -94,6 +86,5 @@ interface TreeNode {
      * @return root
      */
     TreeNode delete(KVPair toDelete);
-    //TreeNode searchNode(KVPair pair);*/
 
 }

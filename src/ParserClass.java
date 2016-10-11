@@ -84,9 +84,11 @@ public class ParserClass {
             String[] processed = x[1].split(" ", 2);
             if (processed[0].equals("artist")) {
                 SearchTree.world.removeFromTree(processed[1], true);
+                //Remove artists from all entities
             }
             else if (processed[0].equals("song")) {
                 SearchTree.world.removeFromTree(processed[1], false);
+                //Remove song from all entities 
             }
             else {
                 System.out.println("Unknown type in remove command");
