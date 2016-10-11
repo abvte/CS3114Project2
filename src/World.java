@@ -331,20 +331,6 @@ public class World {
     public void insertToTree(String artist, String song) {
         Handle first = artists.get(artist, memManager.getPool()); // Artist
         Handle second = songs.get(song, memManager.getPool()); // Song
-        if (first != null && second == null) {  //artist was found
-            first = SearchTree.world.artists.get(artist,
-                    SearchTree.world.memManager.getPool());
-        }
-        else if (first == null && second != null) { //song was found
-            second = SearchTree.world.songs.get(song,
-                    SearchTree.world.memManager.getPool());
-        }
-        else {  // neither were found
-            first = SearchTree.world.artists.get(artist,
-                    SearchTree.world.memManager.getPool());
-            second = SearchTree.world.songs.get(song,
-                    SearchTree.world.memManager.getPool());
-        }
         // give handles to tree for insertion
         searchTree.processHandles(first, second, song, artist, true);
     }
