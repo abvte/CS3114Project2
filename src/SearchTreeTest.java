@@ -124,10 +124,53 @@ public class SearchTreeTest extends TestCase {
         assertNull(node1.getLeft());
         node1.setLeft(test);
         assertEquals(test, node1.getLeft());
+<<<<<<< HEAD
         LeafNode leaf1 = new LeafNode(p1, p2, null);
         InternalNode node2 = new InternalNode(leaf1, leaf1, leaf1);
         node2.setCenter(null);
         assertNull(node2.getCenter());
+=======
+    }
+
+    /**
+     * Unit test to check inserts with leaves
+     */
+    public void testLeafInsert() {
+        MemoryManager memManager = new MemoryManager(500);
+        Hashtable myHtb = new Hashtable(30, "Artist", memManager);
+        Handle zero = (Handle) myHtb.add("Maroon0",
+                new Handle("Maroon0".getBytes(), new byte[] { 0, 7 }, 0,
+                        memManager.getPool()));
+        Handle one = (Handle) myHtb.add("Maroon1",
+                new Handle("Maroon1".getBytes(), new byte[] { 0, 7 }, 9,
+                        memManager.getPool()));
+        Handle two = (Handle) myHtb.add("Maroon2",
+                new Handle("Maroon2".getBytes(), new byte[] { 0, 7 }, 18,
+                        memManager.getPool()));
+        Handle three = (Handle) myHtb.add("Maroon3",
+                new Handle("Maroon3".getBytes(), new byte[] { 0, 7 }, 27,
+                        memManager.getPool()));
+        KVPair p1 = new KVPair(zero, one);
+        KVPair p2 = new KVPair(one, zero);
+        KVPair p3 = new KVPair(two, three);
+        KVPair p4 = new KVPair(three, two);
+        LeafNode leaf1 = new LeafNode(null, null, null);
+        LeafNode leaf2 = new LeafNode(null, null, null);
+        LeafNode leaf3 = new LeafNode(p3, p4, null);
+        LeafNode leaf4 = new LeafNode(p3, p4, null);
+        leaf1.insert(p2);
+        leaf1.insert(p1);
+        leaf2.insert(p1);
+        leaf2.insert(p2);
+        assertEquals(leaf1.getPair1(), p1); // Makes sure it swaps
+        assertEquals(leaf2.getPair2(), p2); // Makes sure it inserts in second
+                                            // pair position if the second pair
+                                            // is greater and empty
+        assertTrue(leaf1.insert(p3) instanceof InternalNode);
+        assertTrue(leaf2.insert(p1) instanceof InternalNode);
+        assertTrue(leaf3.insert(p1) instanceof InternalNode);
+        assertTrue(leaf4.insert(p3) instanceof InternalNode);
+>>>>>>> origin/master
     }
 
     /**
@@ -308,6 +351,7 @@ public class SearchTreeTest extends TestCase {
     }
     
     /**
+<<<<<<< HEAD
      * Unit test to check if it removes all songs properly
      */
     public void testSongRemoval() {
@@ -318,6 +362,34 @@ public class SearchTreeTest extends TestCase {
         SearchTree.main(args);
         String content = null;
         File output = new File("TestSongRemovalOut.txt");
+=======
+     * Searches an empty tree
+     */
+    public void testSearchEmptyTree() {
+        TTTree tree = new TTTree();
+        assertNull(tree.search(null));
+    }
+    
+    /**
+     * Removes on an empty tree
+     */
+    public void testRemoveEmptyTree() {
+        TTTree tree = new TTTree();
+        assertNull(tree.removeTree(null, false, null));
+    }
+    
+    /**
+     * Tests different situations for processHandles function
+     */
+    public void testProcessHandles() {
+        String[] args = new String[3];
+        args[0] = "10";
+        args[1] = "32";
+        args[2] = "testProcessHandles.txt";
+        SearchTree.main(args);
+        String content = null;
+        File output = new File("testProcessHandlesOut.txt");
+>>>>>>> origin/master
         try {
             Scanner scan = new Scanner(output);
             content = scan.useDelimiter("\\Z").next();

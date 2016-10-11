@@ -1,5 +1,7 @@
 /**
- * Main class to hold nodes for the 2-3 Tree
+ * Main class to hold nodes for the 2-3 Tree.
+ * Major functions of this ADT are implemented
+ * via the nodes rather than the tree.
  * 
  * @author Adam Bishop
  * @author Kevin Zhang
@@ -12,21 +14,12 @@ public class TTTree {
     /**
      * Constructor
      */
-    TTTree() {
+    TTTree() {  // Create a filler node for the root
         root = new LeafNode(null, null, null);
     }
 
     /**
-     * Getter for root
-     * 
-     * @return root of the tree
-     */
-    public TreeNode getRoot() {
-        return root;
-    }
-
-    /**
-     * Insert method for tree
+     * Insert method for tree which uses nodes' recursive insert method
      * 
      * @param pair
      *            KVPair to be inserted
@@ -36,14 +29,14 @@ public class TTTree {
     }
 
     /**
-     * Searches for a pair
+     * Searches for a pair using the nodes' recursive search
      * 
      * @param pair
      *            Pair to search for
      * @return Null if the pair is not found, an object otherwise
      */
     public KVPair search(KVPair pair) {
-        if (root == null) {
+        if (root.getPair1() == null) { //If tree is empty
             return null;
         }
         else {
@@ -52,19 +45,21 @@ public class TTTree {
     }
 
     /**
+     * Calls the root node's delete function to recursively delete a KVPair
      * @param toDelete
      *            Pair to be deleted
      * @return root
      */
     public TreeNode delete(KVPair toDelete) {
         TreeNode newRoot = root.delete(toDelete);
+        // the root can turn into a LeafNode, so check
         if (newRoot instanceof InternalNode && newRoot.getPair1() == null) {
             root = ((InternalNode) newRoot).getLeft();
         }
-        else {
+        else {  //Else it is a LeafNode
             root = newRoot;
         }
-        if (root == null) {
+        if (root == null) { //If tree is completely empty
             // Creates a new empty leaf node when the tree is empty
             root = new LeafNode(null, null, null);
         }
@@ -157,12 +152,11 @@ public class TTTree {
      * @param converter
      *            Byte array
      * @return Pair to be deleted
-     * 
      */
     public KVPair removeTree(Handle location, boolean artist,
             MemoryManager converter) {
-        TreeNode temp = root.handleSearch(location);
-        if (temp == null) {
+        TreeNode temp = root.handleSearch(location); //grab first handle
+        if (temp == null) { //Make sure it is even in the tree
             return null;
         }
         TreeNode artistHandle;
@@ -226,7 +220,7 @@ public class TTTree {
     }
 
     /**
-     * Print method
+     * Print method. Uses preorder traversal
      */
     public void print() {
         System.out.println("Printing 2-3 tree:");
@@ -243,41 +237,41 @@ public class TTTree {
      */
     public void list(Handle location, MemoryManager pool) {
         String poolItem;
-        TreeNode temp = root.handleSearch(location);
-        LeafNode treeList = (LeafNode) temp;
-        while (treeList != null) {
+        TreeNode temp = root.handleSearch(location); //Find left-most node
+        LeafNode treeList = (LeafNode) temp;         //to start listing from
+        while (treeList != null) {  //While there are nodes to print
             boolean complete = true;
             if (treeList.getPair1().getKey().getStart() == location
-                    .getStart()) {
+                    .getStart()) {  // Make sure the node represents the handle
                 poolItem = pool.handle2String(treeList.getPair1().getValue(),
                         pool.getPool());
                 System.out.println("|" + poolItem + "| ");
                 complete = false;
             }
-            if ((treeList.getPair2() != null) && (treeList.getPair2().getKey()
-                    .getStart() == location.getStart())) {
+            if (treeList.getPair2() != null && treeList.getPair2().getKey()
+                    .getStart() == location.getStart()) { //Check pair2 also
                 poolItem = pool.handle2String(treeList.getPair2().getValue(),
                         pool.getPool());
                 System.out.println("|" + poolItem + "| ");
                 complete = false;
             }
-            if (complete) {
-                break;
+            if (complete) { //This should be true if both nodes above didn't
+                break;      //contain what we were looking for
             }
             treeList = (LeafNode) treeList.getNext();
         }
     }
 
     /**
-     * Pre order traversal
+     * Pre-order traversal. Used by the print function
      * 
      * @param node
      *            Root node of tree
      * @param indent
      *            Spacing to print tree
      */
-    public void preorder(TreeNode node, String indent) {
-        if (node == null || root.getPair1() == null) {
+    private void preorder(TreeNode node, String indent) {
+        if (node == null || root.getPair1() == null) { //root can be null here
             return;
         }
         if (node.getPair2() != null) { // Full node
@@ -288,16 +282,14 @@ public class TTTree {
             System.out.println(indent + node.getPair1().toString());
         }
 
-        if (node instanceof LeafNode) {
-            return;
+        if (node instanceof LeafNode) { // We've already listed the value,
+            return;                     // return.
         }
-        else {
+        else {  //Else it is an InternalNode, go to its children
             InternalNode temp = (InternalNode) node;
             this.preorder(temp.getLeft(), "  " + indent);
             this.preorder(temp.getCenter(), "  " + indent);
             this.preorder(temp.getRight(), "  " + indent);
         }
-
     }
-
 }

@@ -7,23 +7,23 @@
  */
 public class World {
     /**
-     * 
+     * Tree for range queries
      */
     protected TTTree searchTree;
     /**
-     * 
+     * Memory manager which holds artist/song info
      */
     protected MemoryManager memManager;
     /**
-     * 
+     * Table which allows quick searches for artist handles
      */
     protected Hashtable<Handle> artists;
     /**
-     * 
+     * Table which allows quick searches for song handles
      */
     protected Hashtable<Handle> songs;
     /**
-     * 
+     * Parses a file and directs the World class
      */
     protected ParserClass parser;
 
@@ -284,7 +284,7 @@ public class World {
      * @return true or false based on the success of the printing
      */
     public boolean print(boolean artist, boolean song, boolean block) {
-        if (artist) {
+        if (artist) {   //If artist, go through table and decode handles
             Hash<Handle>[] table = artists.getTable();
             for (int i = 0; i < table.length; i++) {
                 Hash<Handle> item = table[i];
@@ -299,7 +299,7 @@ public class World {
             }
             System.out.println("total artists: " + artists.getItems());
         }
-        else if (song) {
+        else if (song) {    //If song, search hashtable and decode handles
             Hash<Handle>[] table = songs.getTable();
             for (int i = 0; i < table.length; i++) {
                 Hash<Handle> item = table[i];
@@ -314,7 +314,7 @@ public class World {
             }
             System.out.println("total songs: " + songs.getItems());
         }
-        else {
+        else {  //Use tree's print function to show tree's structure
             memManager.print();
         }
         return true;
@@ -331,6 +331,25 @@ public class World {
     public void insertToTree(String artist, String song) {
         Handle first = artists.get(artist, memManager.getPool()); // Artist
         Handle second = songs.get(song, memManager.getPool()); // Song
+<<<<<<< HEAD
+=======
+
+        if (first != null && second == null) {  //artist was found
+            first = SearchTree.world.artists.get(artist,
+                    SearchTree.world.memManager.getPool());
+        }
+        else if (first == null && second != null) { //song was found
+            second = SearchTree.world.songs.get(song,
+                    SearchTree.world.memManager.getPool());
+        }
+        else {  // neither were found
+            first = SearchTree.world.artists.get(artist,
+                    SearchTree.world.memManager.getPool());
+            second = SearchTree.world.songs.get(song,
+                    SearchTree.world.memManager.getPool());
+        }
+        // give handles to tree for insertion
+>>>>>>> origin/master
         searchTree.processHandles(first, second, song, artist, true);
     }
 
@@ -344,12 +363,12 @@ public class World {
         Handle first = artists.get(artist, memManager.getPool()); // Artist
         Handle second = songs.get(song, memManager.getPool()); // Song
         int hashDelete = 0;
-        if (first == null) {
+        if (first == null) {    //Check if the artist exists
             System.out.println(
                     "|" + artist + "| does not exist in the artist database.");
             return;
         }
-        else if (second == null) {
+        else if (second == null) {  //Check if the song exists
             System.out.println(
                     "|" + song + "| does not exist in the song database.");
             return;
@@ -386,11 +405,11 @@ public class World {
         Handle location;
         String itemType;
 
-        if (artist) {
+        if (artist) {   // Prepare to search for artist
             location = artists.get(item, pool.getPool());
             itemType = "artist";
         }
-        else {
+        else {  // Else prepare to search for song
             location = songs.get(item, pool.getPool());
             itemType = "song";
         }
@@ -400,7 +419,7 @@ public class World {
                     + itemType + " database.");
             return;
         }
-        else {
+        else {  // Start search to list
             searchTree.list(location, memManager);
         }
     }

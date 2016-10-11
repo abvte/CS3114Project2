@@ -1,5 +1,5 @@
 /**
- * Leaf Node subclass
+ * Leaf Node subclass. Implements TreeNode
  * 
  * @author Kevin Zhang
  * @author Adam Bishop
@@ -98,7 +98,7 @@ class LeafNode implements TreeNode {
     }
 
     /**
-     * Simple swap function
+     * Simple swap function for the pairs
      */
     public void swap() {
         KVPair temp = pair1;
@@ -115,7 +115,7 @@ class LeafNode implements TreeNode {
      */
     public TreeNode insert(KVPair pair) {
 
-        if (pair1 == null) {
+        if (pair1 == null) {    //If node is empty, set pair1
             this.setPair1(pair);
             return this;
         }
@@ -127,13 +127,13 @@ class LeafNode implements TreeNode {
             return this;
         }
         else if (pair1Comparison <= 0 && pair2 == null) { // lesser or equal
-                                                          // start value
+                                                          // start value to p1
             this.setPair2(pair);
             this.swap();
             return this;
         }
         int pair2Comparison = pair.compareTo(pair2);
-
+        
         if (pair1Comparison < 0 && pair2Comparison < 0) { // Split to the left
             LeafNode splitNode = new LeafNode(this.pair1, this.pair2,
                     this.getNext());
@@ -142,7 +142,7 @@ class LeafNode implements TreeNode {
             this.setNext(splitNode);
             return new InternalNode(this, splitNode, null);
         }
-        else if (pair1Comparison >= 0 && pair2Comparison < 0) {
+        else if (pair1Comparison >= 0 && pair2Comparison < 0) { //Split right
             // Moves the current pair 1 to the new node
             LeafNode splitNode = new LeafNode(pair, pair2, this.getNext());
             this.setNext(splitNode);
@@ -150,7 +150,7 @@ class LeafNode implements TreeNode {
             this.setPair2(null);
             return new InternalNode(this, splitNode, null);
         }
-        else {
+        else {  // Same as above, but pair2 is in the new pair1 spot
             // Moves the current pair 1 to the new node
             LeafNode splitNode = new LeafNode(pair2, pair, this.getNext());
             this.setPair1(pair1);
@@ -167,23 +167,23 @@ class LeafNode implements TreeNode {
      *            Pair to be deleted
      * @return root
      */
-    public TreeNode delete(KVPair pair) {
+    public TreeNode delete(KVPair pair) {   //Compares values and remove pair
         int pair1Comparison = pair.compareTo(pair1);
         if (pair1Comparison == 0 && pair2 == null) {
             return null;
             // restructure needed
         }
-        else if (pair1Comparison == 0) {
+        else if (pair1Comparison == 0) {    //simple deletion
             this.swap();
             this.setPair2(null);
         }
         else {
-            int pair2Comparison = pair.compareTo(pair2);
+            int pair2Comparison = pair.compareTo(pair2); //simple deletion
             if (pair2Comparison == 0) {
                 this.setPair2(null);
             }
         }
-        return this;
+        return this;    //Should only reach here if there is one pair left
     }
 
     /**
@@ -194,10 +194,10 @@ class LeafNode implements TreeNode {
      * @return Null if not found, an object otherwise
      */
     public KVPair search(KVPair pair) {
-        if (this.getPair1() == null || pair == null) {
+        if (this.getPair1() == null || pair == null) { //base case
             return null;
         }
-
+        // Search pairs, return one if found, else return null
         if (pair.compareTo(this.pair1) == 0) {
             return pair1;
         }
@@ -210,6 +210,7 @@ class LeafNode implements TreeNode {
     }
 
     /**
+     * Searches for key/value matching the handle
      * @param location
      *            Handle location
      * @return TreeNode
@@ -221,6 +222,7 @@ class LeafNode implements TreeNode {
         }
         TreeNode temp = this;
         LeafNode leafTemp = (LeafNode) temp;
+        // Since this node may not contain the handle, find it
         while (leafTemp != null) {
             if (leafTemp.getPair1().compareTo(location) == 0) {
                 return leafTemp;
@@ -246,8 +248,8 @@ class LeafNode implements TreeNode {
      * @return new node
      */
     public TreeNode lazySetNext(TreeNode node, TreeNode nextNode) {
-        LeafNode interimNode = (LeafNode) node;
-        interimNode.setNext(nextNode);
-        return interimNode;
+        LeafNode interimNode = (LeafNode) node; //Cast
+        interimNode.setNext(nextNode); //Set next
+        return interimNode; //Return updated node
     }
 }

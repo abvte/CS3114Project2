@@ -1,0 +1,38 @@
+|test1| is added to the artist database.
+|test2| is added to the song database.
+The KVPair (|test1|,|test2|),(0,7) is added to the tree.
+The KVPair (|test2|,|test1|),(7,0) is added to the tree.
+|test3| is added to the artist database.
+|test2| duplicates a record already in the song database.
+The KVPair (|test3|,|test2|),(14,7) is added to the tree.
+The KVPair (|test2|,|test3|),(7,14) is added to the tree.
+The KVPair (|test1|,|test2|) is deleted from the tree.
+The KVPair (|test2|,|test1|) is deleted from the tree.
+|test1| is deleted from the artist database.
+|test5| does not exist in the artist database.
+The KVPair (|test3|,|test2|) is deleted from the tree.
+The KVPair (|test2|,|test3|) is deleted from the tree.
+|test3| is deleted from the artist database.
+|test2| is deleted from the song database.
+|test1| is added to the artist database.
+|test2| is added to the song database.
+The KVPair (|test1|,|test2|),(0,7) is added to the tree.
+The KVPair (|test2|,|test1|),(7,0) is added to the tree.
+|test3| is added to the artist database.
+|test2| duplicates a record already in the song database.
+The KVPair (|test3|,|test2|),(14,7) is added to the tree.
+The KVPair (|test2|,|test3|),(7,14) is added to the tree.
+|test4| is added to the artist database.
+|test2| duplicates a record already in the song database.
+The KVPair (|test4|,|test2|),(21,7) is added to the tree.
+The KVPair (|test2|,|test4|),(7,21) is added to the tree.
+The KVPair (|test1|,|test2|) is deleted from the tree.
+The KVPair (|test2|,|test1|) is deleted from the tree.
+|test1| does not exist in the song database.
+The KVPair (|test3|,|test2|) is deleted from the tree.
+The KVPair (|test2|,|test3|) is deleted from the tree.
+|test3| does not exist in the song database.
+The KVPair (|test2|,|test4|) is deleted from the tree.
+The KVPair (|test4|,|test2|) is deleted from the tree.
+|test2| is deleted from the song database.
+|test4| is deleted from the artist database.
