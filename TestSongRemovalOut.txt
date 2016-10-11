@@ -1,0 +1,71 @@
+|Artist 1| is added to the artist database.
+|Song 1| is added to the song database.
+The KVPair (|Artist 1|,|Song 1|),(0,10) is added to the tree.
+The KVPair (|Song 1|,|Artist 1|),(10,0) is added to the tree.
+|Artist 1| duplicates a record already in the artist database.
+|Song 2| is added to the song database.
+The KVPair (|Artist 1|,|Song 2|),(0,18) is added to the tree.
+The KVPair (|Song 2|,|Artist 1|),(18,0) is added to the tree.
+Memory pool expanded to be 64 bytes.
+|Artist 2| is added to the artist database.
+|Song 2| duplicates a record already in the song database.
+The KVPair (|Artist 2|,|Song 2|),(26,18) is added to the tree.
+The KVPair (|Song 2|,|Artist 2|),(18,26) is added to the tree.
+|Artist 3| is added to the artist database.
+|Song 3| is added to the song database.
+The KVPair (|Artist 3|,|Song 3|),(36,46) is added to the tree.
+The KVPair (|Song 3|,|Artist 3|),(46,36) is added to the tree.
+|Artist 4| is added to the artist database.
+|Song 3| duplicates a record already in the song database.
+The KVPair (|Artist 4|,|Song 3|),(54,46) is added to the tree.
+The KVPair (|Song 3|,|Artist 4|),(46,54) is added to the tree.
+Memory pool expanded to be 96 bytes.
+|Artist 5| is added to the artist database.
+|Song 3| duplicates a record already in the song database.
+The KVPair (|Artist 5|,|Song 3|),(64,46) is added to the tree.
+The KVPair (|Song 3|,|Artist 5|),(46,64) is added to the tree.
+Artist hash table size doubled.
+|Artist 6| is added to the artist database.
+|Song 3| duplicates a record already in the song database.
+The KVPair (|Artist 6|,|Song 3|),(74,46) is added to the tree.
+The KVPair (|Song 3|,|Artist 6|),(46,74) is added to the tree.
+|Artist 7| is added to the artist database.
+|Song 3| duplicates a record already in the song database.
+The KVPair (|Artist 7|,|Song 3|),(84,46) is added to the tree.
+The KVPair (|Song 3|,|Artist 7|),(46,84) is added to the tree.
+|Artist 1| duplicates a record already in the artist database.
+|Song 3| duplicates a record already in the song database.
+The KVPair (|Artist 1|,|Song 3|),(0,46) is added to the tree.
+The KVPair (|Song 3|,|Artist 1|),(46,0) is added to the tree.
+The KVPair (|Song 3|,|Artist 1|) is deleted from the tree.
+The KVPair (|Artist 1|,|Song 3|) is deleted from the tree.
+The KVPair (|Song 3|,|Artist 3|) is deleted from the tree.
+The KVPair (|Artist 3|,|Song 3|) is deleted from the tree.
+|Artist 3| is deleted from the artist database.
+The KVPair (|Song 3|,|Artist 4|) is deleted from the tree.
+The KVPair (|Artist 4|,|Song 3|) is deleted from the tree.
+|Artist 4| is deleted from the artist database.
+The KVPair (|Song 3|,|Artist 5|) is deleted from the tree.
+The KVPair (|Artist 5|,|Song 3|) is deleted from the tree.
+|Artist 5| is deleted from the artist database.
+The KVPair (|Song 3|,|Artist 6|) is deleted from the tree.
+The KVPair (|Artist 6|,|Song 3|) is deleted from the tree.
+|Artist 6| is deleted from the artist database.
+The KVPair (|Song 3|,|Artist 7|) is deleted from the tree.
+The KVPair (|Artist 7|,|Song 3|) is deleted from the tree.
+|Song 3| is deleted from the song database.
+|Artist 7| is deleted from the artist database.
+Printing 2-3 tree:
+10 0 18 26
+  0 18
+    0 10
+    0 18
+  18 0
+    10 0
+    18 0
+  26 18
+    18 26
+    26 18
+The KVPair (|Artist 2|,|Song 2|) is deleted from the tree.
+The KVPair (|Song 2|,|Artist 2|) is deleted from the tree.
+|Artist 2| is deleted from the artist database.

@@ -181,14 +181,11 @@ public class World {
                     memManager);
             while (artistRemove.getKey() == null) {
                 artistRemove = searchTree.removeTree(result, true, memManager);
-                if (artistRemove == null) {
-                    return;
-                }
             }
             while (artistRemove.getValue() == null) {
                 artistName = memManager.handle2String(artistRemove.getKey(),
                         memManager.getPool());
-                if (artistName != record) {
+                if (!(artistName.equals(record))) {
                     // This means that song needs to be deleted but artist
                     // still in tree
                     songName = artistName;
@@ -241,14 +238,11 @@ public class World {
                     memManager);
             while (songRemove.getKey() == null) {
                 songRemove = searchTree.removeTree(result, false, memManager);
-                if (songRemove == null) {
-                    return;
-                }
             }
             while (songRemove.getValue() == null) {
                 songName = memManager.handle2String(songRemove.getKey(),
                         memManager.getPool());
-                if (songName != record) {
+                if (!(songName.equals(record))) {
                     // This means that artist needs to be deleted but song
                     // still in tree
                     artistName = songName;
@@ -337,21 +331,6 @@ public class World {
     public void insertToTree(String artist, String song) {
         Handle first = artists.get(artist, memManager.getPool()); // Artist
         Handle second = songs.get(song, memManager.getPool()); // Song
-
-        if (first != null && second == null) {
-            first = SearchTree.world.artists.get(artist,
-                    SearchTree.world.memManager.getPool());
-        }
-        else if (first == null && second != null) {
-            second = SearchTree.world.songs.get(song,
-                    SearchTree.world.memManager.getPool());
-        }
-        else {
-            first = SearchTree.world.artists.get(artist,
-                    SearchTree.world.memManager.getPool());
-            second = SearchTree.world.songs.get(song,
-                    SearchTree.world.memManager.getPool());
-        }
         searchTree.processHandles(first, second, song, artist, true);
     }
 
