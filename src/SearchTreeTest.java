@@ -160,26 +160,10 @@ public class SearchTreeTest extends TestCase {
         assertEquals(leaf2.getPair2(), p2); // Makes sure it inserts in second
                                             // pair position if the second pair
                                             // is greater and empty
-        boolean correctReturn = false;
-        if (leaf1.insert(p3) instanceof InternalNode) {
-            correctReturn = true;
-        }
-        assertEquals(true, correctReturn);
-        correctReturn = false;
-        if (leaf2.insert(p1) instanceof InternalNode) {
-            correctReturn = true;
-        }
-        assertEquals(true, correctReturn);
-        correctReturn = false;
-        if (leaf3.insert(p1) instanceof InternalNode) {
-            correctReturn = true;
-        }
-        assertEquals(true, correctReturn);
-        correctReturn = false;
-        if (leaf4.insert(p3) instanceof InternalNode) {
-            correctReturn = true;
-        }
-        assertEquals(true, correctReturn);
+        assertTrue(leaf1.insert(p3) instanceof InternalNode);
+        assertTrue(leaf2.insert(p1) instanceof InternalNode);
+        assertTrue(leaf3.insert(p1) instanceof InternalNode);
+        assertTrue(leaf4.insert(p3) instanceof InternalNode);
     }
 
     /**
@@ -731,6 +715,44 @@ public class SearchTreeTest extends TestCase {
         SearchTree.main(args);
         String content = null;
         File output = new File("P2_Output1_Sample.txt");
+        try {
+            Scanner scan = new Scanner(output);
+            content = scan.useDelimiter("\\Z").next();
+            scan.close();
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        assertFuzzyEquals(content + "\n", systemOut().getHistory());
+    }
+    
+    /**
+     * Searches an empty tree
+     */
+    public void testSearchEmptyTree() {
+        TTTree tree = new TTTree();
+        assertNull(tree.search(null));
+    }
+    
+    /**
+     * Removes on an empty tree
+     */
+    public void testRemoveEmptyTree() {
+        TTTree tree = new TTTree();
+        assertNull(tree.removeTree(null, false, null));
+    }
+    
+    /**
+     * Tests different situations for processHandles function
+     */
+    public void testProcessHandles() {
+        String[] args = new String[3];
+        args[0] = "10";
+        args[1] = "32";
+        args[2] = "testProcessHandles.txt";
+        SearchTree.main(args);
+        String content = null;
+        File output = new File("testProcessHandlesOut.txt");
         try {
             Scanner scan = new Scanner(output);
             content = scan.useDelimiter("\\Z").next();

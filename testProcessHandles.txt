@@ -1,0 +1,11 @@
+insert test1<SEP>test2
+insert test3<SEP>test2
+delete test1<SEP>test2
+delete test5<SEP>test5
+delete test3<SEP>test2
+insert test1<SEP>test2
+insert test3<SEP>test2
+insert test4<SEP>test2
+remove artist test1
+remove artist test3
+remove song test2

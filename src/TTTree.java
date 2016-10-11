@@ -19,15 +19,6 @@ public class TTTree {
     }
 
     /**
-     * Getter for root
-     * 
-     * @return root of the tree
-     */
-    public TreeNode getRoot() {
-        return root;
-    }
-
-    /**
      * Insert method for tree which uses nodes' recursive insert method
      * 
      * @param pair
@@ -45,7 +36,7 @@ public class TTTree {
      * @return Null if the pair is not found, an object otherwise
      */
     public KVPair search(KVPair pair) {
-        if (root == null) { //If tree is empty
+        if (root.getPair1() == null) { //If tree is empty
             return null;
         }
         else {
@@ -300,7 +291,5 @@ public class TTTree {
             this.preorder(temp.getCenter(), "  " + indent);
             this.preorder(temp.getRight(), "  " + indent);
         }
-
     }
-
 }

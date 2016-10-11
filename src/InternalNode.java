@@ -130,10 +130,10 @@ class InternalNode implements TreeNode {
             return this;
         }
         else if (node == center && path == 2) { // simple deletion
-            this.setCenter(node);
+            this.setCenter(node);   //Update node
         }
         else if (node == right && path == 3) { // simple deletion
-            this.setRight(right);
+            this.setRight(right);   //Update node
         }
         else if (path == 1) { // left stuff
             if (node != null) { // internal node restructure needed
@@ -292,32 +292,25 @@ class InternalNode implements TreeNode {
      * @return root node
      */
     public TreeNode delete(KVPair pair) {
-//        if (pair.getKey().getStart() == 39) {
-//            System.out.println(1);
-//        }
         int pair1Comparison = pair.compareTo(pair1);
         int pair2Comparison = 0;
         if (pair2 != null) {
             pair2Comparison = pair.compareTo(pair2);
         }
 
-        if (pair1Comparison > 0 && pair2 == null) {
-            // go center
+        if (pair1Comparison > 0 && pair2 == null) { // go center
             TreeNode tempNode = this.getCenter().delete(pair);
             return deleteHelper(tempNode, 2);
         }
-        else if (pair1Comparison < 0) {
-            // go left
+        else if (pair1Comparison < 0) { // go left
             TreeNode tempNode = this.getLeft().delete(pair);
             return deleteHelper(tempNode, 1);
         }
-        else if (pair1Comparison == 0 || 0 > pair2Comparison) {
-            // go center
+        else if (pair1Comparison == 0 || 0 > pair2Comparison) { // go center
             TreeNode tempNode = this.getCenter().delete(pair);
             return deleteHelper(tempNode, 2);
         }
-        else {
-            // go right
+        else { // go right
             TreeNode tempNode = this.getRight().delete(pair);
             return deleteHelper(tempNode, 3);
         }
@@ -539,6 +532,7 @@ class InternalNode implements TreeNode {
     }
 
     /**
+     * Returns leftmost node containing the wanted handle
      * @param location
      *            Handle location
      * @return TreeNode
