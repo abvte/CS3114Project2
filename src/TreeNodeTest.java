@@ -234,7 +234,7 @@ public class TreeNodeTest extends TestCase {
     /**
      * Unit test to test delete with restructuring
      */
-    public void testTreeDeleteRestructure() {
+    public void testTreeLeftDeleteRestructure() {
         TTTree tree = new TTTree();
         byte[] pool = new byte[1024];
         byte[] mem = { 0, 2 };
