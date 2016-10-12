@@ -105,185 +105,207 @@ class InternalNode implements TreeNode {
         }
         else { // go right
             TreeNode tempNode = this.getRight().insert(pair);
-            if (tempNode != this.getRight()) {
+            if (tempNode != this.getRight()) { //We will need to restructure
                 InternalNode internNode = (InternalNode) tempNode;
                 InternalNode interimNode = new InternalNode(
                         internNode.getLeft(), internNode.getCenter(), null);
                 splitHelper(interimNode, false);
 
                 this.setRight(null);
+                //Restructure and consolidate into a new InternalNode
                 return new InternalNode(this, interimNode, null);
             }
         }
         return this;
     }
-
+    
     /**
+     * Handles deletion and splits along left child of an internal node
      * @param node
      *            Node to be deleted
-     * @param path
-     *            Path taken
-     * @return New internal node
+     * @return New internal node if the caller restructured, or the caller 
+     *         node if no restructure needed
      */
-    private TreeNode deleteHelper(TreeNode node, int path) {
-        if (node == left && path == 1) {
-            return this;
+    private TreeNode deleteHelperLeft(TreeNode node) {
+        if (node == left) { //Simple deletion if this is true
+            return this;    //Just return this
         }
-        else if (node == center && path == 2) { // simple deletion
-            this.setCenter(node); // Update node
-        }
-        else if (node == right && path == 3) { // simple deletion
-            this.setRight(right); // Update node
-        }
-        else if (path == 1) { // left stuff
-            if (node != null) { // internal node restructure needed
-                if (left != node) {
-                    InternalNode internal = (InternalNode) node;
-                    InternalNode centerNode = (InternalNode) center;
-                    if (center.getPair2() != null) {
-                        internal.setCenter(centerNode.getLeft());
-                        centerNode.setLeft(centerNode.getCenter());
-                        centerNode.setCenter(centerNode.getRight());
-                        centerNode.setRight(null);
-                        center = centerNode;
-                        this.setLeft(internal);
-                    }
-                    else if (count == 3) {
-                        internal.setCenter(centerNode.getLeft());
-                        internal.setRight(centerNode.getCenter());
-                        setLeft(internal);
-                        setCenter(right);
-                        setRight(null);
-                    }
-                    else {
-                        internal.setCenter(centerNode.getLeft());
-                        internal.setRight(centerNode.getCenter());
-                        return new InternalNode(internal, null, null);
-                    }
-                }
-
-                this.setPair1(this.getMinimum(0, true)); // Make sure to keep
-                                                         // the
-                this.setPair2(this.getMinimum(0, false)); // KVPairs up to date
-            }
-            else if (center.getPair2() != null) {
-                left.setPair1(center.getPair1());
-                center.swap();
-                center.setPair2(null);
-                this.setPair1(center.getPair1());
-            }
-            else if (count == 3) {
-                left.setPair1(center.getPair1());
-                this.setCenter(right);
-                this.setRight(null);
-                LeafNode leaf = (LeafNode) left;
-                left = leaf.lazySetNext(left, center);
-            }
-            else {
-                LeafNode leaf = (LeafNode) left; // Conserve next pointers
-                LeafNode centerLeaf = (LeafNode) center;
-                left = leaf.lazySetNext(left, centerLeaf.getNext());
-                left.setPair1(center.getPair1());
-                return new InternalNode(left, null, null);
-            }
-        }
-        else if (path == 2) { // center stuff
-            if (node != null) {
+        else if (node != null) { // internal node restructure needed
+            if (left != node) {
                 InternalNode internal = (InternalNode) node;
-                InternalNode leftNode = (InternalNode) left;
-                InternalNode rightNode = (InternalNode) right;
-                if (left.getPair2() != null) {
-                    internal.setCenter(internal.getLeft());
-                    internal.setLeft(leftNode.getRight());
-                    leftNode.setRight(null);
-                    left = leftNode;
-                    this.setCenter(internal);
+                InternalNode centerNode = (InternalNode) center;
+                if (center.getPair2() != null) { //Check if we can borrow
+                    internal.setCenter(centerNode.getLeft());
+                    centerNode.setLeft(centerNode.getCenter());
+                    centerNode.setCenter(centerNode.getRight());
+                    centerNode.setRight(null);
+                    center = centerNode;
+                    this.setLeft(internal);
                 }
-                else if (count == 3) {
-                    if (right.getPair2() != null) {
-                        internal.setCenter(rightNode.getLeft());
-                        rightNode.setLeft(rightNode.getCenter());
-                        rightNode.setCenter(rightNode.getRight());
-                        rightNode.setRight(null);
-                        this.setPair2(rightNode.getPair1());
-                        right = rightNode;
-                        this.setCenter(internal);
-                    }
-                    else {
-                        internal.setRight(internal.getLeft());
-                        internal.setCenter(leftNode.getCenter());
-                        internal.setLeft(leftNode.getLeft());
-                        this.setLeft(internal);
-                        this.setCenter(this.getRight());
-                        this.setRight(null);
-                    }
+                else if (count == 3) { //Else check if we have a right sibling
+                    internal.setCenter(centerNode.getLeft()); //Merge the
+                    internal.setRight(centerNode.getCenter()); //center into
+                    setLeft(internal);                        // the left
+                    setCenter(right);
+                    setRight(null);
                 }
-                else {
-                    internal.setRight(internal.getLeft());
-                    internal.setCenter(leftNode.getCenter());
-                    internal.setLeft(leftNode.getLeft());
+                else { //Else we will have to consolidate and restructure
+                    internal.setCenter(centerNode.getLeft());
+                    internal.setRight(centerNode.getCenter());
                     return new InternalNode(internal, null, null);
                 }
             }
-            else if (left.getPair2() != null) {
-                center.setPair1(left.getPair2());
-                left.setPair2(null);
-                this.setPair1(center.getPair1());
-            }
-            else if (count == 3) {
-                if (right.getPair2() != null) {
-                    center.setPair1(right.getPair1());
-                    right.setPair1(null);
-                    right.swap();
-                    this.setPair2(right.getPair1());
-                    this.setPair1(center.getPair1());
-                }
-                else {
-                    LeafNode leaf = (LeafNode) left;
-                    left = leaf.lazySetNext(left, right);
-                    this.setCenter(right);
-                    this.setRight(null);
-                }
-            }
-            else {
-                LeafNode leaf = (LeafNode) left;
-                LeafNode centerLeaf = (LeafNode) center;
-                left = leaf.lazySetNext(left, centerLeaf.getNext());
-                return new InternalNode(left, null, null);
-            }
+            this.setPair1(this.getMinimum(0, true)); // Make sure to keep
+                                                     // the
+            this.setPair2(this.getMinimum(0, false)); // KVPairs up to date
         }
-        else { // right stuff
-            if (node != null) {
-                InternalNode internal = (InternalNode) node;
-                InternalNode centerNode = (InternalNode) center;
-                if (center.getPair2() != null) {
-                    internal.setCenter(internal.getLeft());
-                    internal.setLeft(centerNode.getRight());
-                    centerNode.setRight(null);
-                    center = centerNode;
-                    this.setRight(internal);
-                }
-                else {
-                    centerNode.setRight(internal.getLeft());
-                    this.setRight(null);
-                }
-            }
-            else if (center.getPair2() != null) {
-                right.setPair1(center.getPair2());
-                center.setPair2(null);
-                this.setPair2(right.getPair1());
-            }
-            else {
-                LeafNode leaf = (LeafNode) center;
-                LeafNode rightLeaf = (LeafNode) right;
-                center = leaf.lazySetNext(center, rightLeaf.getNext());
-
-                this.setRight(null);
-            }
+        else if (center.getPair2() != null) {   //Check the sibling to borrow
+            left.setPair1(center.getPair1());
+            center.swap();
+            center.setPair2(null);
+            this.setPair1(center.getPair1());
+        }
+        else if (count == 3) { // Else see if we can merge the center and left
+            left.setPair1(center.getPair1());
+            this.setCenter(right);
+            this.setRight(null);
+            LeafNode leaf = (LeafNode) left;
+            left = leaf.lazySetNext(left, center); //Set pointer to center's
+        }
+        else { //Else we will need to restructure
+            LeafNode leaf = (LeafNode) left; // Conserve next pointers
+            LeafNode centerLeaf = (LeafNode) center;
+            left = leaf.lazySetNext(left, centerLeaf.getNext());
+            left.setPair1(center.getPair1());
+            return new InternalNode(left, null, null);
         }
         return this; // Should reach here only if restructure unnecessary
     }
+    
+    /**
+     * Handles deletion and splits along center child of an internal node
+     * @param node
+     *            Node to be deleted
+     * @return New internal node if the caller restructured, or the caller 
+     *         node if no restructure needed
+     */
+    private TreeNode deleteHelperCenter(TreeNode node) {
+        if (node == center) { // simple deletion
+            this.setCenter(node); // Update node
+        }
+        else if (node != null) {    //Node beneath us restructured
+            InternalNode internal = (InternalNode) node;
+            InternalNode leftNode = (InternalNode) left;
+            InternalNode rightNode = (InternalNode) right;
+            if (left.getPair2() != null) {  // Check to see if we can borrow
+                internal.setCenter(internal.getLeft());
+                internal.setLeft(leftNode.getRight());
+                leftNode.setRight(null);
+                left = leftNode;
+                this.setCenter(internal);
+            }
+            else if (count == 3) { // Check to see if we can borrow from right
+                if (right.getPair2() != null) {
+                    internal.setCenter(rightNode.getLeft());
+                    rightNode.setLeft(rightNode.getCenter());
+                    rightNode.setCenter(rightNode.getRight());
+                    rightNode.setRight(null);
+                    this.setPair2(rightNode.getPair1());
+                    right = rightNode;
+                    this.setCenter(internal);
+                }
+                else { //Else merge the right into the center
+                    internal.setRight(internal.getLeft());
+                    internal.setCenter(leftNode.getCenter());
+                    internal.setLeft(leftNode.getLeft());
+                    this.setLeft(internal);
+                    this.setCenter(this.getRight());
+                    this.setRight(null);
+                }
+            }
+            else { //We will have to restructure, so consolidate the nodes
+                internal.setRight(internal.getLeft());
+                internal.setCenter(leftNode.getCenter());
+                internal.setLeft(leftNode.getLeft());
+                return new InternalNode(internal, null, null);
+            }
+            this.setPair1(this.getMinimum(0, true)); // Make sure to keep
+            // the
+            this.setPair2(this.getMinimum(0, false)); // KVPairs up to date
+        } //We reach this point if the child didn't restructure
+        else if (left.getPair2() != null) { //Try borrowing from the left
+            center.setPair1(left.getPair2());
+            left.setPair2(null);
+            this.setPair1(center.getPair1());
+        }
+        else if (count == 3) { //Else we'll check the right, if it exists
+            if (right.getPair2() != null) { //Try to borrow from the right
+                center.setPair1(right.getPair1());
+                right.setPair1(null);
+                right.swap();
+                this.setPair2(right.getPair1());
+                this.setPair1(center.getPair1());
+            }
+            else { //Else merge the right into the center
+                LeafNode leaf = (LeafNode) left;
+                left = leaf.lazySetNext(left, right);
+                this.setCenter(right);
+                this.setRight(null);
+            }
+        }
+        else { //We will have to restructure since we have one child
+            LeafNode leaf = (LeafNode) left;
+            LeafNode centerLeaf = (LeafNode) center;
+            left = leaf.lazySetNext(left, centerLeaf.getNext());
+            return new InternalNode(left, null, null);
+        }
+        return this;  // Should reach here only if restructure unnecessary
+    }
+    
+    /**
+     * Handles deletion and splits along right child of an internal node
+     * @param node
+     *            Node to be deleted
+     * @return New internal node if the caller restructured, or the caller 
+     *         node if no restructure needed
+     */
+    private TreeNode deleteHelperRight(TreeNode node) {
+        if (node == right) { // simple deletion
+            this.setRight(right); // Update node
+        }
+        else if (node != null) {    //If the node beneath this restructured
+            InternalNode internal = (InternalNode) node;
+            InternalNode centerNode = (InternalNode) center;
+            if (center.getPair2() != null) {    //Check sibling to borrow from
+                internal.setCenter(internal.getLeft()); //Rearrange nodes
+                internal.setLeft(centerNode.getRight());
+                centerNode.setRight(null); //Exchange nodes
+                center = centerNode;
+                this.setRight(internal);
+            }
+            else {  //Else just merge this node with the center node
+                centerNode.setRight(internal.getLeft());
+                this.setRight(null);
+            }
+            this.setPair1(this.getMinimum(0, true)); // Make sure to keep
+            // the
+            this.setPair2(this.getMinimum(0, false)); // KVPairs up to date
+        }
+        else if (center.getPair2() != null) { // Just rearrange
+            right.setPair1(center.getPair2());
+            center.setPair2(null);
+            this.setPair2(right.getPair1());
+        }
+        else { //Else the right leaf was deleted, set pointers accordingly
+            LeafNode leaf = (LeafNode) center;
+            LeafNode rightLeaf = (LeafNode) right;
+            center = leaf.lazySetNext(center, rightLeaf.getNext());
 
+            this.setRight(null);
+        }
+        return this; // Should reach here only if restructure unnecessary
+    }
+    
     /**
      * Delete method for internal nodes
      * 
@@ -300,19 +322,19 @@ class InternalNode implements TreeNode {
 
         if (pair1Comparison > 0 && pair2 == null) { // go center
             TreeNode tempNode = this.getCenter().delete(pair);
-            return deleteHelper(tempNode, 2);
+            return deleteHelperCenter(tempNode);
         }
         else if (pair1Comparison < 0) { // go left
             TreeNode tempNode = this.getLeft().delete(pair);
-            return deleteHelper(tempNode, 1);
+            return deleteHelperLeft(tempNode);
         }
         else if (pair1Comparison == 0 || 0 > pair2Comparison) { // go center
             TreeNode tempNode = this.getCenter().delete(pair);
-            return deleteHelper(tempNode, 2);
+            return deleteHelperCenter(tempNode);
         }
         else { // go right
             TreeNode tempNode = this.getRight().delete(pair);
-            return deleteHelper(tempNode, 3);
+            return deleteHelperRight(tempNode);
         }
     }
 
@@ -472,11 +494,11 @@ class InternalNode implements TreeNode {
      *            Height of the tree
      * @param centerCheck
      *            Boolean to check if it's the center child
-     * @return Minimum value in the tree
+     * @return Minimum value in the tree's path indicated
      */
     public KVPair getMinimum(int level, boolean centerCheck) {
-        if (level == 0) {
-            if (centerCheck && center != null) {
+        if (level == 0) {   //If level == 0, we're at the root
+            if (centerCheck && center != null) { //
                 return this.getCenter().getMinimum(1, false);
             }
             else if (right != null) {
